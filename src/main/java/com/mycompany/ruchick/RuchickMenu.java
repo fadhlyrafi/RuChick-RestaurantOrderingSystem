@@ -40,6 +40,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket = new javax.swing.JButton();
         DrinksButton = new javax.swing.JButton();
         jDesktopPanel = new javax.swing.JPanel();
+        AdditionalButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -114,33 +115,49 @@ public class RuchickMenu extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        AdditionalButton.setBackground(new java.awt.Color(139, 146, 178));
+        AdditionalButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AdditionalButton.setForeground(new java.awt.Color(255, 255, 255));
+        AdditionalButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FrenchFries.png"))); // NOI18N
+        AdditionalButton.setText("Additional");
+        AdditionalButton.setBorder(null);
+        AdditionalButton.setBorderPainted(false);
+        AdditionalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdditionalButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AllMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                    .addComponent(FoodsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                    .addComponent(DrinksButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                    .addComponent(btn_paket, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(AllMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FoodsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DrinksButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_paket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AdditionalButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(AllMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FoodsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DrinksButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AdditionalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_paket, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(507, Short.MAX_VALUE))
-            .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(445, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -157,16 +174,16 @@ public class RuchickMenu extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(1050, Short.MAX_VALUE))
+                .addContainerGap(1055, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -197,6 +214,8 @@ public class RuchickMenu extends javax.swing.JFrame {
         FoodsButton.setForeground(Color.white);
         DrinksButton.setBackground(ClickedColor);
         DrinksButton.setForeground(FontColor);
+        AdditionalButton.setBackground(DefaultColor);
+        AdditionalButton.setForeground(Color.white);
         btn_paket.setBackground(DefaultColor);
         btn_paket.setForeground(Color.white);
 
@@ -210,6 +229,8 @@ public class RuchickMenu extends javax.swing.JFrame {
         FoodsButton.setForeground(Color.white);
         DrinksButton.setBackground(DefaultColor);
         DrinksButton.setForeground(Color.white);
+        AdditionalButton.setBackground(DefaultColor);
+        AdditionalButton.setForeground(Color.white);
         btn_paket.setBackground(DefaultColor);
         btn_paket.setForeground(Color.white);
 //        Menu_All menuPanel = new Menu_All();
@@ -225,6 +246,8 @@ public class RuchickMenu extends javax.swing.JFrame {
         FoodsButton.setForeground(FontColor);
         DrinksButton.setBackground(DefaultColor);
         DrinksButton.setForeground(Color.white);
+        AdditionalButton.setBackground(DefaultColor);
+        AdditionalButton.setForeground(Color.white);
         btn_paket.setBackground(DefaultColor);
         btn_paket.setForeground(Color.white);
     }//GEN-LAST:event_FoodsButtonActionPerformed
@@ -237,9 +260,25 @@ public class RuchickMenu extends javax.swing.JFrame {
         FoodsButton.setForeground(Color.white);
         DrinksButton.setBackground(DefaultColor);
         DrinksButton.setForeground(Color.white);
+        AdditionalButton.setBackground(DefaultColor);
+        AdditionalButton.setForeground(Color.white);
         btn_paket.setBackground(ClickedColor);
         btn_paket.setForeground(FontColor);
     }//GEN-LAST:event_btn_paketActionPerformed
+
+    private void AdditionalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdditionalButtonActionPerformed
+        // TODO add your handling code here:
+        AllMenuButton.setBackground(DefaultColor);
+        AllMenuButton.setForeground(Color.white);
+        FoodsButton.setBackground(DefaultColor);
+        FoodsButton.setForeground(Color.white);
+        DrinksButton.setBackground(DefaultColor);
+        DrinksButton.setForeground(Color.white);
+        btn_paket.setBackground(DefaultColor);
+        btn_paket.setForeground(Color.white);
+        AdditionalButton.setBackground(ClickedColor);
+        AdditionalButton.setForeground(FontColor);
+    }//GEN-LAST:event_AdditionalButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,6 +316,7 @@ public class RuchickMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AdditionalButton;
     private javax.swing.JButton AllMenuButton;
     private javax.swing.JButton DrinksButton;
     private javax.swing.JButton FoodsButton;
