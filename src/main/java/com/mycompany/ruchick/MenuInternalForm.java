@@ -43,7 +43,12 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
     public void baca_data(){
         // Buat Object pada model
         // Buat Object pada model
-        DefaultTableModel data_menu = new DefaultTableModel();
+        DefaultTableModel data_menu = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column)
+            {
+              return false; // This causes all cells to be not editable
+            }
+        };
         data_menu.addColumn("ID Menu");
         data_menu.addColumn("Nama");
         data_menu.addColumn("Harga");
@@ -107,7 +112,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         tambahButton = new javax.swing.JButton();
         hapusButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
-        hapusButton1 = new javax.swing.JButton();
+        bersihkanButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -126,7 +131,16 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             new String [] {
                 "ID Menu", "Nama", "Harga", "Deskripsi", "Kategori", "Stok", "Unit"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabel_menu.getTableHeader().setReorderingAllowed(false);
         tabel_menu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabel_menuMouseClicked(evt);
@@ -134,11 +148,25 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabel_menu);
         if (tabel_menu.getColumnModel().getColumnCount() > 0) {
+            tabel_menu.getColumnModel().getColumn(0).setResizable(false);
             tabel_menu.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tabel_menu.getColumnModel().getColumn(0).setHeaderValue("ID Menu");
+            tabel_menu.getColumnModel().getColumn(1).setResizable(false);
             tabel_menu.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tabel_menu.getColumnModel().getColumn(1).setHeaderValue("Nama");
+            tabel_menu.getColumnModel().getColumn(2).setResizable(false);
             tabel_menu.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tabel_menu.getColumnModel().getColumn(2).setHeaderValue("Harga");
+            tabel_menu.getColumnModel().getColumn(3).setResizable(false);
             tabel_menu.getColumnModel().getColumn(3).setPreferredWidth(1000);
+            tabel_menu.getColumnModel().getColumn(3).setHeaderValue("Deskripsi");
+            tabel_menu.getColumnModel().getColumn(4).setResizable(false);
             tabel_menu.getColumnModel().getColumn(4).setPreferredWidth(160);
+            tabel_menu.getColumnModel().getColumn(4).setHeaderValue("Kategori");
+            tabel_menu.getColumnModel().getColumn(5).setResizable(false);
+            tabel_menu.getColumnModel().getColumn(5).setHeaderValue("Stok");
+            tabel_menu.getColumnModel().getColumn(6).setResizable(false);
+            tabel_menu.getColumnModel().getColumn(6).setHeaderValue("Unit");
         }
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -219,17 +247,17 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 tambahButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
+        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, -1, -1));
 
         hapusButton.setBackground(new java.awt.Color(255, 51, 51));
         hapusButton.setForeground(new java.awt.Color(255, 255, 255));
-        hapusButton.setText("Bersihkan");
+        hapusButton.setText("Hapus Data");
         hapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hapusButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, 100, -1));
+        jPanel2.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 100, -1));
 
         editButton.setBackground(new java.awt.Color(51, 153, 255));
         editButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -239,17 +267,17 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 editButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 100, -1));
+        jPanel2.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 80, 100, -1));
 
-        hapusButton1.setBackground(new java.awt.Color(255, 51, 51));
-        hapusButton1.setForeground(new java.awt.Color(255, 255, 255));
-        hapusButton1.setText("Hapus Data");
-        hapusButton1.addActionListener(new java.awt.event.ActionListener() {
+        bersihkanButton.setBackground(new java.awt.Color(255, 102, 0));
+        bersihkanButton.setForeground(new java.awt.Color(255, 255, 255));
+        bersihkanButton.setText("Bersihkan");
+        bersihkanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapusButton1ActionPerformed(evt);
+                bersihkanButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(hapusButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 100, -1));
+        jPanel2.add(bersihkanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, 100, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,10 +286,10 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
                     .addComponent(jScrollPane1)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE))
-                .addContainerGap(325, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,12 +327,29 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
 
     private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
         // TODO add your handling code here:
+        String inputID = id.getText();
         String inputNama = nama.getText();
-        int inputHarga = Integer.parseInt(harga.getText());
+        String inputHargaStr = harga.getText();
+        String inputStokStr = stok.getText();
         String inputDeskripsi = deskripsi.getText();
         String inputKategori = kategori.getText();
-        int inputStok = Integer.parseInt(stok.getText());
         String inputUnit = unit.getText();
+        // Cek apakah field ID kosong
+        if (!inputID.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Data dengan ID tersebut sudah ada, bersihkan input terlebih dahulu!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            bersih_layar();
+            return; // Hentikan proses jika ID tidak kosong
+        }
+
+        // Cek apakah semua field lainnya diisi
+        if (inputNama.isEmpty() || inputHargaStr.isEmpty() || inputDeskripsi.isEmpty() || 
+            inputKategori.isEmpty() || inputStokStr.isEmpty() || inputUnit.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Semua field harus diisi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return; // Hentikan proses jika ada field yang kosong
+        }
+        int inputHarga = Integer.parseInt(inputHargaStr);
+        int inputStok = Integer.parseInt(inputStokStr);
         try {
             // Query insert data
             String sql_insert = "INSERT INTO menu_items (name, price, description, category, stock, units) VALUES ('" + inputNama + "', '" + inputHarga + "', '" + inputDeskripsi + "', '" + inputKategori + "', '" + inputStok + "', '" + inputUnit + "')";
@@ -433,6 +478,16 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
 
                 // Munculkan data yang sudah dihapus
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+                
+                // Atur ulang auto increment
+                String sql_reset_ai = "ALTER TABLE menu_items AUTO_INCREMENT = 1";
+                PreparedStatement query_reset_ai = penghubungdatabase.prepareStatement(sql_reset_ai);
+                query_reset_ai.executeUpdate();
+
+                String sql_set_ai = "ALTER TABLE menu_items CHANGE menu_item_id menu_item_id INT(11) NOT NULL AUTO_INCREMENT;";
+                PreparedStatement query_set_ai = penghubungdatabase.prepareStatement(sql_set_ai);
+                query_set_ai.executeUpdate();
+                
                 baca_data();
                 bersih_layar();
             } catch (Exception e) {
@@ -441,16 +496,17 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_hapusButtonActionPerformed
 
-    private void hapusButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButton1ActionPerformed
+    private void bersihkanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bersihkanButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_hapusButton1ActionPerformed
+        bersih_layar();
+    }//GEN-LAST:event_bersihkanButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bersihkanButton;
     private javax.swing.JTextField deskripsi;
     private javax.swing.JButton editButton;
     private javax.swing.JButton hapusButton;
-    private javax.swing.JButton hapusButton1;
     private javax.swing.JTextField harga;
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;

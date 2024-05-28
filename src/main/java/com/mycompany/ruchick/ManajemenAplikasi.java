@@ -22,7 +22,6 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH); // Fullscreen
         DefaultColor = new Color(139,146,178);
         ClickedColor = new Color(255, 255, 255);
-        
     }
 
     /**
@@ -100,17 +99,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(40, 40, 100));
 
         jDesktopPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jDesktopPanelLayout = new javax.swing.GroupLayout(jDesktopPanel);
-        jDesktopPanel.setLayout(jDesktopPanelLayout);
-        jDesktopPanelLayout.setHorizontalGroup(
-            jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 936, Short.MAX_VALUE)
-        );
-        jDesktopPanelLayout.setVerticalGroup(
-            jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
-        );
+        jDesktopPanel.setLayout(new java.awt.BorderLayout());
 
         MenuButton.setBackground(new java.awt.Color(139, 146, 178));
         MenuButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -224,7 +213,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pack();
+        setBounds(0, 0, 1091, 803);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -246,7 +235,6 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         MenuInternalForm menuPanel = new MenuInternalForm();
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanel).setVisible(true);
-        
     }//GEN-LAST:event_MenuButtonActionPerformed
 
     private void OrdersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdersButtonActionPerformed
