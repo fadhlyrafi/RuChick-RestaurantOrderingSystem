@@ -5,8 +5,10 @@
 package com.mycompany.ruchick;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -37,7 +39,12 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
      */
     @SuppressWarnings("unchecked")
     private void bacaOrders(){
-        DefaultTableModel ordersTbl = new DefaultTableModel();
+        DefaultTableModel ordersTbl = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable (int row, int column){
+                return false;
+            }
+        };
             ordersTbl.addColumn("Orders ID");
             ordersTbl.addColumn("Customer");
             ordersTbl.addColumn("Order Date");
@@ -83,6 +90,14 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
             // 07. Pesan Error kalau gagal
         }
     }
+    public void bersih_layar(){
+        orderId.setText("");
+        nama.setText("");
+        tanggal.setText("");
+        totalHarga.setText("");
+        totalBayar.setText("");
+        kembalian.setText("");
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -92,7 +107,21 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         tabelOrders = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelOrderDetails = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        nama = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tanggal = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        totalHarga = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        totalBayar = new javax.swing.JTextField();
+        kembalian = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tambahButton = new javax.swing.JButton();
+        orderId = new javax.swing.JTextField();
+        dibayar = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -109,15 +138,30 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "order_id", "customer_id", "order_date", "total_amount", "paid"
+                "Order ID", "Customer", "Order Date", "Total Harga", "Dibayar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelOrders.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelOrdersMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tabelOrders);
+        if (tabelOrders.getColumnModel().getColumnCount() > 0) {
+            tabelOrders.getColumnModel().getColumn(0).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(1).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(2).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(3).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         tabelOrderDetails.setBackground(new java.awt.Color(255, 255, 255));
         tabelOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
@@ -128,12 +172,105 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "order_detail_id", "order_id", "menu_item_id", "quantityOrdered", "priceEach"
+                "Detail ID", "Order ID", "Nama Menu", "Qty", "Harga Satuan"
             }
-        ));
-        jScrollPane2.setViewportView(tabelOrderDetails);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-        jLabel1.setText("jLabel1");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabelOrderDetails);
+        if (tabelOrderDetails.getColumnModel().getColumnCount() > 0) {
+            tabelOrderDetails.getColumnModel().getColumn(0).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(1).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(2).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(3).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Order ID:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Nama Customer:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        nama.setEditable(false);
+        nama.setBackground(new java.awt.Color(255, 255, 255));
+        nama.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        nama.setEnabled(false);
+        jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Tanggal:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
+
+        tanggal.setEditable(false);
+        tanggal.setBackground(new java.awt.Color(255, 255, 255));
+        tanggal.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        tanggal.setEnabled(false);
+        tanggal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tanggalActionPerformed(evt);
+            }
+        });
+        jPanel2.add(tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 80, -1));
+
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Total Harga:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
+
+        totalHarga.setEditable(false);
+        totalHarga.setBackground(new java.awt.Color(255, 255, 255));
+        totalHarga.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        totalHarga.setEnabled(false);
+        jPanel2.add(totalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 130, -1));
+
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Total Bayar:");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        totalBayar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(totalBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 130, -1));
+
+        kembalian.setEditable(false);
+        kembalian.setBackground(new java.awt.Color(255, 255, 255));
+        kembalian.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        kembalian.setEnabled(false);
+        jPanel2.add(kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 130, -1));
+
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Kembalian:");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        tambahButton.setBackground(new java.awt.Color(51, 102, 255));
+        tambahButton.setForeground(new java.awt.Color(255, 255, 255));
+        tambahButton.setText("Bayar");
+        tambahButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
+
+        orderId.setEditable(false);
+        orderId.setBackground(new java.awt.Color(255, 255, 255));
+        orderId.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        orderId.setEnabled(false);
+        jPanel2.add(orderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+
+        dibayar.setBackground(new java.awt.Color(255, 255, 255));
+        dibayar.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(dibayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,15 +280,15 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(155, 155, 155)
-                        .addComponent(jScrollPane2)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -161,11 +298,11 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,7 +343,27 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
     
     private void tabelOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelOrdersMouseClicked
             // TODO add your handling code here:
-            DefaultTableModel detailsTbl = new DefaultTableModel();
+            // Mengambil data dari Tabel ke dalam text field
+            int baris = tabelOrders.rowAtPoint(evt.getPoint());
+            String tampilID = tabelOrders.getValueAt(baris, 0).toString();
+            orderId.setText(tampilID);
+            String tampilNama = tabelOrders.getValueAt(baris, 1).toString();
+            nama.setText(tampilNama);
+            String tampilTanggal = tabelOrders.getValueAt(baris, 2).toString();
+            tanggal.setText(tampilTanggal);
+            String tampilHarga = tabelOrders.getValueAt(baris, 3).toString();
+            totalHarga.setText(tampilHarga);
+            String tampilBayar = tabelOrders.getValueAt(baris, 4).toString();
+            dibayar.setText(tampilBayar);
+            
+            // Set Tabel Order Details
+            DefaultTableModel detailsTbl = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable (int row, int column){
+                    return false;
+                }
+            };
+            setRowColors();
             detailsTbl.addColumn("Detail Order ID");
             detailsTbl.addColumn("Order ID");
             detailsTbl.addColumn("Nama Menu");
@@ -214,7 +371,6 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
             detailsTbl.addColumn("Harga");
 
         try {
-            int baris = tabelOrders.rowAtPoint(evt.getPoint());
             int idOrder = Integer.parseInt(tabelOrders.getValueAt(baris, 0).toString());
 
             String perintahSQL_tampilDetails = "SELECT od.order_detail_id, od.order_id, m.name, od.quantityOrdered, od.priceEach "
@@ -245,14 +401,94 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         }    
     }//GEN-LAST:event_tabelOrdersMouseClicked
 
+    private void tanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanggalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tanggalActionPerformed
+
+    private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
+        // TODO add your handling code here:
+        
+        // Mengambil field text
+        JOptionPane.showMessageDialog(null, "siuuu");
+        String inputId = orderId.getText();
+        int idOrder= Integer.parseInt(inputId);
+        int total = Integer.parseInt(totalHarga.getText());
+        String stringBayar = totalBayar.getText();
+        int inputBayar = Integer.parseInt(totalBayar.getText());
+        String validasiBayar = dibayar.getText();
+        String namaCus = nama.getText();
+        JOptionPane.showMessageDialog(null, "siuuu");
+        // Deteksi Kesalahan
+        if (inputId.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Pilih order yang akan dibayar terlebih dahulu.", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
+            return;
+        }else if (stringBayar.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Masukkan nominal pembayaran terlebih dahulu.", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
+            return;
+        }else if ("Sudah".equals(validasiBayar)){
+            JOptionPane.showMessageDialog(null, "Pesanan "+namaCus+" sudah dibayar.", "Kesalahan Data", JOptionPane.DEFAULT_OPTION);
+            return;
+        }else if (inputBayar < total){
+            JOptionPane.showMessageDialog(null, "Nominal pembayaran tidak valid", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
+            return;
+        }
+        
+        // Menghitung Kembalian\
+        JOptionPane.showMessageDialog(null, "siuuu");
+        int outputKembalian = inputBayar - total;
+        String strKembalian = Integer.toString(outputKembalian);
+        kembalian.setText(strKembalian);
+        JOptionPane.showMessageDialog(null, "siuuu");
+        
+        // Query Update kolom Paid pada tabel orders
+        int confirm = JOptionPane.showConfirmDialog(null, "Selesaikan Pembayaran?", "Konfirmasi Bayar", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                // Query update data
+                String sql_update = "UPDATE orders SET paid = ? WHERE order_id = ?";
+                // Koneksi mySQL
+                Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
+                // Statement Query
+                PreparedStatement query_update = penghubungdatabase.prepareStatement(sql_update);
+                // Set parameters
+                query_update.setString(1, "Sudah");
+                query_update.setInt(2, idOrder);
+
+                // Eksekusi
+                query_update.executeUpdate();
+
+                // Munculkan data yang sudah diupdate
+                JOptionPane.showMessageDialog(null, "Pesanan Berhasil dibayar");
+                bacaOrders();
+                bersih_layar();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Kesalahan: " + e);
+            }
+        }
+    }//GEN-LAST:event_tambahButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dibayar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField kembalian;
+    private javax.swing.JTextField nama;
+    private javax.swing.JTextField orderId;
     private javax.swing.JTable tabelOrderDetails;
     private javax.swing.JTable tabelOrders;
+    private javax.swing.JButton tambahButton;
+    private javax.swing.JTextField tanggal;
+    private javax.swing.JTextField totalBayar;
+    private javax.swing.JTextField totalHarga;
     // End of variables declaration//GEN-END:variables
 }
