@@ -30,7 +30,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         DefaultColor = new Color(139,146,178);
         ClickedColor = new Color(242,242,242);
         FontColor = new Color(40,40,100);
-        MenuPelangganInternalForm menuPanel = new MenuPelangganInternalForm();
+        MenuPelangganInternalForm menuPanel = new MenuPelangganInternalForm("");
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanel).setVisible(true);
     }

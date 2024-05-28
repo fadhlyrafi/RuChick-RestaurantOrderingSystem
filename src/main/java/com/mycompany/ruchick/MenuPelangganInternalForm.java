@@ -25,8 +25,9 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
     /**
      * Creates new form MenuPelangganInternalForm
      */
-    
-    public MenuPelangganInternalForm() {
+    public String kategori;
+    public MenuPelangganInternalForm(String kategori) {
+        this.kategori = kategori;
         initComponents();
         tambahPanelDariDatabase();
     }
@@ -38,6 +39,9 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
 
             // Query untuk mengambil data dari menu_items
             String sql_select = "SELECT menu_item_id, name, price, description, category, stock, units FROM menu_items";
+            if (!kategori.isEmpty()) {
+                sql_select = "SELECT menu_item_id, name, price, description, category, stock, units FROM menu_items WHERE category = '" + kategori +"'";
+            }
             PreparedStatement query_select = penghubungdatabase.prepareStatement(sql_select);
             ResultSet resultSet = query_select.executeQuery();
 
@@ -140,7 +144,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
 
         panelContainer.setBackground(new java.awt.Color(255, 255, 255));
         panelContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panelContainer.setLayout(new java.awt.GridLayout(5, 2, 10, 10));
+        panelContainer.setLayout(new java.awt.GridLayout(10, 2, 10, 10));
         scrollPane.setViewportView(panelContainer);
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
