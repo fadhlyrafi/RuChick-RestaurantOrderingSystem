@@ -78,6 +78,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket.setBackground(new java.awt.Color(139, 146, 178));
         btn_paket.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_paket.setForeground(new java.awt.Color(255, 255, 255));
+        btn_paket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FoodBar.png"))); // NOI18N
         btn_paket.setText("Paket");
         btn_paket.setBorder(null);
         btn_paket.setBorderPainted(false);
