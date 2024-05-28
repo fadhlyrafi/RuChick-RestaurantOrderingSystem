@@ -102,7 +102,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         jDesktopPanel.setLayout(new java.awt.BorderLayout());
 
         MenuButton.setBackground(new java.awt.Color(139, 146, 178));
-        MenuButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MenuButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         MenuButton.setForeground(new java.awt.Color(255, 255, 255));
         MenuButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Food.png"))); // NOI18N
         MenuButton.setText("Menu");
@@ -120,7 +120,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         });
 
         OrdersButton.setBackground(new java.awt.Color(139, 146, 178));
-        OrdersButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        OrdersButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         OrdersButton.setForeground(new java.awt.Color(255, 255, 255));
         OrdersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cart.png"))); // NOI18N
         OrdersButton.setText("Orders");
@@ -138,7 +138,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         });
 
         ReportsButton.setBackground(new java.awt.Color(139, 146, 178));
-        ReportsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ReportsButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ReportsButton.setForeground(new java.awt.Color(255, 255, 255));
         ReportsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Reports.png"))); // NOI18N
         ReportsButton.setText("Reports");
@@ -160,25 +160,26 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(MenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(OrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ReportsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 869, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(ReportsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                        .addComponent(OrdersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(MenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
+            .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addComponent(MenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ReportsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(521, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
