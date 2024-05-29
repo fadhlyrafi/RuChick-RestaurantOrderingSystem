@@ -4,10 +4,18 @@
  */
 package com.mycompany.ruchick;
 import com.mycompany.ruchick.koneksi_database;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -111,8 +119,10 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         unit = new javax.swing.JTextField();
         tambahButton = new javax.swing.JButton();
         hapusButton = new javax.swing.JButton();
+        fotoButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
         bersihkanButton = new javax.swing.JButton();
+        lbl_photo = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -124,17 +134,17 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         tabel_menu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabel_menu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Menu", "Nama", "Harga", "Deskripsi", "Kategori", "Stok", "Unit"
+                "ID Menu", "Nama", "Harga", "Deskripsi", "Kategori", "Stok", "Unit", "null"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -151,23 +161,16 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         if (tabel_menu.getColumnModel().getColumnCount() > 0) {
             tabel_menu.getColumnModel().getColumn(0).setResizable(false);
             tabel_menu.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tabel_menu.getColumnModel().getColumn(0).setHeaderValue("ID Menu");
             tabel_menu.getColumnModel().getColumn(1).setResizable(false);
             tabel_menu.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tabel_menu.getColumnModel().getColumn(1).setHeaderValue("Nama");
             tabel_menu.getColumnModel().getColumn(2).setResizable(false);
             tabel_menu.getColumnModel().getColumn(2).setPreferredWidth(200);
-            tabel_menu.getColumnModel().getColumn(2).setHeaderValue("Harga");
             tabel_menu.getColumnModel().getColumn(3).setResizable(false);
             tabel_menu.getColumnModel().getColumn(3).setPreferredWidth(1000);
-            tabel_menu.getColumnModel().getColumn(3).setHeaderValue("Deskripsi");
             tabel_menu.getColumnModel().getColumn(4).setResizable(false);
             tabel_menu.getColumnModel().getColumn(4).setPreferredWidth(160);
-            tabel_menu.getColumnModel().getColumn(4).setHeaderValue("Kategori");
             tabel_menu.getColumnModel().getColumn(5).setResizable(false);
-            tabel_menu.getColumnModel().getColumn(5).setHeaderValue("Stok");
             tabel_menu.getColumnModel().getColumn(6).setResizable(false);
-            tabel_menu.getColumnModel().getColumn(6).setHeaderValue("Unit");
         }
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 236));
@@ -175,30 +178,37 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("ID Menu:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nama:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Harga:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Deskripsi:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Kategori:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Stok:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Unit:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
@@ -267,6 +277,19 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 300, 110, 30));
 
+        fotoButton.setBackground(new java.awt.Color(139, 146, 178));
+        fotoButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fotoButton.setForeground(new java.awt.Color(255, 255, 255));
+        fotoButton.setText("Tambah Gambar");
+        fotoButton.setBorder(null);
+        fotoButton.setBorderPainted(false);
+        fotoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fotoButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(fotoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 150, 30));
+
         editButton.setBackground(new java.awt.Color(40, 40, 100));
         editButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         editButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -290,6 +313,12 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(bersihkanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 300, 100, 30));
+
+        lbl_photo.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_photo.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_photo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+        lbl_photo.setPreferredSize(new java.awt.Dimension(150, 150));
+        jPanel2.add(lbl_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -363,8 +392,9 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         int inputHarga = Integer.parseInt(inputHargaStr);
         int inputStok = Integer.parseInt(inputStokStr);
         try {
+            
             // Query insert data
-            String sql_insert = "INSERT INTO menu_items (name, price, description, category, stock, units) VALUES ('" + inputNama + "', '" + inputHarga + "', '" + inputDeskripsi + "', '" + inputKategori + "', '" + inputStok + "', '" + inputUnit + "')";
+            String sql_insert = "INSERT INTO menu_items (name, price, description, category, stock, units, image_id) VALUES ('" + inputNama + "', '" + inputHarga + "', '" + inputDeskripsi + "', '" + inputKategori + "', '" + inputStok + "', '" + inputUnit + "')";
             // Koneksi mySQL
             Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
             // Statement Query
@@ -521,11 +551,28 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_namaActionPerformed
 
+    private void fotoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fotoButtonActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String path = f.getAbsolutePath();
+        try {
+            BufferedImage bi = ImageIO.read(new File(path));
+            Image img = bi.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+            ImageIcon icon = new ImageIcon(img);
+            lbl_photo.setIcon(icon);
+        } catch (Exception e) {
+            Logger.getLogger(MenuInternalForm.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_fotoButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bersihkanButton;
     private javax.swing.JTextField deskripsi;
     private javax.swing.JButton editButton;
+    private javax.swing.JButton fotoButton;
     private javax.swing.JButton hapusButton;
     private javax.swing.JTextField harga;
     private javax.swing.JTextField id;
@@ -541,6 +588,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField kategori;
+    private javax.swing.JLabel lbl_photo;
     private javax.swing.JTextField nama;
     private javax.swing.JTextField stok;
     private javax.swing.JTable tabel_menu;
