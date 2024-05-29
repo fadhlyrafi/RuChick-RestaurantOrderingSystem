@@ -129,6 +129,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(40, 40, 100));
         jLabel2.setText("Orders Management");
 
+        tabelOrders.setBackground(new java.awt.Color(255, 255, 255));
         tabelOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -162,6 +163,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
             tabelOrders.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        tabelOrderDetails.setBackground(new java.awt.Color(255, 255, 255));
         tabelOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -194,9 +196,11 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Order ID:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nama Customer:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
@@ -206,6 +210,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         nama.setEnabled(false);
         jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Tanggal:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
@@ -220,6 +225,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 80, -1));
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Total Harga:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
 
@@ -229,30 +235,32 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         totalHarga.setEnabled(false);
         jPanel2.add(totalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 130, -1));
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Total Bayar:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
-        jPanel2.add(totalBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 170, -1));
+
+        totalBayar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(totalBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 130, -1));
 
         kembalian.setEditable(false);
         kembalian.setBackground(new java.awt.Color(255, 255, 255));
         kembalian.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         kembalian.setEnabled(false);
-        jPanel2.add(kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 170, -1));
+        jPanel2.add(kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 130, -1));
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Kembalian:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
-        tambahButton.setBackground(new java.awt.Color(40, 40, 100));
-        tambahButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tambahButton.setBackground(new java.awt.Color(51, 102, 255));
         tambahButton.setForeground(new java.awt.Color(255, 255, 255));
         tambahButton.setText("Bayar");
-        tambahButton.setBorderPainted(false);
         tambahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tambahButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
+        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
 
         orderId.setEditable(false);
         orderId.setBackground(new java.awt.Color(255, 255, 255));
