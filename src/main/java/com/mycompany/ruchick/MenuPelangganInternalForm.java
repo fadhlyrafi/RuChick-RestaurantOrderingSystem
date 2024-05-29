@@ -135,7 +135,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                 int price = resultSet.getInt("price");
                 String description = resultSet.getString("description");
 
-                itemPanel.add(createLabel(name, false), gbc);
+                itemPanel.add(createLabel(name, true), gbc);
                 gbc.gridy++;
 
                 itemPanel.add(createLabel("Rp " + price, false), gbc);
