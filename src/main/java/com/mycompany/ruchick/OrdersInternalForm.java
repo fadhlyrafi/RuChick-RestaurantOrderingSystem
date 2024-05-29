@@ -122,6 +122,9 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         tambahButton = new javax.swing.JButton();
         orderId = new javax.swing.JTextField();
         dibayar = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -129,7 +132,8 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(40, 40, 100));
         jLabel2.setText("Orders Management");
 
-        tabelOrders.setBackground(new java.awt.Color(255, 255, 255));
+        tabelOrders.setBackground(new java.awt.Color(229, 230, 236));
+        tabelOrders.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabelOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -163,7 +167,8 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
             tabelOrders.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        tabelOrderDetails.setBackground(new java.awt.Color(255, 255, 255));
+        tabelOrderDetails.setBackground(new java.awt.Color(229, 230, 236));
+        tabelOrderDetails.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabelOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -192,27 +197,27 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
             tabelOrderDetails.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel2.setBackground(new java.awt.Color(229, 230, 236));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Order ID:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Nama Customer:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         nama.setEditable(false);
         nama.setBackground(new java.awt.Color(255, 255, 255));
         nama.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         nama.setEnabled(false);
-        jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+        jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 170, 25));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Tanggal:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
 
         tanggal.setEditable(false);
         tanggal.setBackground(new java.awt.Color(255, 255, 255));
@@ -223,54 +228,63 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 tanggalActionPerformed(evt);
             }
         });
-        jPanel2.add(tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 80, -1));
+        jPanel2.add(tanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 170, 25));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Total Harga:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         totalHarga.setEditable(false);
         totalHarga.setBackground(new java.awt.Color(255, 255, 255));
         totalHarga.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         totalHarga.setEnabled(false);
-        jPanel2.add(totalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 130, -1));
+        jPanel2.add(totalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 170, 25));
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Total Bayar:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
-
-        totalBayar.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(totalBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 130, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
+        jPanel2.add(totalBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 170, 25));
 
         kembalian.setEditable(false);
         kembalian.setBackground(new java.awt.Color(255, 255, 255));
         kembalian.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         kembalian.setEnabled(false);
-        jPanel2.add(kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 130, -1));
+        jPanel2.add(kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 170, 25));
 
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Kembalian:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
-        tambahButton.setBackground(new java.awt.Color(51, 102, 255));
+        tambahButton.setBackground(new java.awt.Color(40, 40, 100));
+        tambahButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         tambahButton.setForeground(new java.awt.Color(255, 255, 255));
         tambahButton.setText("Bayar");
+        tambahButton.setBorderPainted(false);
         tambahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tambahButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
+        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, -1, 30));
 
         orderId.setEditable(false);
         orderId.setBackground(new java.awt.Color(255, 255, 255));
         orderId.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         orderId.setEnabled(false);
-        jPanel2.add(orderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+        jPanel2.add(orderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 170, 25));
 
         dibayar.setBackground(new java.awt.Color(255, 255, 255));
         dibayar.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(dibayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Order Customers");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setText("Order Detail");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel10.setText("Payments");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -279,17 +293,19 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel6))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,12 +313,19 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -471,12 +494,15 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dibayar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -120,7 +120,8 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(40, 40, 100));
         jLabel2.setText("Menu Management");
 
-        tabel_menu.setBackground(new java.awt.Color(255, 255, 255));
+        tabel_menu.setBackground(new java.awt.Color(229, 230, 236));
+        tabel_menu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabel_menu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -169,115 +170,126 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             tabel_menu.getColumnModel().getColumn(6).setHeaderValue("Unit");
         }
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(229, 230, 236));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("ID Menu:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 11, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Nama:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 39, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Harga:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 67, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Deskripsi:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 95, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Kategori:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 123, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Stok:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Unit:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         id.setEditable(false);
         id.setBackground(new java.awt.Color(255, 255, 255));
         id.setEnabled(false);
-        jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 8, 70, -1));
+        jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 70, 25));
 
-        nama.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 36, 240, -1));
+        nama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, 25));
 
-        harga.setBackground(new java.awt.Color(255, 255, 255));
         harga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hargaActionPerformed(evt);
             }
         });
-        jPanel2.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 64, 120, -1));
+        jPanel2.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 120, 25));
+        jPanel2.add(deskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 440, 25));
 
-        deskripsi.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(deskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 92, 440, -1));
+        kategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kategoriActionPerformed(evt);
+            }
+        });
+        jPanel2.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 240, 25));
 
-        kategori.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 120, 240, -1));
-
-        stok.setBackground(new java.awt.Color(255, 255, 255));
         stok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stokActionPerformed(evt);
             }
         });
-        jPanel2.add(stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 148, 70, -1));
+        jPanel2.add(stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 70, 25));
 
-        unit.setBackground(new java.awt.Color(255, 255, 255));
         unit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 unitActionPerformed(evt);
             }
         });
-        jPanel2.add(unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 176, 70, -1));
+        jPanel2.add(unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 70, 25));
 
-        tambahButton.setBackground(new java.awt.Color(51, 102, 255));
+        tambahButton.setBackground(new java.awt.Color(40, 40, 100));
+        tambahButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         tambahButton.setForeground(new java.awt.Color(255, 255, 255));
         tambahButton.setText("Tambah Data");
+        tambahButton.setBorderPainted(false);
         tambahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tambahButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, -1, -1));
+        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, -1, 30));
 
-        hapusButton.setBackground(new java.awt.Color(255, 51, 51));
+        hapusButton.setBackground(new java.awt.Color(40, 40, 100));
+        hapusButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         hapusButton.setForeground(new java.awt.Color(255, 255, 255));
         hapusButton.setText("Hapus Data");
+        hapusButton.setBorderPainted(false);
         hapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hapusButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 100, -1));
+        jPanel2.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 300, 110, 30));
 
-        editButton.setBackground(new java.awt.Color(51, 153, 255));
+        editButton.setBackground(new java.awt.Color(40, 40, 100));
+        editButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         editButton.setForeground(new java.awt.Color(255, 255, 255));
         editButton.setText("Edit Data");
+        editButton.setBorderPainted(false);
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 80, 100, -1));
+        jPanel2.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 300, 100, 30));
 
-        bersihkanButton.setBackground(new java.awt.Color(255, 102, 0));
+        bersihkanButton.setBackground(new java.awt.Color(40, 40, 100));
+        bersihkanButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bersihkanButton.setForeground(new java.awt.Color(255, 255, 255));
         bersihkanButton.setText("Bersihkan");
+        bersihkanButton.setBorderPainted(false);
         bersihkanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bersihkanButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(bersihkanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, 100, -1));
+        jPanel2.add(bersihkanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 300, 100, 30));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -286,10 +298,10 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
                     .addComponent(jLabel2)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 833, Short.MAX_VALUE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,9 +310,9 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -500,6 +512,14 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         bersih_layar();
     }//GEN-LAST:event_bersihkanButtonActionPerformed
+
+    private void kategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategoriActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kategoriActionPerformed
+
+    private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
