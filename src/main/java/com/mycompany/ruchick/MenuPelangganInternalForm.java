@@ -30,6 +30,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
      */
     public String kategori;
     public int rowCount = 1;
+    public int colCount = 3;
     public MenuPelangganInternalForm(String kategori) {
         try {
             // Koneksi mySQL
@@ -45,7 +46,10 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
             while (resultSet.next()) {
                 rowCount++;
             }
-            rowCount = rowCount/2;
+            if (rowCount <= 3) {
+                colCount = 2;
+            }
+            rowCount = rowCount/3;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -72,7 +76,16 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
             PreparedStatement query_select = penghubungdatabase.prepareStatement(sql_select);
             ResultSet resultSet = query_select.executeQuery();
 
-            // Membuat panel untuk setiap item
+            panelContainer.setLayout(new GridBagLayout()); // Menggunakan GridBagLayout untuk panelContainer
+            GridBagConstraints containerGbc = new GridBagConstraints();
+            containerGbc.insets = new Insets(10, 10, 10, 10);
+            containerGbc.fill = GridBagConstraints.HORIZONTAL;
+            containerGbc.anchor = GridBagConstraints.NORTHWEST; // Memastikan panel terisi dari sebelah kiri atas
+
+            int columnCount = 3; // Jumlah kolom
+            int currentColumn = 0;
+            int currentRow = 0;
+
             while (resultSet.next()) {
                 int idMenu = resultSet.getInt("menu_item_id");
                 JPanel itemPanel = new JPanel();
@@ -94,22 +107,19 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        Color selectedColor = new Color(40,40,100);
+                        Color selectedColor = new Color(40, 40, 100);
                         itemPanel.setBorder(new CompoundBorder(
-                                new LineBorder(selectedColor, 2),
+                                new LineBorder(selectedColor, 1),
                                 new EmptyBorder(0, 0, 0, 0)
                         ));
-//                        itemPanel.setBackground(new Color(220, 220, 220)); // Warna saat mouse masuk
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        Color noselectedColor = new Color (245, 245, 245);
                         itemPanel.setBorder(new CompoundBorder(
-                                new LineBorder(noselectedColor, 2),
+                                new LineBorder(Color.GRAY, 1),
                                 new EmptyBorder(0, 0, 0, 0)
                         ));
-//                        itemPanel.setBackground(new Color(245, 245, 245)); // Warna saat mouse keluar
                     }
                 });
 
@@ -118,7 +128,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                 gbc.fill = GridBagConstraints.HORIZONTAL;
                 gbc.gridx = 0;
                 gbc.gridy = 0;
-                gbc.anchor = gbc.EAST;
+                gbc.anchor = GridBagConstraints.NORTHWEST;
 
                 // Mengambil data dari result set
                 String name = resultSet.getString("name");
@@ -126,21 +136,37 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                 String description = resultSet.getString("description");
 
                 itemPanel.add(createLabel(name, false), gbc);
-                gbc.gridx = 0;
                 gbc.gridy++;
 
                 itemPanel.add(createLabel("Rp " + price, false), gbc);
-                gbc.gridx = 0;
                 gbc.gridy++;
 
                 JTextArea descriptionArea = createTextArea(description);
                 itemPanel.add(descriptionArea, gbc);
-                gbc.gridx = 0;
+
+                // Mengatur ukuran tetap untuk itemPanel
+                Dimension panelSize = new Dimension(200, 150); // Atur ukuran sesuai kebutuhan Anda
+                itemPanel.setPreferredSize(panelSize);
+                itemPanel.setMinimumSize(panelSize);
+                itemPanel.setMaximumSize(panelSize);
+
+                // Menentukan posisi gridx dan gridy untuk panel
+                containerGbc.gridx = currentColumn;
+                containerGbc.gridy = currentRow;
 
                 // Menambahkan panel item ke container
-                panelContainer.add(itemPanel);
-                panelContainer.add(Box.createVerticalStrut(10)); // Spasi antar itemPanel
+                panelContainer.add(itemPanel, containerGbc);
+
+                // Mengatur posisi kolom dan baris berikutnya
+                currentColumn++;
+                if (currentColumn >= columnCount) {
+                    currentColumn = 0;
+                    currentRow++;
+                }
             }
+
+
+
 
             // Refresh panel container untuk menampilkan perubahan
             panelContainer.revalidate();
@@ -189,14 +215,13 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
         panelContainer = new javax.swing.JPanel();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
-        getContentPane().setLayout(new java.awt.BorderLayout(10, 10));
 
         scrollPane.setBackground(new java.awt.Color(255, 255, 255));
         scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new java.awt.Dimension(390, 430));
+        scrollPane.setPreferredSize(new java.awt.Dimension(703, 464));
 
         panelContainer.setBackground(new java.awt.Color(255, 255, 255));
-        panelContainer.setLayout(new java.awt.GridLayout(rowCount, 2, 0, 10));
+        panelContainer.setLayout(new java.awt.GridLayout(rowCount, 3, 0, 10));
         scrollPane.setViewportView(panelContainer);
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
