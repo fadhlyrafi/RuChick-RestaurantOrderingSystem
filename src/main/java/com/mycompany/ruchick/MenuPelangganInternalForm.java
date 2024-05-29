@@ -78,7 +78,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                 JPanel itemPanel = new JPanel();
                 itemPanel.setLayout(new GridBagLayout()); // Menggunakan GridBagLayout untuk fleksibilitas
                 itemPanel.setBorder(new CompoundBorder(
-                        new LineBorder(Color.GRAY, 1),
+                        new LineBorder(Color.GRAY, 2),
                         new EmptyBorder(0, 0, 0, 0)
                 ));
                 itemPanel.setBackground(new Color(245, 245, 245)); // Background warna terang
@@ -94,8 +94,9 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
+                        Color selectedColor = new Color(40,40,100);
                         itemPanel.setBorder(new CompoundBorder(
-                                new LineBorder(Color.BLUE, 1),
+                                new LineBorder(selectedColor, 2),
                                 new EmptyBorder(0, 0, 0, 0)
                         ));
 //                        itemPanel.setBackground(new Color(220, 220, 220)); // Warna saat mouse masuk
@@ -103,8 +104,9 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
 
                     @Override
                     public void mouseExited(MouseEvent e) {
+                        Color noselectedColor = new Color (245, 245, 245);
                         itemPanel.setBorder(new CompoundBorder(
-                                new LineBorder(Color.GRAY, 1),
+                                new LineBorder(noselectedColor, 2),
                                 new EmptyBorder(0, 0, 0, 0)
                         ));
 //                        itemPanel.setBackground(new Color(245, 245, 245)); // Warna saat mouse keluar
