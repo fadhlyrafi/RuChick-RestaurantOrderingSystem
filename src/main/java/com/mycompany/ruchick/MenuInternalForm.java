@@ -4,9 +4,14 @@
  */
 package com.mycompany.ruchick;
 import com.mycompany.ruchick.koneksi_database;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,6 +35,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
     /**
      * Creates new form MenuInternalForm
      */
+    String path2 = null;
     public MenuInternalForm() {
         initComponents();
         baca_data();
@@ -46,6 +52,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         kategori.setText("");
         stok.setText("");
         unit.setText("");
+        lbl_photo.setIcon(null);
     }
     
     public void baca_data(){
@@ -64,6 +71,8 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         data_menu.addColumn("Kategori");
         data_menu.addColumn("Stok");
         data_menu.addColumn("Unit");
+        data_menu.addColumn("ID Gambar");
+        
         
         try {
             String SQL_tampil_data = "SELECT * FROM menu_items";
@@ -80,7 +89,8 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                     hasil_sql.getString(4),
                     hasil_sql.getString(5),
                     hasil_sql.getString(6),
-                    hasil_sql.getString(7)
+                    hasil_sql.getString(7),
+                    hasil_sql.getBlob(8)
                 });
                 tabel_menu.setModel(data_menu);
             }
@@ -140,11 +150,11 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Menu", "Nama", "Harga", "Deskripsi", "Kategori", "Stok", "Unit", "null"
+                "ID Menu", "Nama", "Harga", "Deskripsi", "Kategori", "Stok", "Unit", "ID Gambar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -171,6 +181,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             tabel_menu.getColumnModel().getColumn(4).setPreferredWidth(160);
             tabel_menu.getColumnModel().getColumn(5).setResizable(false);
             tabel_menu.getColumnModel().getColumn(6).setResizable(false);
+            tabel_menu.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 236));
@@ -392,19 +403,33 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         int inputHarga = Integer.parseInt(inputHargaStr);
         int inputStok = Integer.parseInt(inputStokStr);
         try {
-            
+            JOptionPane.showMessageDialog(null, path2);
+            InputStream is = new FileInputStream(new File(path2));
             // Query insert data
-            String sql_insert = "INSERT INTO menu_items (name, price, description, category, stock, units, image_id) VALUES ('" + inputNama + "', '" + inputHarga + "', '" + inputDeskripsi + "', '" + inputKategori + "', '" + inputStok + "', '" + inputUnit + "')";
+            // Query untuk menambahkan data ke menu_items menggunakan parameterized PreparedStatement
+            String sql_insert = "INSERT INTO menu_items (name, price, description, category, stock, units, image_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
             // Koneksi mySQL
-            Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
+            Connection penghubungdatabase = (Connection) koneksi_database.konfigurasi_database();
+
             // Statement Query
             PreparedStatement query_insert = penghubungdatabase.prepareStatement(sql_insert);
-            // Eksekusi
-            query_insert.execute();
+
+            // Mengatur nilai parameter
+            query_insert.setString(1, inputNama);         // Mengatur parameter pertama (name)
+            query_insert.setInt(2, inputHarga);        // Mengatur parameter kedua (price)
+            query_insert.setString(3, inputDeskripsi);    // Mengatur parameter ketiga (description)
+            query_insert.setString(4, inputKategori);     // Mengatur parameter keempat (category)
+            query_insert.setInt(5, inputStok);            // Mengatur parameter kelima (stock)
+            query_insert.setString(6, inputUnit);         // Mengatur parameter keenam (units)
+            query_insert.setBlob(7, is);                   // Mengatur parameter ketujuh (image_id)
+    
+            query_insert.executeUpdate();
             // Munculkan data yang sudah disimpan
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
             baca_data();
             bersih_layar();
+            path2 = null;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Kesalahan:" + e);
         }
@@ -442,11 +467,60 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
 
         String tampil_unit = tabel_menu.getValueAt(baris, 6).toString();
         unit.setText(tampil_unit);
+
+        int id = Integer.parseInt(tampil_id);
+
+        String getImageSQL = "SELECT image_id FROM menu_items WHERE menu_item_id = ?";
+
+        try {
+            // Koneksi ke database
+            Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
+            // PreparedStatement Query
+            PreparedStatement preparedStatement = penghubung_database.prepareStatement(getImageSQL);
+            preparedStatement.setInt(1, id);
+
+            ResultSet gambarDipilih = preparedStatement.executeQuery();
+
+            if (gambarDipilih.next()) {
+                Blob imageBlob = gambarDipilih.getBlob("image_id");
+                if (imageBlob != null) {
+                    byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
+                    // Resize the image to 150x150
+                    ImageIcon originalIcon = new ImageIcon(imageBytes);
+                    Image originalImage = originalIcon.getImage();
+                    Image resizedImage = originalImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                    ImageIcon resizedIcon = new ImageIcon(resizedImage);
+
+                    lbl_photo.setIcon(resizedIcon);
+
+                    // Save the resized image to a file (optional)
+                    String path = "C:\\Users\\ASUS\\OneDrive\\Documents\\GitHub\\ruchick\\src\\main\\resources\\images\\img.jpg";
+                    File outputFile = new File(path);
+                    BufferedImage bufferedImage = new BufferedImage(150, 150, BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D g2d = bufferedImage.createGraphics();
+                    g2d.drawImage(resizedImage, 0, 0, null);
+                    g2d.dispose();
+                    ImageIO.write(bufferedImage, "jpg", outputFile);
+                } else {
+                    lbl_photo.setIcon(null);
+                    JOptionPane.showMessageDialog(null, "No image found for this item.");
+                }
+            } else {
+                lbl_photo.setIcon(null);
+                JOptionPane.showMessageDialog(null, "No item found with the given ID.");
+            }
+
+            gambarDipilih.close();
+            preparedStatement.close();
+            penghubung_database.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        
     }//GEN-LAST:event_tabel_menuMouseClicked
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
+        // Ambil data dari form
         String inputNama = nama.getText();
         int inputHarga = Integer.parseInt(harga.getText());
         String inputDeskripsi = deskripsi.getText();
@@ -463,28 +537,35 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengupdate data ini?", "Konfirmasi Update", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                // Query update data
-                String sql_update = "UPDATE menu_items SET name = ?, price = ?, description = ?, category = ?, stock = ?, units = ? WHERE menu_item_id = ?";
-                // Koneksi mySQL
-                Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
+                // Menyiapkan query update data
+                String sql_update = "UPDATE menu_items SET name = ?, price = ?, description = ?, category = ?, stock = ?, units = ?, image_id = ? WHERE menu_item_id = ?";
+                // Koneksi ke database
+                Connection penghubungdatabase = (Connection) koneksi_database.konfigurasi_database();
                 // Statement Query
                 PreparedStatement query_update = penghubungdatabase.prepareStatement(sql_update);
-                // Set parameters
+
+                // Set parameter
                 query_update.setString(1, inputNama);
                 query_update.setInt(2, inputHarga);
                 query_update.setString(3, inputDeskripsi);
                 query_update.setString(4, inputKategori);
                 query_update.setInt(5, inputStok);
                 query_update.setString(6, inputUnit);
-                query_update.setString(7, inputId);
 
-                // Eksekusi
+                // Mengunggah gambar
+                InputStream is = new FileInputStream(new File(path2));
+                query_update.setBlob(7, is);
+
+                query_update.setString(8, inputId);
+
+                // Eksekusi query
                 query_update.executeUpdate();
 
-                // Munculkan data yang sudah diupdate
+                // Menampilkan pesan sukses
                 JOptionPane.showMessageDialog(null, "Data berhasil diupdate");
                 baca_data();
                 bersih_layar();
+                path2 = null;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Kesalahan: " + e);
             }
@@ -557,11 +638,13 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         String path = f.getAbsolutePath();
+        path2 = path;
         try {
             BufferedImage bi = ImageIO.read(new File(path));
             Image img = bi.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
             ImageIcon icon = new ImageIcon(img);
             lbl_photo.setIcon(icon);
+            path2 = path;
         } catch (Exception e) {
             Logger.getLogger(MenuInternalForm.class.getName()).log(Level.SEVERE, null, e);
         }

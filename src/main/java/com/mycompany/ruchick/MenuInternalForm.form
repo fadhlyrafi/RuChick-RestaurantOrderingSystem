@@ -100,7 +100,7 @@
                     <Column editable="false" title="Kategori" type="java.lang.Object"/>
                     <Column editable="false" title="Stok" type="java.lang.Object"/>
                     <Column editable="false" title="Unit" type="java.lang.Object"/>
-                    <Column editable="true" title="null" type="java.lang.Object"/>
+                    <Column editable="false" title="ID Gambar" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -140,7 +140,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
