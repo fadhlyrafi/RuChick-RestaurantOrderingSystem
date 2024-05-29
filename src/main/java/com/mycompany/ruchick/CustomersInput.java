@@ -172,7 +172,7 @@ public class CustomersInput extends javax.swing.JFrame {
                 PreparedStatement pernyataanSQL = penghubungdatabase.prepareStatement(sql_customerName);
                 pernyataanSQL.execute();
 
-                MenuMakanan form_dashboard = new MenuMakanan();
+                RuchickMenu form_dashboard = new RuchickMenu();
                 form_dashboard.setVisible(true);
                 this.setVisible(false);
   
