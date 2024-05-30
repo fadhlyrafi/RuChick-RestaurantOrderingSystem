@@ -30,10 +30,12 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
     /**
      * Creates new form MenuPelangganInternalForm
      */
-    public String kategori;
+    public static String kategori;
+    public static int order_id;
     public int rowCount = 1;
     public int colCount = 3;
-    public MenuPelangganInternalForm(String kategori) {
+    private RuchickMenu parent;
+    public MenuPelangganInternalForm(String kategori, int order_id, RuchickMenu parent) {
         try {
             // Koneksi mySQL
             Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
@@ -56,6 +58,8 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
             System.out.println("Error: " + e.getMessage());
         }
         this.kategori = kategori;
+        this.order_id = order_id;
+        this.parent = parent;
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         ui.setEastPane(null);
@@ -139,7 +143,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                     dialogGbc.gridy++;
                     JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
                     JLabel quantityLabel = new JLabel("Jumlah:");
-                    SpinnerNumberModel SpinnerModel = new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1);
+                    SpinnerNumberModel SpinnerModel = new SpinnerNumberModel(1,1, Integer.MAX_VALUE, 1);
                     JSpinner quantitySpinner = new JSpinner(SpinnerModel);
                     quantityPanel.add(quantityLabel);
                     quantityPanel.add(quantitySpinner);
@@ -157,13 +161,15 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                                 } else {
                                     // Simpan data ke database
                                     Connection connection = koneksi_database.konfigurasi_database();
-                                    String insertOrderSQL = "INSERT INTO order_details (menu_item_id, quantityOrdered, priceEach) VALUES (?, ?, ?)";
+                                    String insertOrderSQL = "INSERT INTO order_details (menu_item_id, quantityOrdered, priceEach, order_id) VALUES (?, ?, ?, ?)";
                                     PreparedStatement insertStatement = connection.prepareStatement(insertOrderSQL);
                                     insertStatement.setInt(1, idMenu);
                                     insertStatement.setInt(2, quantity);
                                     insertStatement.setInt(3, price);
+                                    insertStatement.setInt(4, order_id);
                                     insertStatement.executeUpdate();
                                     JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
+                                    parent.baca_data_order();
                                     validInput = true;
                                 }
                             } catch (NumberFormatException ex) {

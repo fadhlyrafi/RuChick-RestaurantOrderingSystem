@@ -7,6 +7,7 @@ package com.mycompany.ruchick;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -161,26 +162,69 @@ public class CustomersInput extends javax.swing.JFrame {
 
     private void btn_lihatmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lihatmenuActionPerformed
         // TODO add your handling code here:
+        // TODO add your handling code here:
+        // TODO add your handling code here:
         String customerName = nameInput.getText();
-
+        customerName = customerName.toLowerCase();
         if (customerName.isEmpty()) {
             JOptionPane.showMessageDialog(null, "nama harus diisi");
         } else {
             try {
-                String sql_customerName = "INSERT INTO customers (name) VALUES ('"+customerName+"')";
                 Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
-                PreparedStatement pernyataanSQL = penghubungdatabase.prepareStatement(sql_customerName);
-                pernyataanSQL.execute();
+                
+                // Check if customerName already exists
+                String sql_checkCustomer = "SELECT COUNT(*), customer_id FROM customers WHERE name = ?";
+                PreparedStatement checkStatement = penghubungdatabase.prepareStatement(sql_checkCustomer);
+                checkStatement.setString(1, customerName);
+                ResultSet resultSet = checkStatement.executeQuery();
 
-                RuchickMenu form_dashboard = new RuchickMenu();
-                form_dashboard.setVisible(true);
-                this.setVisible(false);
-  
+                resultSet.next();
+                int count = resultSet.getInt(1);
+                int customerId = resultSet.getInt(2);
+                int id_order = 0;
+
+                if (count > 0) {
+                    String sql_insertOrders = "INSERT INTO orders (customer_id, total_amount) VALUES ('" + customerId + "', 0)";
+                    PreparedStatement insOrdersStatement = penghubungdatabase.prepareStatement(sql_insertOrders, Statement.RETURN_GENERATED_KEYS);
+                    insOrdersStatement.executeUpdate();
+                    // Get the generated customer_id
+                    ResultSet generatedKeys = insOrdersStatement.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        id_order = generatedKeys.getInt(1);
+                    }
+                    RuchickMenu form_dashboard = new RuchickMenu(id_order);
+                    form_dashboard.setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    // Insert the new customer name
+                    String sql_insertCustomer = "INSERT INTO customers (name) VALUES (?)";
+                    PreparedStatement insertStatement = penghubungdatabase.prepareStatement(sql_insertCustomer, Statement.RETURN_GENERATED_KEYS);
+                    insertStatement.setString(1, customerName);
+                    insertStatement.executeUpdate();
+
+                    // Get the generated customer_id
+                    ResultSet generatedKeysCustomer = insertStatement.getGeneratedKeys();
+                    if (generatedKeysCustomer.next()) {
+                        customerId = generatedKeysCustomer.getInt(1);
+                    }
+                    String sql_insertOrders = "INSERT INTO orders (customer_id, total_amount) VALUES ('" + customerId + "', 0)";
+                    PreparedStatement insOrdersStatement = penghubungdatabase.prepareStatement(sql_insertOrders, Statement.RETURN_GENERATED_KEYS);
+                    // Get the generated customer_id
+                    ResultSet generatedKeysOrders = insertStatement.getGeneratedKeys();
+                    if (generatedKeysOrders.next()) {
+                        id_order = generatedKeysOrders.getInt(1);
+                    }
+                    insOrdersStatement.executeUpdate();
+
+                    RuchickMenu form_dashboard = new RuchickMenu(id_order);
+                    form_dashboard.setVisible(true);
+                    this.setVisible(false);
+                }
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error! \n" +e);
             }
         }
-
     }//GEN-LAST:event_btn_lihatmenuActionPerformed
 
     /**

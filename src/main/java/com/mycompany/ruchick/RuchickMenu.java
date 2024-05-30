@@ -10,9 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.awt.GridLayout;
+import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,19 +25,56 @@ public class RuchickMenu extends javax.swing.JFrame {
     /**
      * Creates new form RuchickMenu
      */
+    public static int id_order;
+    private MenuPelangganInternalForm menuPelangganInternalForm;
     Color DefaultColor, ClickedColor, FontColor;
-    public RuchickMenu() {
+    public RuchickMenu(int id_order) {
         initComponents();
-        MenuPelangganInternalForm menuPanelDrinks = new MenuPelangganInternalForm("minuman");
-        MenuPelangganInternalForm menuPanelAdditional = new MenuPelangganInternalForm("additional");
-        MenuPelangganInternalForm menuPanelPacket = new MenuPelangganInternalForm("paket");
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH); // Fullscreen
         DefaultColor = new Color(139,146,178);
         ClickedColor = new Color(242,242,242);
         FontColor = new Color(40,40,100);
-        MenuPelangganInternalForm menuPanelSemua = new MenuPelangganInternalForm("");
+        MenuPelangganInternalForm menuPanelSemua = new MenuPelangganInternalForm("", id_order, this);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelSemua).setVisible(true);
+        this.id_order = id_order;
+        baca_data_order();
+    }
+    
+    public void baca_data_order(){
+        // Buat variabel untuk menampilkan total belanja
+        int total = 0;
+        // Buat Object pada model
+        DefaultTableModel data_menu = new DefaultTableModel(){
+            public boolean isCellEditable(int row, int column)
+            {
+              return false; // This causes all cells to be not editable
+            }
+        };
+        data_menu.addColumn("Item");
+        data_menu.addColumn("Qty");
+        data_menu.addColumn("Harga");
+        try {
+            String SQL_tampil_data = "SELECT m.name AS item, od.quantityOrdered AS qty, m.price AS harga FROM order_details od JOIN menu_items m ON m.menu_item_id = od.menu_item_id WHERE od.order_id = " + id_order;
+            // Koneksi ke database
+            Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
+            // Statement Query
+            Statement statement_sql = penghubung_database.createStatement();
+            ResultSet hasil_sql = statement_sql.executeQuery(SQL_tampil_data);
+            while (hasil_sql.next()) {
+                data_menu.addRow(new Object[]{
+                    hasil_sql.getString(1),
+                    hasil_sql.getInt(2),
+                    hasil_sql.getInt(3)
+                });
+                CartTable.setModel(data_menu);
+                total = total + hasil_sql.getInt(2)*hasil_sql.getInt(3);
+            }
+            String totalHargaText = "Rp " + total;
+            totalHarga.setText(totalHargaText);
+        } catch (Exception e) {
+            System.out.println("Terjadi kesalahan: " + e.getMessage());
+        }
     }
 
     /**
@@ -61,10 +100,10 @@ public class RuchickMenu extends javax.swing.JFrame {
         SearchItemField = new javax.swing.JTextField();
         SearchItemButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         PesanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         BatalPesanButton = new javax.swing.JButton();
+        totalHarga = new javax.swing.JLabel();
         AdditionalButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -212,14 +251,8 @@ public class RuchickMenu extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Total harga:");
-
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         PesanButton.setBackground(new java.awt.Color(40, 40, 100));
         PesanButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -233,6 +266,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(40, 40, 100));
         jLabel4.setText("Keranjang Anda");
 
         BatalPesanButton.setBackground(new java.awt.Color(40, 40, 100));
@@ -246,6 +280,10 @@ public class RuchickMenu extends javax.swing.JFrame {
             }
         });
 
+        totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        totalHarga.setForeground(new java.awt.Color(0, 0, 0));
+        totalHarga.setText(" ");
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -255,27 +293,28 @@ public class RuchickMenu extends javax.swing.JFrame {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addComponent(kategori)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                         .addComponent(SearchItemField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(SearchItemButton))
                     .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(52, 52, 52)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addGap(61, 61, 61)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalHarga)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 59, Short.MAX_VALUE)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                                .addComponent(BatalPesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(PesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel4)
+                            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                                    .addComponent(BatalPesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(PesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(34, 34, 34))
         );
         jPanelLayout.setVerticalGroup(
@@ -299,9 +338,9 @@ public class RuchickMenu extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(33, 33, 33)
+                            .addComponent(jLabel3)
+                            .addComponent(totalHarga))
+                        .addGap(36, 36, 36)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PesanButton)
                             .addComponent(BatalPesanButton)))
@@ -431,7 +470,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket.setBackground(DefaultColor);
         btn_paket.setForeground(Color.white);
         kategori.setText("Minuman");
-        MenuPelangganInternalForm menuPanelDrinks = new MenuPelangganInternalForm("minuman");
+        MenuPelangganInternalForm menuPanelDrinks = new MenuPelangganInternalForm("minuman", id_order, this);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelDrinks).setVisible(true);
 
@@ -450,7 +489,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket.setBackground(DefaultColor);
         btn_paket.setForeground(Color.white);
         kategori.setText("Semua Menu");
-        MenuPelangganInternalForm menuPanelSemua = new MenuPelangganInternalForm("");
+        MenuPelangganInternalForm menuPanelSemua = new MenuPelangganInternalForm("", id_order, this);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelSemua).setVisible(true);
     }//GEN-LAST:event_AllMenuButtonActionPerformed
@@ -468,7 +507,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket.setBackground(DefaultColor);
         btn_paket.setForeground(Color.white);
         kategori.setText("Makanan");
-        MenuPelangganInternalForm menuPanelFoods = new MenuPelangganInternalForm("makanan");
+        MenuPelangganInternalForm menuPanelFoods = new MenuPelangganInternalForm("makanan", id_order, this);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelFoods).setVisible(true);
     }//GEN-LAST:event_FoodsButtonActionPerformed
@@ -486,7 +525,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket.setBackground(ClickedColor);
         btn_paket.setForeground(FontColor);
         kategori.setText("Paket RuChick");
-        MenuPelangganInternalForm menuPanelPacket = new MenuPelangganInternalForm("paket");
+        MenuPelangganInternalForm menuPanelPacket = new MenuPelangganInternalForm("paket", id_order, this);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelPacket).setVisible(true);
     }//GEN-LAST:event_btn_paketActionPerformed
@@ -504,7 +543,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         AdditionalButton.setBackground(ClickedColor);
         AdditionalButton.setForeground(FontColor);
         kategori.setText("Additionals");
-        MenuPelangganInternalForm menuPanelAdditional = new MenuPelangganInternalForm("additional");
+        MenuPelangganInternalForm menuPanelAdditional = new MenuPelangganInternalForm("additional", id_order, this);
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelAdditional).setVisible(true);
     }//GEN-LAST:event_AdditionalButtonActionPerformed
@@ -517,12 +556,15 @@ public class RuchickMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void PesanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesanButtonActionPerformed
         // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin memesan?", "Konfirmasi Pembelian", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Terima kasih sudah memesan\nSilakan Tunggu Pesanan Anda Selesai!");
+            CustomersInput customersInputPage = new CustomersInput();
+            customersInputPage.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_PesanButtonActionPerformed
 
     private void SearchItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchItemButtonActionPerformed
@@ -569,7 +611,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RuchickMenu().setVisible(true);
+                new RuchickMenu(id_order).setVisible(true);
             }
         });
     }
@@ -595,7 +637,7 @@ public class RuchickMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel kategori;
+    private javax.swing.JLabel totalHarga;
     // End of variables declaration//GEN-END:variables
 }
