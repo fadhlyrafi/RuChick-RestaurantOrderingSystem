@@ -4,9 +4,12 @@
  */
 package com.mycompany.ruchick;
 import com.mycompany.ruchick.koneksi_database;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -49,7 +52,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         nama.setText("");
         harga.setText("");
         deskripsi.setText("");
-        kategori.setText("");
+        kategori.setSelectedIndex(0);
         stok.setText("");
         unit.setText("");
         lbl_photo.setIcon(null);
@@ -124,9 +127,9 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         nama = new javax.swing.JTextField();
         harga = new javax.swing.JTextField();
         deskripsi = new javax.swing.JTextField();
-        kategori = new javax.swing.JTextField();
         stok = new javax.swing.JTextField();
         unit = new javax.swing.JTextField();
+        kategori = new javax.swing.JComboBox<>();
         tambahButton = new javax.swing.JButton();
         hapusButton = new javax.swing.JButton();
         fotoButton = new javax.swing.JButton();
@@ -243,13 +246,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         jPanel2.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 120, 25));
         jPanel2.add(deskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 440, 25));
 
-        kategori.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kategoriActionPerformed(evt);
-            }
-        });
-        jPanel2.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 240, 25));
-
         stok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stokActionPerformed(evt);
@@ -263,6 +259,9 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 70, 25));
+
+        kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "makanan", "minuman", "additional", "paket" }));
+        jPanel2.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 140, -1));
 
         tambahButton.setBackground(new java.awt.Color(40, 40, 100));
         tambahButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -384,7 +383,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         String inputHargaStr = harga.getText();
         String inputStokStr = stok.getText();
         String inputDeskripsi = deskripsi.getText();
-        String inputKategori = kategori.getText();
+        String inputKategori = kategori.getSelectedItem().toString();
         String inputUnit = unit.getText();
         // Cek apakah field ID kosong
         if (!inputID.isEmpty()) {
@@ -460,7 +459,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         deskripsi.setText(tampil_deskripsi);
 
         String tampil_kategori = tabel_menu.getValueAt(baris, 4).toString();
-        kategori.setText(tampil_kategori);
+        kategori.setSelectedItem(tampil_kategori);
 
         String tampil_stok = tabel_menu.getValueAt(baris, 5).toString();
         stok.setText(tampil_stok);
@@ -524,7 +523,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         String inputNama = nama.getText();
         int inputHarga = Integer.parseInt(harga.getText());
         String inputDeskripsi = deskripsi.getText();
-        String inputKategori = kategori.getText();
+        String inputKategori = kategori.getSelectedItem().toString();
         int inputStok = Integer.parseInt(stok.getText());
         String inputUnit = unit.getText();
         String inputId = id.getText();  // Assuming you have an id field named id_pk
@@ -553,8 +552,25 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 query_update.setString(6, inputUnit);
 
                 // Mengunggah gambar
-                InputStream is = new FileInputStream(new File(path2));
-                query_update.setBlob(7, is);
+                if (path2 != null) {
+                    // Jika ada gambar baru yang dipilih
+                    InputStream is = new FileInputStream(new File(path2));
+                    query_update.setBlob(7, is);
+                } else {
+                    // Jika tidak ada gambar baru yang dipilih, gunakan gambar dari lbl_photo
+                    ImageIcon icon = (ImageIcon) lbl_photo.getIcon();
+                    BufferedImage bufferedImage = new BufferedImage(
+                            icon.getIconWidth(),
+                            icon.getIconHeight(),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics g = bufferedImage.createGraphics();
+                    icon.paintIcon(null, g, 0, 0);
+                    g.dispose();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageIO.write(bufferedImage, "jpg", baos);
+                    InputStream is = new ByteArrayInputStream(baos.toByteArray());
+                    query_update.setBlob(7, is);
+                }
 
                 query_update.setString(8, inputId);
 
@@ -567,7 +583,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 bersih_layar();
                 path2 = null;
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Kesalahan: " + e);
+                JOptionPane.showMessageDialog(null, "Kesalahan siuu: " + e);
             }
         }
     }//GEN-LAST:event_editButtonActionPerformed
@@ -624,10 +640,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         bersih_layar();
     }//GEN-LAST:event_bersihkanButtonActionPerformed
 
-    private void kategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategoriActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kategoriActionPerformed
-
     private void namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_namaActionPerformed
@@ -670,7 +682,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField kategori;
+    private javax.swing.JComboBox<String> kategori;
     private javax.swing.JLabel lbl_photo;
     private javax.swing.JTextField nama;
     private javax.swing.JTextField stok;
