@@ -74,9 +74,9 @@ public class RuchickMenu extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(40, 40, 100));
 
-        AllMenuButton.setBackground(new java.awt.Color(139, 146, 178));
+        AllMenuButton.setBackground(new java.awt.Color(242, 242, 242));
         AllMenuButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        AllMenuButton.setForeground(new java.awt.Color(255, 255, 255));
+        AllMenuButton.setForeground(new java.awt.Color(40, 40, 100));
         AllMenuButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/AllMenu.png"))); // NOI18N
         AllMenuButton.setText("Semua Menu");
         AllMenuButton.setBorder(null);
