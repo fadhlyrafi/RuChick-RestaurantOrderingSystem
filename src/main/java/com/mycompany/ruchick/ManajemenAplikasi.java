@@ -66,7 +66,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("RuChick Management");
+        jLabel1.setText("Manajemen Restoran RuChick");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 225, 0));
@@ -81,7 +81,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 732, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 643, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -123,7 +123,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         OrdersButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         OrdersButton.setForeground(new java.awt.Color(255, 255, 255));
         OrdersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cart.png"))); // NOI18N
-        OrdersButton.setText("Orders");
+        OrdersButton.setText("Order");
         OrdersButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         OrdersButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         OrdersButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -141,7 +141,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         ReportsButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ReportsButton.setForeground(new java.awt.Color(255, 255, 255));
         ReportsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Reports.png"))); // NOI18N
-        ReportsButton.setText("Reports");
+        ReportsButton.setText("Laporan");
         ReportsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ReportsButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ReportsButton.addMouseListener(new java.awt.event.MouseAdapter() {

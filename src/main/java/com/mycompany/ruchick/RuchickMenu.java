@@ -57,13 +57,14 @@ public class RuchickMenu extends javax.swing.JFrame {
         jDesktopPanel = new javax.swing.JPanel();
         kategori = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        CartTable = new javax.swing.JTable();
+        SearchItemField = new javax.swing.JTextField();
+        SearchItemButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        PesanButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        BatalPesanButton = new javax.swing.JButton();
         AdditionalButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -146,8 +147,8 @@ public class RuchickMenu extends javax.swing.JFrame {
         kategori.setForeground(new java.awt.Color(40, 40, 100));
         kategori.setText("Semua Menu");
 
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        CartTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CartTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -182,23 +183,33 @@ public class RuchickMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setAlignmentX(1.0F);
-        jTable1.setAlignmentY(1.0F);
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setRowSelectionAllowed(false);
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
+        CartTable.setAlignmentX(1.0F);
+        CartTable.setAlignmentY(1.0F);
+        CartTable.setGridColor(new java.awt.Color(255, 255, 255));
+        CartTable.setRowSelectionAllowed(false);
+        CartTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(CartTable);
+        if (CartTable.getColumnModel().getColumnCount() > 0) {
+            CartTable.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SearchItemField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SearchItemField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchItemFieldActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(40, 40, 100));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cari");
-        jButton2.setBorderPainted(false);
+        SearchItemButton.setBackground(new java.awt.Color(40, 40, 100));
+        SearchItemButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        SearchItemButton.setForeground(new java.awt.Color(255, 255, 255));
+        SearchItemButton.setText("Cari");
+        SearchItemButton.setBorderPainted(false);
+        SearchItemButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchItemButtonActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Total harga:");
@@ -210,19 +221,30 @@ public class RuchickMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(40, 40, 100));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Pesan");
-        jButton3.setBorderPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        PesanButton.setBackground(new java.awt.Color(40, 40, 100));
+        PesanButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        PesanButton.setForeground(new java.awt.Color(255, 255, 255));
+        PesanButton.setText("Pesan");
+        PesanButton.setBorderPainted(false);
+        PesanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                PesanButtonActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Keranjang Anda");
+
+        BatalPesanButton.setBackground(new java.awt.Color(40, 40, 100));
+        BatalPesanButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BatalPesanButton.setForeground(new java.awt.Color(255, 255, 255));
+        BatalPesanButton.setText("Batal Memesan");
+        BatalPesanButton.setBorderPainted(false);
+        BatalPesanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BatalPesanButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
@@ -233,23 +255,27 @@ public class RuchickMenu extends javax.swing.JFrame {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addComponent(kategori)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                        .addComponent(SearchItemField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(SearchItemButton))
                     .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(52, 52, 52)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BatalPesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(PesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(34, 34, 34))
         );
         jPanelLayout.setVerticalGroup(
@@ -261,8 +287,8 @@ public class RuchickMenu extends javax.swing.JFrame {
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(kategori)
                             .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton2)))
+                                .addComponent(SearchItemField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(SearchItemButton)))
                         .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addContainerGap()
@@ -276,7 +302,9 @@ public class RuchickMenu extends javax.swing.JFrame {
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(33, 33, 33)
-                        .addComponent(jButton3))
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PesanButton)
+                            .addComponent(BatalPesanButton)))
                     .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
@@ -493,9 +521,23 @@ public class RuchickMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void PesanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesanButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_PesanButtonActionPerformed
+
+    private void SearchItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchItemButtonActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_SearchItemButtonActionPerformed
+
+    private void BatalPesanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatalPesanButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BatalPesanButtonActionPerformed
+
+    private void SearchItemFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchItemFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchItemFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -535,12 +577,15 @@ public class RuchickMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AdditionalButton;
     private javax.swing.JButton AllMenuButton;
+    private javax.swing.JButton BatalPesanButton;
+    private javax.swing.JTable CartTable;
     private javax.swing.JButton DrinksButton;
     private javax.swing.JButton FoodsButton;
+    private javax.swing.JButton PesanButton;
+    private javax.swing.JButton SearchItemButton;
+    private javax.swing.JTextField SearchItemField;
     private javax.swing.JButton btn_paket;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jDesktopPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -550,8 +595,6 @@ public class RuchickMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel kategori;
     // End of variables declaration//GEN-END:variables

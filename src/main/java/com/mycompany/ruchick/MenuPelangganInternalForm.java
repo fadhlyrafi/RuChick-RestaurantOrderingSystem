@@ -144,28 +144,37 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                     quantityPanel.add(quantityLabel);
                     quantityPanel.add(quantitySpinner);
                     dialogPanel.add(quantityPanel, dialogGbc);
-
-                    // Menampilkan JOptionPane dengan panel yang telah dibuat
-                    int option = JOptionPane.showConfirmDialog(null, dialogPanel, "Order Menu", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                    if (option == JOptionPane.OK_OPTION) {
-                        try {
-                            int quantity = (int) quantitySpinner.getValue();
-                            // Simpan data ke database
-                            Connection connection = koneksi_database.konfigurasi_database();
-                            String insertOrderSQL = "INSERT INTO order_details (menu_item_id, quantityOrdered, priceEach) VALUES (?, ?, ?)";
-                            PreparedStatement insertStatement = connection.prepareStatement(insertOrderSQL);
-                            insertStatement.setInt(1, idMenu);
-                            insertStatement.setInt(2, quantity);
-                            insertStatement.setInt(3, price);
-                            insertStatement.executeUpdate();
-                            JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
-                        } catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(null, "Invalid quantity entered. Please enter a valid number.");
-                        } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+                    
+                    boolean validInput = false;
+                    while (!validInput) {
+                        // Menampilkan JOptionPane dengan panel yang telah dibuat
+                        int option = JOptionPane.showConfirmDialog(null, dialogPanel, "Order Menu", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                        if (option == JOptionPane.OK_OPTION) {
+                            try {
+                                int quantity = (int) quantitySpinner.getValue();
+                                if (quantity <= 0) {
+                                    JOptionPane.showMessageDialog(null, "Harus memilih setidaknya 1", "Invalid Quantity", JOptionPane.WARNING_MESSAGE);
+                                } else {
+                                    // Simpan data ke database
+                                    Connection connection = koneksi_database.konfigurasi_database();
+                                    String insertOrderSQL = "INSERT INTO order_details (menu_item_id, quantityOrdered, priceEach) VALUES (?, ?, ?)";
+                                    PreparedStatement insertStatement = connection.prepareStatement(insertOrderSQL);
+                                    insertStatement.setInt(1, idMenu);
+                                    insertStatement.setInt(2, quantity);
+                                    insertStatement.setInt(3, price);
+                                    insertStatement.executeUpdate();
+                                    JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
+                                    validInput = true;
+                                }
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(null, "Invalid quantity entered. Please enter a valid number.");
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+                            }
+                        } else {
+                            validInput = true; // Pengguna membatalkan dialog
                         }
-                    }
-                }
+                    } }
 
 
                     @Override
@@ -283,6 +292,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
 
         scrollPane.setBackground(new java.awt.Color(255, 255, 255));
         scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         scrollPane.setPreferredSize(new java.awt.Dimension(703, 464));
 
         panelContainer.setBackground(new java.awt.Color(255, 255, 255));

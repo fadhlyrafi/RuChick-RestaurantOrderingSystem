@@ -141,7 +141,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(40, 40, 100));
-        jLabel2.setText("Menu Management");
+        jLabel2.setText("Manajemen Menu");
 
         tabel_menu.setBackground(new java.awt.Color(229, 230, 236));
         tabel_menu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
