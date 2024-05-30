@@ -266,6 +266,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(40, 40, 100));
         jLabel4.setText("Keranjang Anda");
 
         BatalPesanButton.setBackground(new java.awt.Color(40, 40, 100));
@@ -279,7 +280,7 @@ public class RuchickMenu extends javax.swing.JFrame {
             }
         });
 
-        totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         totalHarga.setForeground(new java.awt.Color(0, 0, 0));
         totalHarga.setText(" ");
 
@@ -297,25 +298,23 @@ public class RuchickMenu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(SearchItemButton))
                     .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(52, 52, 52)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addGap(0, 7, Short.MAX_VALUE)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                                .addComponent(BatalPesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(PesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalHarga)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addGap(0, 59, Short.MAX_VALUE)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(totalHarga)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                                    .addComponent(BatalPesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(PesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(34, 34, 34))
         );
         jPanelLayout.setVerticalGroup(
@@ -559,6 +558,13 @@ public class RuchickMenu extends javax.swing.JFrame {
 
     private void PesanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesanButtonActionPerformed
         // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin memesan?", "Konfirmasi Pembelian", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Terima kasih sudah memesan\nSilakan Tunggu Pesanan Anda Selesai!");
+            CustomersInput customersInputPage = new CustomersInput();
+            customersInputPage.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_PesanButtonActionPerformed
 
     private void SearchItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchItemButtonActionPerformed

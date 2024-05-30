@@ -143,7 +143,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                     dialogGbc.gridy++;
                     JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
                     JLabel quantityLabel = new JLabel("Jumlah:");
-                    SpinnerNumberModel SpinnerModel = new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1);
+                    SpinnerNumberModel SpinnerModel = new SpinnerNumberModel(1,1, Integer.MAX_VALUE, 1);
                     JSpinner quantitySpinner = new JSpinner(SpinnerModel);
                     quantityPanel.add(quantityLabel);
                     quantityPanel.add(quantitySpinner);
