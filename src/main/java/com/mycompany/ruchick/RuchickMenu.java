@@ -378,7 +378,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket.setBackground(DefaultColor);
         btn_paket.setForeground(Color.white);
         kategori.setText("Minuman");
-        MenuPelangganInternalForm menuPanelDrinks = new MenuPelangganInternalForm("drinks");
+        MenuPelangganInternalForm menuPanelDrinks = new MenuPelangganInternalForm("minuman");
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelDrinks).setVisible(true);
 
@@ -415,7 +415,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket.setBackground(DefaultColor);
         btn_paket.setForeground(Color.white);
         kategori.setText("Makanan");
-        MenuPelangganInternalForm menuPanelFoods = new MenuPelangganInternalForm("foods");
+        MenuPelangganInternalForm menuPanelFoods = new MenuPelangganInternalForm("makanan");
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelFoods).setVisible(true);
     }//GEN-LAST:event_FoodsButtonActionPerformed
@@ -433,7 +433,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         btn_paket.setBackground(ClickedColor);
         btn_paket.setForeground(FontColor);
         kategori.setText("Paket RuChick");
-        MenuPelangganInternalForm menuPanelPacket = new MenuPelangganInternalForm("packets");
+        MenuPelangganInternalForm menuPanelPacket = new MenuPelangganInternalForm("paket");
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelPacket).setVisible(true);
     }//GEN-LAST:event_btn_paketActionPerformed
@@ -451,7 +451,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         AdditionalButton.setBackground(ClickedColor);
         AdditionalButton.setForeground(FontColor);
         kategori.setText("Additionals");
-        MenuPelangganInternalForm menuPanelAdditional = new MenuPelangganInternalForm("additionals");
+        MenuPelangganInternalForm menuPanelAdditional = new MenuPelangganInternalForm("additional");
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanelAdditional).setVisible(true);
     }//GEN-LAST:event_AdditionalButtonActionPerformed
