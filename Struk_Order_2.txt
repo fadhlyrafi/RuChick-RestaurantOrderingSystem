@@ -1,0 +1,18 @@
+==============================
+         STRUK PEMBAYARAN         
+==============================
+Order ID       : 2
+Nama Customer  : Jane Smith
+Tanggal        : 2024-05-02 13:30:00
+==============================
+ID   Nama Menu      Qty    Harga      Total
+------------------------------
+15   Grilled Chicken 2     60000.00   120000.0  
+==============================
+Total Harga         : 120000.00
+Total Bayar         : 150000
+Kembalian           : 
+==============================
+      Terima Kasih!      
+   Selamat Datang Kembali   
+==============================
