@@ -275,6 +275,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         ReportsInternalForm reportsPanel = new ReportsInternalForm();
         jDesktopPanel.removeAll();
         jDesktopPanel.add(reportsPanel).setVisible(true);
+
     }//GEN-LAST:event_ReportsButtonActionPerformed
 
     /**
