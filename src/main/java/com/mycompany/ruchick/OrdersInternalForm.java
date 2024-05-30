@@ -98,7 +98,15 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         totalBayar.setText("");
         kembalian.setText("");
     }
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private boolean isFloat(String str) {
+        try {
+            Float.parseFloat(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -119,9 +127,10 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         totalBayar = new javax.swing.JTextField();
         kembalian = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        tambahButton = new javax.swing.JButton();
+        bayarButton = new javax.swing.JButton();
         orderId = new javax.swing.JTextField();
         dibayar = new javax.swing.JLabel();
+        printButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -161,20 +170,22 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabelOrders);
         if (tabelOrders.getColumnModel().getColumnCount() > 0) {
             tabelOrders.getColumnModel().getColumn(0).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(0).setPreferredWidth(20);
             tabelOrders.getColumnModel().getColumn(1).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(1).setPreferredWidth(50);
             tabelOrders.getColumnModel().getColumn(2).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(2).setPreferredWidth(50);
             tabelOrders.getColumnModel().getColumn(3).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(3).setPreferredWidth(50);
             tabelOrders.getColumnModel().getColumn(4).setResizable(false);
+            tabelOrders.getColumnModel().getColumn(4).setPreferredWidth(20);
         }
 
         tabelOrderDetails.setBackground(new java.awt.Color(229, 230, 236));
         tabelOrderDetails.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabelOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Detail ID", "Order ID", "Nama Menu", "Qty", "Harga Satuan"
@@ -191,10 +202,15 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tabelOrderDetails);
         if (tabelOrderDetails.getColumnModel().getColumnCount() > 0) {
             tabelOrderDetails.getColumnModel().getColumn(0).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(0).setPreferredWidth(30);
             tabelOrderDetails.getColumnModel().getColumn(1).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(1).setPreferredWidth(20);
             tabelOrderDetails.getColumnModel().getColumn(2).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(2).setPreferredWidth(120);
             tabelOrderDetails.getColumnModel().getColumn(3).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(3).setPreferredWidth(20);
             tabelOrderDetails.getColumnModel().getColumn(4).setResizable(false);
+            tabelOrderDetails.getColumnModel().getColumn(4).setPreferredWidth(50);
         }
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 236));
@@ -211,7 +227,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
 
         nama.setEditable(false);
         nama.setBackground(new java.awt.Color(255, 255, 255));
-        nama.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        nama.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         nama.setEnabled(false);
         jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 170, 25));
 
@@ -221,7 +237,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
 
         tanggal.setEditable(false);
         tanggal.setBackground(new java.awt.Color(255, 255, 255));
-        tanggal.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        tanggal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tanggal.setEnabled(false);
         tanggal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,18 +252,20 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
 
         totalHarga.setEditable(false);
         totalHarga.setBackground(new java.awt.Color(255, 255, 255));
-        totalHarga.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         totalHarga.setEnabled(false);
         jPanel2.add(totalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 170, 25));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Total Bayar:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
+
+        totalBayar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jPanel2.add(totalBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 170, 25));
 
         kembalian.setEditable(false);
         kembalian.setBackground(new java.awt.Color(255, 255, 255));
-        kembalian.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        kembalian.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         kembalian.setEnabled(false);
         jPanel2.add(kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 170, 25));
 
@@ -255,27 +273,39 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         jLabel8.setText("Kembalian:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
-        tambahButton.setBackground(new java.awt.Color(40, 40, 100));
-        tambahButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        tambahButton.setForeground(new java.awt.Color(255, 255, 255));
-        tambahButton.setText("Bayar");
-        tambahButton.setBorderPainted(false);
-        tambahButton.addActionListener(new java.awt.event.ActionListener() {
+        bayarButton.setBackground(new java.awt.Color(40, 40, 100));
+        bayarButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bayarButton.setForeground(new java.awt.Color(255, 255, 255));
+        bayarButton.setText("Bayar");
+        bayarButton.setBorderPainted(false);
+        bayarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambahButtonActionPerformed(evt);
+                bayarButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(tambahButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, -1, 30));
+        jPanel2.add(bayarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, -1, 30));
 
         orderId.setEditable(false);
         orderId.setBackground(new java.awt.Color(255, 255, 255));
-        orderId.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        orderId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         orderId.setEnabled(false);
         jPanel2.add(orderId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 170, 25));
 
-        dibayar.setBackground(new java.awt.Color(255, 255, 255));
-        dibayar.setForeground(new java.awt.Color(255, 255, 255));
+        dibayar.setBackground(new java.awt.Color(229, 230, 236));
+        dibayar.setForeground(new java.awt.Color(229, 230, 236));
         jPanel2.add(dibayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+
+        printButton.setBackground(new java.awt.Color(40, 40, 100));
+        printButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        printButton.setForeground(new java.awt.Color(255, 255, 255));
+        printButton.setText("Print Struk");
+        printButton.setBorderPainted(false);
+        printButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(printButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Order Customers");
@@ -340,7 +370,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
     
     private void setRowColors() {
          // Mendapatkan renderer sel default dari tabel
@@ -362,9 +392,54 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 return c;
             }
         });
+        DefaultTableCellRenderer defaultRendererDetails = (DefaultTableCellRenderer) tabelOrderDetails.getDefaultRenderer(Object.class);
+        tabelOrderDetails.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                final java.awt.Component c = defaultRendererDetails.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Mengatur warna latar belakang baris bergantian
+                if (row % 2 == 0) {
+                    c.setBackground(java.awt.Color.WHITE);
+                } else {
+                    c.setBackground(new java.awt.Color(173, 216, 230));
+                }
+                c.setForeground(java.awt.Color.BLACK);
+                return c;
+            }
+        });
     }
-    
-    private void tabelOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelOrdersMouseClicked
+    private String getOrderDetails(String orderId) {
+        StringBuilder details = new StringBuilder();
+        try {
+            String query = "SELECT od.order_detail_id, mi.name, od.quantityOrdered, od.priceEach, "
+                    + "(od.quantityOrdered * od.priceEach) AS total_price_per_item "
+                    + "FROM order_details od JOIN menu_items mi ON od.menu_item_id = mi.menu_item_id "
+                    + "WHERE od.order_id = ?";
+
+            Connection conn = koneksi_database.konfigurasi_database();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, orderId);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // Menghitung total harga per item dan menambahkannya ke StringBuilder
+                float totalPricePerItem = rs.getFloat("quantityOrdered") * rs.getFloat("priceEach");
+                details.append(String.format("%-4s %-15s %-5s %-10s %-10s\n",
+                    rs.getString("order_detail_id"),
+                    rs.getString("name"),
+                    rs.getString("quantityOrdered"),
+                    rs.getString("priceEach"),
+                    totalPricePerItem));
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengambil detail order: " + e.getMessage());
+        }
+        return details.toString();
+    }
+    private void tabelOrdersMouseClicked(java.awt.event.MouseEvent evt) {                                         
             // TODO add your handling code here:
             // Mengambil data dari Tabel ke dalam text field
             int baris = tabelOrders.rowAtPoint(evt.getPoint());
@@ -386,13 +461,14 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                     return false;
                 }
             };
-            setRowColors();
             detailsTbl.addColumn("Detail Order ID");
             detailsTbl.addColumn("Order ID");
             detailsTbl.addColumn("Nama Menu");
             detailsTbl.addColumn("Jumlah");
             detailsTbl.addColumn("Harga");
-
+            
+            tabelOrderDetails.setModel(detailsTbl);
+            setRowColors();
         try {
             int idOrder = Integer.parseInt(tabelOrders.getValueAt(baris, 0).toString());
 
@@ -422,76 +498,131 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             // 07. Pesan Error kalau gagal
         }    
-    }//GEN-LAST:event_tabelOrdersMouseClicked
+    }                                        
 
-    private void tanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanggalActionPerformed
+    private void tanggalActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:
-    }//GEN-LAST:event_tanggalActionPerformed
+    }                                       
 
-    private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
+    private void bayarButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        
-        // Mengambil field text
-        JOptionPane.showMessageDialog(null, "siuuu");
-        String inputId = orderId.getText();
-        int idOrder= Integer.parseInt(inputId);
-        int total = Integer.parseInt(totalHarga.getText());
-        String stringBayar = totalBayar.getText();
-        int inputBayar = Integer.parseInt(totalBayar.getText());
-        String validasiBayar = dibayar.getText();
-        String namaCus = nama.getText();
-        JOptionPane.showMessageDialog(null, "siuuu");
-        // Deteksi Kesalahan
-        if (inputId.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Pilih order yang akan dibayar terlebih dahulu.", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
-            return;
-        }else if (stringBayar.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Masukkan nominal pembayaran terlebih dahulu.", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
-            return;
-        }else if ("Sudah".equals(validasiBayar)){
-            JOptionPane.showMessageDialog(null, "Pesanan "+namaCus+" sudah dibayar.", "Kesalahan Data", JOptionPane.DEFAULT_OPTION);
-            return;
-        }else if (inputBayar < total){
-            JOptionPane.showMessageDialog(null, "Nominal pembayaran tidak valid", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
-            return;
-        }
-        
-        // Menghitung Kembalian\
-        JOptionPane.showMessageDialog(null, "siuuu");
-        int outputKembalian = inputBayar - total;
-        String strKembalian = Integer.toString(outputKembalian);
-        kembalian.setText(strKembalian);
-        JOptionPane.showMessageDialog(null, "siuuu");
-        
-        // Query Update kolom Paid pada tabel orders
-        int confirm = JOptionPane.showConfirmDialog(null, "Selesaikan Pembayaran?", "Konfirmasi Bayar", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                // Query update data
-                String sql_update = "UPDATE orders SET paid = ? WHERE order_id = ?";
-                // Koneksi mySQL
-                Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
-                // Statement Query
-                PreparedStatement query_update = penghubungdatabase.prepareStatement(sql_update);
-                // Set parameters
-                query_update.setString(1, "Sudah");
-                query_update.setInt(2, idOrder);
-
-                // Eksekusi
-                query_update.executeUpdate();
-
-                // Munculkan data yang sudah diupdate
-                JOptionPane.showMessageDialog(null, "Pesanan Berhasil dibayar");
-                bacaOrders();
-                bersih_layar();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Kesalahan: " + e);
+        try {
+            // Retrieve and validate fields
+            String inputId = orderId.getText();
+            if (inputId.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Pilih order yang akan dibayar terlebih dahulu.", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
+                return;
             }
+
+            int idOrder = Integer.parseInt(inputId);
+
+            String totalHargaText = totalHarga.getText();
+            if (totalHargaText.isEmpty() || !isFloat(totalHargaText)) {
+                JOptionPane.showMessageDialog(null, "Total harga tidak valid.", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
+                return;
+            }
+            float total = Float.parseFloat(totalHargaText); // Menggunakan tipe float
+
+            String stringBayar = totalBayar.getText();
+            if (stringBayar.isEmpty() || !isFloat(stringBayar)) {
+                JOptionPane.showMessageDialog(null, "Masukkan nominal pembayaran yang valid.", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
+                return;
+            }
+            float inputBayar = Float.parseFloat(stringBayar); // Menggunakan tipe float
+
+            String validasiBayar = dibayar.getText();
+            String namaCus = nama.getText();
+
+            if ("Sudah".equals(validasiBayar)) {
+                JOptionPane.showMessageDialog(null, "Pesanan " + namaCus + " sudah dibayar.", "Kesalahan Data", JOptionPane.DEFAULT_OPTION);
+                return;
+            } else if (inputBayar < total) {
+                JOptionPane.showMessageDialog(null, "Nominal pembayaran tidak valid", "Kesalahan Input", JOptionPane.DEFAULT_OPTION);
+                return;
+            }
+
+            // Calculate change
+            float outputKembalian = inputBayar - total; // Menggunakan tipe float
+            String strKembalian = Float.toString(outputKembalian); // Menggunakan tipe float
+            kembalian.setText(strKembalian);
+
+            // Confirm and process payment
+//            int confirm = JOptionPane.showConfirmDialog(null, "Selesaikan Pembayaran Tanpa Print Struk?", "Konfirmasi Bayar", JOptionPane.YES_NO_OPTION);
+//            if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                    // Update the order status in the database
+                    String sql_update = "UPDATE orders SET paid = ? WHERE order_id = ?";
+                    Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
+                    PreparedStatement query_update = penghubungdatabase.prepareStatement(sql_update);
+                    query_update.setString(1, "1");  // Assuming "1" means "paid"
+                    query_update.setInt(2, idOrder);
+
+                    query_update.executeUpdate();
+
+                    // Notify success
+                    JOptionPane.showMessageDialog(null, "Pesanan Berhasil dibayar");
+                    bacaOrders();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
+                }    
+//            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan dalam format angka: " + e.getMessage(), "Kesalahan Input", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_tambahButtonActionPerformed
+    }                                           
+
+    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+        // Mendapatkan informasi pesanan dari text fields
+        String orderIdText = orderId.getText();
+        String namaCustomer = nama.getText();
+        String tanggalOrder = tanggal.getText();
+        String totalHargaText = totalHarga.getText();
+        String totalBayarText = totalBayar.getText();
+        String kembalianText = kembalian.getText();
+
+        // Mendapatkan detail order
+        String orderDetails = getOrderDetails(orderIdText);
+
+        // Membuat konten struk
+        StringBuilder struk = new StringBuilder();
+        struk.append("==============================\n");
+        struk.append("         STRUK PEMBAYARAN         \n");
+        struk.append("==============================\n");
+        struk.append("Order ID       : ").append(orderIdText).append("\n");
+        struk.append("Nama Customer  : ").append(namaCustomer).append("\n");
+        struk.append("Tanggal        : ").append(tanggalOrder).append("\n");
+        struk.append("==============================\n");
+        struk.append("ID   Nama Menu      Qty    Harga      Total\n");
+        struk.append("------------------------------\n");
+        struk.append(orderDetails);  // Menambahkan detail order ke struk
+        struk.append("==============================\n");
+        struk.append(String.format("%-20s: %s\n", "Total Harga", totalHargaText));
+        struk.append(String.format("%-20s: %s\n", "Total Bayar", totalBayarText));
+        struk.append(String.format("%-20s: %s\n", "Kembalian", kembalianText));
+        struk.append("==============================\n");
+        struk.append("      Terima Kasih!      \n");
+        struk.append("   Selamat Datang Kembali   \n");
+        struk.append("==============================\n");
+
+        // Menyimpan struk ke dalam file .txt
+        try {
+            java.io.FileWriter writer = new java.io.FileWriter("Struk_Order_" + orderIdText + ".txt");
+            writer.write(struk.toString());
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Struk berhasil dicetak ke dalam file Struk_Order_" + orderIdText + ".txt");
+            bacaOrders();
+            bersih_layar();
+        } catch (java.io.IOException e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mencetak struk: " + e.getMessage());
+        }        
+    }                                           
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton bayarButton;
     private javax.swing.JLabel dibayar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -510,11 +641,11 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField kembalian;
     private javax.swing.JTextField nama;
     private javax.swing.JTextField orderId;
+    private javax.swing.JButton printButton;
     private javax.swing.JTable tabelOrderDetails;
     private javax.swing.JTable tabelOrders;
-    private javax.swing.JButton tambahButton;
     private javax.swing.JTextField tanggal;
     private javax.swing.JTextField totalBayar;
     private javax.swing.JTextField totalHarga;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
