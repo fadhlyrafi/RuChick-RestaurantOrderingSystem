@@ -17,6 +17,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
+import java.sql.Blob;
+import java.sql.SQLException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -37,9 +39,9 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
             Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
 
             // Query untuk mengambil data dari menu_items
-            String sql_select = "SELECT menu_item_id, name, price, description, category, stock, units FROM menu_items";
+            String sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items";
             if (!kategori.isEmpty()) {
-                sql_select = "SELECT menu_item_id, name, price, description, category, stock, units FROM menu_items WHERE category = '" + kategori +"'";
+                sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items WHERE category = '" + kategori +"'";
             }
             PreparedStatement query_select = penghubungdatabase.prepareStatement(sql_select);
             ResultSet resultSet = query_select.executeQuery();
@@ -69,9 +71,9 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
             Connection penghubungdatabase = (Connection) koneksi_database.konfigurasi_database();
 
             // Query untuk mengambil data dari menu_items
-            String sql_select = "SELECT menu_item_id, name, price, description, category, stock, units FROM menu_items";
+            String sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items";
             if (!kategori.isEmpty()) {
-                sql_select = "SELECT menu_item_id, name, price, description, category, stock, units FROM menu_items WHERE category = '" + kategori + "'";
+                sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items WHERE category = '" + kategori + "'";
             }
             PreparedStatement query_select = penghubungdatabase.prepareStatement(sql_select);
             ResultSet resultSet = query_select.executeQuery();
@@ -87,11 +89,21 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
             int currentRow = 0;
 
             while (resultSet.next()) {
-                int idMenu = resultSet.getInt("menu_item_id");
+                final int idMenu = resultSet.getInt("menu_item_id");
+                final String name = resultSet.getString("name");
+                final int price = resultSet.getInt("price");
+                final String description = resultSet.getString("description");
+                Blob image = resultSet.getBlob("image_id");
+                byte[] imageBytes = image.getBytes(1, (int) image.length());
+                ImageIcon originalIcon = new ImageIcon(imageBytes);
+                Image resizedImage = originalIcon.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+                ImageIcon resizedIcon = new ImageIcon(resizedImage);
+                
                 JPanel itemPanel = new JPanel();
                 itemPanel.setLayout(new GridBagLayout()); // Menggunakan GridBagLayout untuk fleksibilitas
-                itemPanel.setBorder(new CompoundBorder(
-                        new LineBorder(Color.GRAY, 2),
+                Color noSelected = new Color(139,146,178);
+                itemPanel.setBorder(new CompoundBorder(  
+                        new LineBorder(noSelected, 3),
                         new EmptyBorder(0, 0, 0, 0)
                 ));
                 itemPanel.setBackground(new Color(245, 245, 245)); // Background warna terang
@@ -99,28 +111,83 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                 // Menambahkan MouseListener ke itemPanel
                 itemPanel.addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent e) {
-                        // Aksi ketika panel ditekan
-                        DaftarPesanan daftarPopUp = new DaftarPesanan();
-                        JOptionPane.showMessageDialog(null, "Panel diklik: " + idMenu);
+                    public void mouseClicked(MouseEvent e) {     
+                    // Membuat panel untuk JOptionPane kustom
+                    JPanel dialogPanel = new JPanel(new GridBagLayout());
+                    GridBagConstraints dialogGbc = new GridBagConstraints();
+                    dialogGbc.insets = new Insets(10, 10, 10, 10);
+                    dialogGbc.fill = GridBagConstraints.HORIZONTAL;
+                    dialogGbc.gridx = 0;
+                    dialogGbc.gridy = 0;
+
+                    JPanel imagePanel = new JPanel(); // Panel untuk menampilkan gambar
+                    JLabel imageLabel = new JLabel(); // Label untuk gambar
+                    ImageIcon largeIcon = new ImageIcon(originalIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)); // Membuat gambar lebih besar
+                    imageLabel.setIcon(largeIcon); // Menetapkan gambar ke label
+                    imagePanel.add(imageLabel); // Menambahkan label ke panel
+                    dialogPanel.add(imagePanel, dialogGbc); // Menambahkan panel gambar ke panel utama
+                    
+                    dialogGbc.gridy++;
+                    JLabel dialogNameLabel = new JLabel(name+" ("+description+")");
+                    dialogPanel.add(dialogNameLabel, dialogGbc);
+                    
+                    //tampilkan harga
+                    dialogGbc.gridy++;
+                    JLabel dialogPriceLabel = new JLabel("Rp " + price);
+                    dialogPanel.add(dialogPriceLabel, dialogGbc);
+                    
+                    dialogGbc.gridy++;
+                    JPanel quantityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                    JLabel quantityLabel = new JLabel("Jumlah:");
+                    SpinnerNumberModel SpinnerModel = new SpinnerNumberModel(0,0, Integer.MAX_VALUE, 1);
+                    JSpinner quantitySpinner = new JSpinner(SpinnerModel);
+                    quantityPanel.add(quantityLabel);
+                    quantityPanel.add(quantitySpinner);
+                    dialogPanel.add(quantityPanel, dialogGbc);
+
+                    // Menampilkan JOptionPane dengan panel yang telah dibuat
+                    int option = JOptionPane.showConfirmDialog(null, dialogPanel, "Order Menu", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    if (option == JOptionPane.OK_OPTION) {
+                        try {
+                            int quantity = (int) quantitySpinner.getValue();
+                            // Simpan data ke database
+                            Connection connection = koneksi_database.konfigurasi_database();
+                            String insertOrderSQL = "INSERT INTO order_details (menu_item_id, quantityOrdered, priceEach) VALUES (?, ?, ?)";
+                            PreparedStatement insertStatement = connection.prepareStatement(insertOrderSQL);
+                            insertStatement.setInt(1, idMenu);
+                            insertStatement.setInt(2, quantity);
+                            insertStatement.setInt(3, price);
+                            insertStatement.executeUpdate();
+                            JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Invalid quantity entered. Please enter a valid number.");
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+                        }
                     }
+                }
+
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
                         Color selectedColor = new Color(40, 40, 100);
                         itemPanel.setBorder(new CompoundBorder(
-                                new LineBorder(selectedColor, 1),
+                                new LineBorder(selectedColor, 3),
                                 new EmptyBorder(0, 0, 0, 0)
                         ));
+                        itemPanel.setBackground(new Color(243,243,244));
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
+                        Color noSelected = new Color(139,146,178);
                         itemPanel.setBorder(new CompoundBorder(
-                                new LineBorder(Color.GRAY, 1),
+                                new LineBorder(noSelected, 3),
                                 new EmptyBorder(0, 0, 0, 0)
                         ));
+                        itemPanel.setBackground(new Color(245, 245, 245));
                     }
+                    
                 });
 
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -130,22 +197,20 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                 gbc.gridy = 0;
                 gbc.anchor = GridBagConstraints.NORTHWEST;
 
-                // Mengambil data dari result set
-                String name = resultSet.getString("name");
-                int price = resultSet.getInt("price");
-                String description = resultSet.getString("description");
+                
+                JLabel imageLabel = new JLabel(resizedIcon);
 
+                itemPanel.add(imageLabel, gbc);
+                gbc.gridy++;
+                
                 itemPanel.add(createLabel(name, true), gbc);
                 gbc.gridy++;
 
                 itemPanel.add(createLabel("Rp " + price, false), gbc);
                 gbc.gridy++;
 
-                JTextArea descriptionArea = createTextArea(description);
-                itemPanel.add(descriptionArea, gbc);
-
                 // Mengatur ukuran tetap untuk itemPanel
-                Dimension panelSize = new Dimension(200, 150); // Atur ukuran sesuai kebutuhan Anda
+                Dimension panelSize = new Dimension(180, 260); // Atur ukuran sesuai kebutuhan Anda
                 itemPanel.setPreferredSize(panelSize);
                 itemPanel.setMinimumSize(panelSize);
                 itemPanel.setMaximumSize(panelSize);
@@ -221,7 +286,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
         scrollPane.setPreferredSize(new java.awt.Dimension(703, 464));
 
         panelContainer.setBackground(new java.awt.Color(255, 255, 255));
-        panelContainer.setLayout(new java.awt.GridLayout(rowCount, 3, 0, 10));
+        panelContainer.setLayout(new java.awt.GridLayout(rowCount, 3, 10, 10));
         scrollPane.setViewportView(panelContainer);
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
