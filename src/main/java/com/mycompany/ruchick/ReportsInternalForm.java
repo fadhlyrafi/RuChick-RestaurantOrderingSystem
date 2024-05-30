@@ -217,7 +217,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         return incomeData;
     }
        
-           // Method untuk memanggil fungsi total_customer_today dan mendapatkan hasilnya
+    // Method untuk memanggil fungsi total_customer_today dan mendapatkan hasilnya
     public int getTotalCustomerToday() {
         String query = "SELECT total_customer_today() AS total_customer_today";
         int totalCustomerToday = 0;
@@ -225,7 +225,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         try (
             Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
             Statement stmt = penghubung_database.createStatement();
-            ResultSet rs = stmt.executeQuery(query)) {
+             ResultSet rs = stmt.executeQuery(query)) {
 
             if (rs.next()) {
                 totalCustomerToday = rs.getInt("total_customer_today");
@@ -342,7 +342,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableReports);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 706, 380));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 500, 380));
 
         jPanel13.setBackground(new java.awt.Color(102, 153, 255));
         jPanel13.setPreferredSize(new java.awt.Dimension(225, 124));
@@ -448,10 +448,10 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(panelForChart, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelForChart, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -463,7 +463,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(61, 61, 61)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
