@@ -161,13 +161,14 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                                 } else {
                                     // Simpan data ke database
                                     Connection connection = koneksi_database.konfigurasi_database();
-                                    String insertOrderSQL = "INSERT INTO order_details (menu_item_id, quantityOrdered, priceEach, order_id) VALUES (?, ?, ?, ?)";
+                                    String insertOrderSQL = "INSERT INTO order_details (menu_item_id, order_id, quantityOrdered, priceEach) VALUES (?, ?, ?, ?)";
                                     PreparedStatement insertStatement = connection.prepareStatement(insertOrderSQL);
                                     insertStatement.setInt(1, idMenu);
-                                    insertStatement.setInt(2, quantity);
-                                    insertStatement.setInt(3, price);
-                                    insertStatement.setInt(4, order_id);
-                                    insertStatement.executeUpdate();
+                                    insertStatement.setInt(2, order_id);
+                                    insertStatement.setInt(3, quantity);
+                                    insertStatement.setDouble(4, price);
+                                    JOptionPane.showMessageDialog(null, insertStatement);
+                                    insertStatement.execute();
                                     JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
                                     parent.baca_data_order();
                                     validInput = true;

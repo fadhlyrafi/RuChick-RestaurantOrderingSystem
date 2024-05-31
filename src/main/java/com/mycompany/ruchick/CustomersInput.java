@@ -162,8 +162,6 @@ public class CustomersInput extends javax.swing.JFrame {
 
     private void btn_lihatmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lihatmenuActionPerformed
         // TODO add your handling code here:
-        // TODO add your handling code here:
-        // TODO add your handling code here:
         String customerName = nameInput.getText();
         customerName = customerName.toLowerCase();
         if (customerName.isEmpty()) {
@@ -171,7 +169,7 @@ public class CustomersInput extends javax.swing.JFrame {
         } else {
             try {
                 Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
-                
+
                 // Check if customerName already exists
                 String sql_checkCustomer = "SELECT COUNT(*), customer_id FROM customers WHERE name = ?";
                 PreparedStatement checkStatement = penghubungdatabase.prepareStatement(sql_checkCustomer);
@@ -184,14 +182,17 @@ public class CustomersInput extends javax.swing.JFrame {
                 int id_order = 0;
 
                 if (count > 0) {
-                    String sql_insertOrders = "INSERT INTO orders (customer_id, total_amount) VALUES ('" + customerId + "', 0)";
+                    String sql_insertOrders = "INSERT INTO orders (customer_id, total_amount) VALUES (?, 0)";
                     PreparedStatement insOrdersStatement = penghubungdatabase.prepareStatement(sql_insertOrders, Statement.RETURN_GENERATED_KEYS);
+                    insOrdersStatement.setInt(1, customerId);
                     insOrdersStatement.executeUpdate();
-                    // Get the generated customer_id
+
+                    // Get the generated order_id
                     ResultSet generatedKeys = insOrdersStatement.getGeneratedKeys();
                     if (generatedKeys.next()) {
                         id_order = generatedKeys.getInt(1);
                     }
+                    JOptionPane.showMessageDialog(null, id_order);
                     RuchickMenu form_dashboard = new RuchickMenu(id_order);
                     form_dashboard.setVisible(true);
                     this.setVisible(false);
@@ -207,22 +208,24 @@ public class CustomersInput extends javax.swing.JFrame {
                     if (generatedKeysCustomer.next()) {
                         customerId = generatedKeysCustomer.getInt(1);
                     }
-                    String sql_insertOrders = "INSERT INTO orders (customer_id, total_amount) VALUES ('" + customerId + "', 0)";
+
+                    String sql_insertOrders = "INSERT INTO orders (customer_id, total_amount) VALUES (?, 0)";
                     PreparedStatement insOrdersStatement = penghubungdatabase.prepareStatement(sql_insertOrders, Statement.RETURN_GENERATED_KEYS);
-                    // Get the generated customer_id
-                    ResultSet generatedKeysOrders = insertStatement.getGeneratedKeys();
+                    insOrdersStatement.setInt(1, customerId);
+                    insOrdersStatement.executeUpdate();
+
+                    // Get the generated order_id
+                    ResultSet generatedKeysOrders = insOrdersStatement.getGeneratedKeys();
                     if (generatedKeysOrders.next()) {
                         id_order = generatedKeysOrders.getInt(1);
                     }
-                    insOrdersStatement.executeUpdate();
-
+                    JOptionPane.showMessageDialog(null, id_order);
                     RuchickMenu form_dashboard = new RuchickMenu(id_order);
                     form_dashboard.setVisible(true);
                     this.setVisible(false);
                 }
-
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error! \n" +e);
+                JOptionPane.showMessageDialog(null, "Error! \n" + e);
             }
         }
     }//GEN-LAST:event_btn_lihatmenuActionPerformed
