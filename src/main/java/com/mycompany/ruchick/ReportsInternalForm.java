@@ -414,6 +414,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         toBarChart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         toBarChart.setForeground(new java.awt.Color(0, 0, 102));
         toBarChart.setText("Bar Chart");
+        toBarChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         toBarChart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toBarChartActionPerformed(evt);
@@ -425,6 +426,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         buttonToday.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         buttonToday.setForeground(new java.awt.Color(255, 255, 255));
         buttonToday.setText("Data Hari Ini");
+        buttonToday.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonToday.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTodayActionPerformed(evt);
@@ -436,6 +438,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         buttonThisMonth.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         buttonThisMonth.setForeground(new java.awt.Color(255, 255, 255));
         buttonThisMonth.setText("Data Bulan Ini");
+        buttonThisMonth.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonThisMonth.setPreferredSize(new java.awt.Dimension(67, 28));
         buttonThisMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -448,6 +451,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         buttonAllRecords.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         buttonAllRecords.setForeground(new java.awt.Color(255, 255, 255));
         buttonAllRecords.setText("Semua Data");
+        buttonAllRecords.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonAllRecords.setPreferredSize(new java.awt.Dimension(67, 28));
         buttonAllRecords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -460,6 +464,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         toLineChart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         toLineChart.setForeground(new java.awt.Color(0, 0, 102));
         toLineChart.setText("Line Chart");
+        toLineChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         toLineChart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toLineChartActionPerformed(evt);
