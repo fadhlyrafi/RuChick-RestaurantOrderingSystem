@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -42,6 +43,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
+        Map<LocalDate, Double> incomeData = getDailyIncome();
         bacaReports();
         getTopSalesItem();
         displayTopSales();
@@ -49,7 +51,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         displayMonthlyIncome();
         getTotalIncome();
         displayTotalIncome();
-        displayIncomeChart();
+        displayIncomeChart(createLineChart(incomeData));
         getTotalCustomerToday();
         displayCustomerToday();
     }
@@ -61,6 +63,9 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
 
 
+    
+    
+    
     private void bacaReports(){
     DefaultTableModel reportTbl = new DefaultTableModel(){
         @Override
@@ -100,6 +105,42 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         // Pesan Error kalau gagal
     }
 }
+    
+        // Method untuk menampilkan data di JTable
+    public void displayReport(String query) {
+        try (
+        Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
+
+        Statement stmt = penghubung_database.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            // Ambil metadata dari result set
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            // Buat kolom JTable
+            DefaultTableModel model = new DefaultTableModel();
+            for (int i = 1; i <= columnCount; i++) {
+                model.addColumn(metaData.getColumnName(i));
+            }
+
+            // Isi data ke JTable
+            while (rs.next()) {
+                Object[] row = new Object[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    row[i - 1] = rs.getObject(i);
+                }
+                model.addRow(row);
+            }
+
+            // Set model ke JTable
+            tableReports.setModel(model);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     
         // Method untuk mengambil item_name paling populer
     public String getTopSalesItem() {
@@ -193,31 +234,8 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         double totalIncome = getTotalIncome();
         TotalIncome.setText("Rp " + totalIncome + "");
     }
-   
-        // Method untuk mendapatkan data income per hari
-       public Map<LocalDate, Double> getDailyIncome() {
-        String query = "SELECT date, SUM(price) as daily_income FROM report GROUP BY date ORDER BY date";
-        Map<LocalDate, Double> incomeData = new TreeMap<>();
 
-        try (
-            Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
-            Statement stmt = penghubung_database.createStatement();
-            ResultSet rs = stmt.executeQuery(query)) {
-
-            while (rs.next()) {
-                LocalDate date = rs.getDate("date").toLocalDate();
-                double dailyIncome = rs.getDouble("daily_income");
-                incomeData.put(date, dailyIncome);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return incomeData;
-    }
-       
-           // Method untuk memanggil fungsi total_customer_today dan mendapatkan hasilnya
+    // Method untuk memanggil fungsi total_customer_today dan mendapatkan hasilnya
     public int getTotalCustomerToday() {
         String query = "SELECT total_customer_today() AS total_customer_today";
         int totalCustomerToday = 0;
@@ -225,7 +243,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         try (
             Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
             Statement stmt = penghubung_database.createStatement();
-            ResultSet rs = stmt.executeQuery(query)) {
+             ResultSet rs = stmt.executeQuery(query)) {
 
             if (rs.next()) {
                 totalCustomerToday = rs.getInt("total_customer_today");
@@ -244,6 +262,29 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         customerToday.setText(String.valueOf(totalCustomerToday));
     }
 
+    // Method untuk mendapatkan data income per hari
+    public Map<LocalDate, Double> getDailyIncome() {
+     String query = "SELECT date, SUM(price) as daily_income FROM report GROUP BY date ORDER BY date";
+     Map<LocalDate, Double> incomeData = new TreeMap<>();
+
+     try (
+         Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
+         Statement stmt = penghubung_database.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+         while (rs.next()) {
+             LocalDate date = rs.getDate("date").toLocalDate();
+             double dailyIncome = rs.getDouble("daily_income");
+             incomeData.put(date, dailyIncome);
+         }
+
+     } catch (Exception e) {
+         e.printStackTrace();
+     }
+
+     return incomeData;
+ }
+    
     // Method untuk membuat line chart menggunakan JFreeChart
     public JFreeChart createLineChart(Map<LocalDate, Double> incomeData) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -263,13 +304,33 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
                 false
         );
     }
+    
+        // Method untuk membuat bar chart menggunakan JFreeChart
+    public JFreeChart createBarChart(Map<LocalDate, Double> incomeData) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        for (Map.Entry<LocalDate, Double> entry : incomeData.entrySet()) {
+            dataset.addValue(entry.getValue(), "Income", entry.getKey().toString());
+        }
+
+        return ChartFactory.createBarChart(
+                "Daily Income Chart",
+                "Date",
+                "Income",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+    }
 
     // Method untuk menampilkan chart di JPanel
-    public void displayIncomeChart() {
-        Map<LocalDate, Double> incomeData = getDailyIncome();
-        JFreeChart lineChart = createLineChart(incomeData);
+    public void displayIncomeChart(JFreeChart chart) {
+//        Map<LocalDate, Double> incomeData = getDailyIncome();
+//        JFreeChart lineChart = createLineChart(incomeData);
 
-        ChartPanel chartPanel = new ChartPanel(lineChart);
+        ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(panelForChart.getWidth(), panelForChart.getHeight()));
         chartPanel.setMouseWheelEnabled(true);
 
@@ -289,6 +350,11 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableReports = new javax.swing.JTable();
+        toBarChart = new javax.swing.JButton();
+        buttonToday = new javax.swing.JButton();
+        buttonThisMonth = new javax.swing.JButton();
+        buttonAllRecords = new javax.swing.JButton();
+        toLineChart = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         TopSales = new javax.swing.JLabel();
@@ -342,7 +408,69 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableReports);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 706, 380));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 460, 380));
+
+        toBarChart.setBackground(new java.awt.Color(128, 165, 80));
+        toBarChart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        toBarChart.setForeground(new java.awt.Color(0, 0, 102));
+        toBarChart.setText("Bar Chart");
+        toBarChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        toBarChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toBarChartActionPerformed(evt);
+            }
+        });
+        jPanel2.add(toBarChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 110, 40));
+
+        buttonToday.setBackground(new java.awt.Color(0, 102, 204));
+        buttonToday.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        buttonToday.setForeground(new java.awt.Color(255, 255, 255));
+        buttonToday.setText("Data Hari Ini");
+        buttonToday.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonToday.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTodayActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 130, 40));
+
+        buttonThisMonth.setBackground(new java.awt.Color(0, 102, 204));
+        buttonThisMonth.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        buttonThisMonth.setForeground(new java.awt.Color(255, 255, 255));
+        buttonThisMonth.setText("Data Bulan Ini");
+        buttonThisMonth.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonThisMonth.setPreferredSize(new java.awt.Dimension(67, 28));
+        buttonThisMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonThisMonthActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonThisMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 130, 40));
+
+        buttonAllRecords.setBackground(new java.awt.Color(0, 102, 204));
+        buttonAllRecords.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        buttonAllRecords.setForeground(new java.awt.Color(255, 255, 255));
+        buttonAllRecords.setText("Semua Data");
+        buttonAllRecords.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonAllRecords.setPreferredSize(new java.awt.Dimension(67, 28));
+        buttonAllRecords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAllRecordsActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buttonAllRecords, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 130, 40));
+
+        toLineChart.setBackground(new java.awt.Color(128, 165, 80));
+        toLineChart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        toLineChart.setForeground(new java.awt.Color(0, 0, 102));
+        toLineChart.setText("Line Chart");
+        toLineChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        toLineChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toLineChartActionPerformed(evt);
+            }
+        });
+        jPanel2.add(toLineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, 110, 40));
 
         jPanel13.setBackground(new java.awt.Color(102, 153, 255));
         jPanel13.setPreferredSize(new java.awt.Dimension(225, 124));
@@ -433,7 +561,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         jLabel15.setBackground(new java.awt.Color(153, 153, 153));
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel15.setText("Table Report");
+        jLabel15.setText("Tabel Reports");
         jLabel15.setMaximumSize(new java.awt.Dimension(181, 32));
         jLabel15.setMinimumSize(new java.awt.Dimension(181, 32));
         jLabel15.setPreferredSize(new java.awt.Dimension(56, 39));
@@ -448,10 +576,10 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(panelForChart, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelForChart, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -463,7 +591,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(61, 61, 61)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -500,6 +628,36 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void toLineChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toLineChartActionPerformed
+        // TODO add your handling code here:
+        Map<LocalDate, Double> incomeData = getDailyIncome();
+        displayIncomeChart(createLineChart(incomeData));
+    }//GEN-LAST:event_toLineChartActionPerformed
+
+    private void buttonTodayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTodayActionPerformed
+        // TODO add your handling code here:
+        displayReport("SELECT * FROM report WHERE DATE(date) = CURDATE()");
+    }//GEN-LAST:event_buttonTodayActionPerformed
+
+    private void buttonThisMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThisMonthActionPerformed
+        // TODO add your handling code here:
+        displayReport("SELECT * FROM report WHERE YEAR(date) = YEAR(CURDATE()) AND MONTH(date) = MONTH(CURDATE())");
+    }//GEN-LAST:event_buttonThisMonthActionPerformed
+
+    private void buttonAllRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAllRecordsActionPerformed
+        // TODO add your handling code here:
+        displayReport("SELECT * FROM report");
+    }//GEN-LAST:event_buttonAllRecordsActionPerformed
+
+    private void toBarChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toBarChartActionPerformed
+        // TODO add your handling code here:
+        Map<LocalDate, Double> incomeData = getDailyIncome();
+        displayIncomeChart(createBarChart(incomeData));
+    }//GEN-LAST:event_toBarChartActionPerformed
+
+
+
+
         private void setRowColors() {
          // Mendapatkan renderer sel default dari tabel
         DefaultTableCellRenderer defaultRenderer = (DefaultTableCellRenderer) tableReports.getDefaultRenderer(Object.class);
@@ -526,6 +684,9 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Income;
     private javax.swing.JLabel TopSales;
     private javax.swing.JLabel TotalIncome;
+    private javax.swing.JButton buttonAllRecords;
+    private javax.swing.JButton buttonThisMonth;
+    private javax.swing.JButton buttonToday;
     private javax.swing.JLabel customerToday;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel10;
@@ -550,5 +711,7 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
     private javax.swing.JSlider jSlider1;
     private javax.swing.JPanel panelForChart;
     private javax.swing.JTable tableReports;
+    private javax.swing.JButton toBarChart;
+    private javax.swing.JButton toLineChart;
     // End of variables declaration//GEN-END:variables
 }
