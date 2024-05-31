@@ -123,7 +123,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         OrdersButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         OrdersButton.setForeground(new java.awt.Color(255, 255, 255));
         OrdersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cart.png"))); // NOI18N
-        OrdersButton.setText("Order");
+        OrdersButton.setText("Pesanan");
         OrdersButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         OrdersButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         OrdersButton.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -13,6 +13,12 @@ import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.nio.file.Paths;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  *
@@ -53,7 +59,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
 
         try {
             String perintahSQL_tampilData = "SELECT o.order_id, c.name, o.order_date, o.total_amount, o.paid "
-                    + "FROM orders o JOIN customers c ON o.customer_id = c.customer_id";
+                    + "FROM orders o JOIN customers c ON o.customer_id = c.customer_id WHERE o.paid = 0";
 
             Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
 
@@ -139,7 +145,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(40, 40, 100));
-        jLabel2.setText("Orders Management");
+        jLabel2.setText("Manajemen Pesanan ");
 
         tabelOrders.setBackground(new java.awt.Color(229, 230, 236));
         tabelOrders.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -151,7 +157,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Customer", "Order Date", "Total Harga", "Dibayar"
+                "ID Pesanan", "Nama Pelanggan", "Tanggal Pesanan", "Total Harga", "Dibayar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -188,7 +194,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Detail ID", "Order ID", "Nama Menu", "Qty", "Harga Satuan"
+                "ID Detail", "ID Pesanan", "Nama Menu", "Qty", "Harga Satuan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -218,12 +224,12 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Order ID:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
+        jLabel1.setText("ID Pesanan:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Nama Customer:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        jLabel3.setText("Nama Pelanggan:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 110, -1, -1));
 
         nama.setEditable(false);
         nama.setBackground(new java.awt.Color(255, 255, 255));
@@ -308,13 +314,13 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         jPanel2.add(printButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("Order Customers");
+        jLabel6.setText("Pesanan Pelanggan");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Order Detail");
+        jLabel9.setText("Detail Pesanan Pelanggan");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setText("Payments");
+        jLabel10.setText("Pembayaran");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -550,21 +556,21 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
 //            int confirm = JOptionPane.showConfirmDialog(null, "Selesaikan Pembayaran Tanpa Print Struk?", "Konfirmasi Bayar", JOptionPane.YES_NO_OPTION);
 //            if (confirm == JOptionPane.YES_OPTION) {
             try {
-                    // Update the order status in the database
-                    String sql_update = "UPDATE orders SET paid = ? WHERE order_id = ?";
-                    Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
-                    PreparedStatement query_update = penghubungdatabase.prepareStatement(sql_update);
-                    query_update.setString(1, "1");  // Assuming "1" means "paid"
-                    query_update.setInt(2, idOrder);
+                // Update the order status in the database
+                String sql_update = "UPDATE orders SET paid = ? WHERE order_id = ?";
+                Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
+                PreparedStatement query_update = penghubungdatabase.prepareStatement(sql_update);
+                query_update.setString(1, "1");  // Assuming "1" means "paid"
+                query_update.setInt(2, idOrder);
 
-                    query_update.executeUpdate();
+                query_update.executeUpdate();
 
-                    // Notify success
-                    JOptionPane.showMessageDialog(null, "Pesanan Berhasil dibayar");
-                    bacaOrders();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
-                }    
+                // Notify success
+                JOptionPane.showMessageDialog(null, "Pesanan Berhasil dibayar");
+                bacaOrders();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
+            }                    
 //            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan dalam format angka: " + e.getMessage(), "Kesalahan Input", JOptionPane.ERROR_MESSAGE);
@@ -582,6 +588,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         String totalHargaText = totalHarga.getText();
         String totalBayarText = totalBayar.getText();
         String kembalianText = kembalian.getText();
+        int idOrder = Integer.parseInt(orderIdText);
 
         // Mendapatkan detail order
         String orderDetails = getOrderDetails(orderIdText);
@@ -608,19 +615,60 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         struk.append("==============================\n");
 
         // Menyimpan struk ke dalam file .txt
+        FileInputStream fis = null;
+        Connection penghubungdatabase = null;
+        PreparedStatement query_update_struk = null;
         try {
-            java.io.FileWriter writer = new java.io.FileWriter("Struk_Order_" + orderIdText + ".txt");
+            java.io.FileWriter writer = new java.io.FileWriter("src/main/resources/struk/Struk_Order_" + orderIdText + ".txt");
             writer.write(struk.toString());
             writer.close();
             JOptionPane.showMessageDialog(null, "Struk berhasil dicetak ke dalam file Struk_Order_" + orderIdText + ".txt");
-            bacaOrders();
-            bersih_layar();
+            try {
+                // Update the order status in the database
+                String sql_update_struk = "UPDATE orders SET struk = ? WHERE order_id = ?";
+                penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
+                query_update_struk = penghubungdatabase.prepareStatement(sql_update_struk);
+                JOptionPane.showMessageDialog(null, "Siuuu1");
+                
+                String resourceFolder = "src/main/resources/struk";
+                String fileName = "Struk_Order_" + orderIdText + ".txt";
+                String filePath = Paths.get(resourceFolder, fileName).toString();
+                JOptionPane.showMessageDialog(null, "Siuuu2");
+                
+                File file = new File(filePath);
+                fis = new FileInputStream(file);
+                JOptionPane.showMessageDialog(null, "Siuuu3");
+                
+                query_update_struk.setBinaryStream(1, fis, (int)file.length());
+                query_update_struk.setInt(2, idOrder);
+                query_update_struk.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Siuuu4");
+            } catch (SQLException|FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
+            } 
         } catch (java.io.IOException e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mencetak struk: " + e.getMessage());
-        }        
+        } finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+                if (query_update_struk != null) {
+                    query_update_struk.close();
+                }
+                if (penghubungdatabase != null) {
+                    penghubungdatabase.close();
+                }
+            } catch (IOException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Kesalahan saat menutup sumber daya: " + ex.getMessage());
+            }
+        }
+        // Merefresh Order dan Membersihkan Pembayaran
+        bacaOrders();
+        bersih_layar();
     }                                           
 
-
+    // <editor-fold defaultstate="collapsed" desc="Generated Variables">    
     // Variables declaration - do not modify                     
     private javax.swing.JButton bayarButton;
     private javax.swing.JLabel dibayar;
@@ -647,5 +695,6 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tanggal;
     private javax.swing.JTextField totalBayar;
     private javax.swing.JTextField totalHarga;
-    // End of variables declaration                   
+    // End of variables declaration  
+    // </editor-fold>
 }
