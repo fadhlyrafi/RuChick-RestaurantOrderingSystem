@@ -479,7 +479,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="printButton">
+            <!-- <Component class="javax.swing.JButton" name="printButton">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="64" green="28" red="28" type="rgb"/>
@@ -501,7 +501,7 @@
                   <AbsoluteConstraints x="120" y="400" width="-1" height="30"/>
                 </Constraint>
               </Constraints>
-            </Component>
+            </Component> -->
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel6">

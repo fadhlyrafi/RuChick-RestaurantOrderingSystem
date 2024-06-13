@@ -112,6 +112,86 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
             return false;
         }
     }
+    public void printStruk(){
+        // Mendapatkan informasi pesanan dari text fields
+        String orderIdText = orderId.getText();
+        String namaCustomer = nama.getText();
+        String tanggalOrder = tanggal.getText();
+        String totalHargaText = totalHarga.getText();
+        String totalBayarText = totalBayar.getText();
+        String kembalianText = kembalian.getText();
+        int idOrder = Integer.parseInt(orderIdText);
+
+        // Mendapatkan detail order
+        String orderDetails = getOrderDetails(orderIdText);
+
+        // Membuat konten struk
+        StringBuilder struk = new StringBuilder();
+        struk.append("==============================\n");
+        struk.append("         STRUK PEMBAYARAN         \n");
+        struk.append("==============================\n");
+        struk.append("Order ID       : ").append(orderIdText).append("\n");
+        struk.append("Nama Customer  : ").append(namaCustomer).append("\n");
+        struk.append("Tanggal        : ").append(tanggalOrder).append("\n");
+        struk.append("==============================\n");
+        struk.append("ID   Nama Menu      Qty    Harga      Total\n");
+        struk.append("------------------------------\n");
+        struk.append(orderDetails);  // Menambahkan detail order ke struk
+        struk.append("==============================\n");
+        struk.append(String.format("%-20s: %s\n", "Total Harga", totalHargaText));
+        struk.append(String.format("%-20s: %s\n", "Total Bayar", totalBayarText));
+        struk.append(String.format("%-20s: %s\n", "Kembalian", kembalianText));
+        struk.append("==============================\n");
+        struk.append("      Terima Kasih!      \n");
+        struk.append("   Selamat Datang Kembali   \n");
+        struk.append("==============================\n");
+
+        // Menyimpan struk ke dalam file .txt
+        FileInputStream fis = null;
+        Connection penghubungdatabase = null;
+        PreparedStatement query_update_struk = null;
+        try {
+            java.io.FileWriter writer = new java.io.FileWriter("src/main/resources/struk/Struk_Order_" + orderIdText + ".txt");
+            writer.write(struk.toString());
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Struk berhasil dicetak ke dalam file Struk_Order_" + orderIdText + ".txt");
+            try {
+                // Update the order status in the database
+                String sql_update_struk = "UPDATE orders SET struk = ? WHERE order_id = ?";
+                penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
+                query_update_struk = penghubungdatabase.prepareStatement(sql_update_struk);
+                
+                String resourceFolder = "src/main/resources/struk";
+                String fileName = "Struk_Order_" + orderIdText + ".txt";
+                String filePath = Paths.get(resourceFolder, fileName).toString();
+                
+                File file = new File(filePath);
+                fis = new FileInputStream(file);
+                
+                query_update_struk.setBinaryStream(1, fis, (int)file.length());
+                query_update_struk.setInt(2, idOrder);
+                query_update_struk.executeUpdate();
+            } catch (SQLException|FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
+            } 
+        } catch (java.io.IOException e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mencetak struk: " + e.getMessage());
+        } finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+                if (query_update_struk != null) {
+                    query_update_struk.close();
+                }
+                if (penghubungdatabase != null) {
+                    penghubungdatabase.close();
+                }
+            } catch (IOException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Kesalahan saat menutup sumber daya: " + ex.getMessage());
+            }
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
@@ -301,17 +381,17 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         dibayar.setForeground(new java.awt.Color(229, 230, 236));
         jPanel2.add(dibayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
-        printButton.setBackground(new java.awt.Color(40, 40, 100));
-        printButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        printButton.setForeground(new java.awt.Color(255, 255, 255));
-        printButton.setText("Print Struk");
-        printButton.setBorderPainted(false);
-        printButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printButtonActionPerformed(evt);
-            }
-        });
-        jPanel2.add(printButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, 30));
+//        printButton.setBackground(new java.awt.Color(40, 40, 100));
+//        printButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+//        printButton.setForeground(new java.awt.Color(255, 255, 255));
+//        printButton.setText("Print Struk");
+//        printButton.setBorderPainted(false);
+//        printButton.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                printButtonActionPerformed(evt);
+//            }
+//        });
+//        jPanel2.add(printButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Pesanan Pelanggan");
@@ -567,7 +647,16 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
 
                 // Notify success
                 JOptionPane.showMessageDialog(null, "Pesanan Berhasil dibayar");
+                Object[] options = { "Print Struk & Selesai", "Selesai" };
+                int response = JOptionPane.showOptionDialog(null, "Selesaikan Pembayaran\n", "Konfirmasi", 
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if (response == 0) {
+                    // Tindakan untuk opsi "Print Struk & Selesai"
+                    printStruk();
+                }
+                // Merefresh Order dan Membersihkan Pembayaran
                 bacaOrders();
+                bersih_layar();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
             }                    
@@ -579,94 +668,10 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
         }
     }                                           
 
-    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-        // Mendapatkan informasi pesanan dari text fields
-        String orderIdText = orderId.getText();
-        String namaCustomer = nama.getText();
-        String tanggalOrder = tanggal.getText();
-        String totalHargaText = totalHarga.getText();
-        String totalBayarText = totalBayar.getText();
-        String kembalianText = kembalian.getText();
-        int idOrder = Integer.parseInt(orderIdText);
-
-        // Mendapatkan detail order
-        String orderDetails = getOrderDetails(orderIdText);
-
-        // Membuat konten struk
-        StringBuilder struk = new StringBuilder();
-        struk.append("==============================\n");
-        struk.append("         STRUK PEMBAYARAN         \n");
-        struk.append("==============================\n");
-        struk.append("Order ID       : ").append(orderIdText).append("\n");
-        struk.append("Nama Customer  : ").append(namaCustomer).append("\n");
-        struk.append("Tanggal        : ").append(tanggalOrder).append("\n");
-        struk.append("==============================\n");
-        struk.append("ID   Nama Menu      Qty    Harga      Total\n");
-        struk.append("------------------------------\n");
-        struk.append(orderDetails);  // Menambahkan detail order ke struk
-        struk.append("==============================\n");
-        struk.append(String.format("%-20s: %s\n", "Total Harga", totalHargaText));
-        struk.append(String.format("%-20s: %s\n", "Total Bayar", totalBayarText));
-        struk.append(String.format("%-20s: %s\n", "Kembalian", kembalianText));
-        struk.append("==============================\n");
-        struk.append("      Terima Kasih!      \n");
-        struk.append("   Selamat Datang Kembali   \n");
-        struk.append("==============================\n");
-
-        // Menyimpan struk ke dalam file .txt
-        FileInputStream fis = null;
-        Connection penghubungdatabase = null;
-        PreparedStatement query_update_struk = null;
-        try {
-            java.io.FileWriter writer = new java.io.FileWriter("src/main/resources/struk/Struk_Order_" + orderIdText + ".txt");
-            writer.write(struk.toString());
-            writer.close();
-            JOptionPane.showMessageDialog(null, "Struk berhasil dicetak ke dalam file Struk_Order_" + orderIdText + ".txt");
-            try {
-                // Update the order status in the database
-                String sql_update_struk = "UPDATE orders SET struk = ? WHERE order_id = ?";
-                penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
-                query_update_struk = penghubungdatabase.prepareStatement(sql_update_struk);
-                JOptionPane.showMessageDialog(null, "Siuuu1");
-                
-                String resourceFolder = "src/main/resources/struk";
-                String fileName = "Struk_Order_" + orderIdText + ".txt";
-                String filePath = Paths.get(resourceFolder, fileName).toString();
-                JOptionPane.showMessageDialog(null, "Siuuu2");
-                
-                File file = new File(filePath);
-                fis = new FileInputStream(file);
-                JOptionPane.showMessageDialog(null, "Siuuu3");
-                
-                query_update_struk.setBinaryStream(1, fis, (int)file.length());
-                query_update_struk.setInt(2, idOrder);
-                query_update_struk.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Siuuu4");
-            } catch (SQLException|FileNotFoundException e) {
-                JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
-            } 
-        } catch (java.io.IOException e) {
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mencetak struk: " + e.getMessage());
-        } finally {
-            try {
-                if (fis != null) {
-                    fis.close();
-                }
-                if (query_update_struk != null) {
-                    query_update_struk.close();
-                }
-                if (penghubungdatabase != null) {
-                    penghubungdatabase.close();
-                }
-            } catch (IOException | SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Kesalahan saat menutup sumber daya: " + ex.getMessage());
-            }
-        }
-        // Merefresh Order dan Membersihkan Pembayaran
-        bacaOrders();
-        bersih_layar();
-    }                                           
+//    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+//        // TODO add your handling code here:
+//        
+//    }                                           
 
     // <editor-fold defaultstate="collapsed" desc="Generated Variables">    
     // Variables declaration - do not modify                     
