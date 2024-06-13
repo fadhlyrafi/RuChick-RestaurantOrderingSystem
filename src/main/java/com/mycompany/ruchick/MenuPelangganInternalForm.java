@@ -296,6 +296,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
         panelContainer = new javax.swing.JPanel();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
+        setPreferredSize(new java.awt.Dimension(713, 618));
 
         scrollPane.setBackground(new java.awt.Color(255, 255, 255));
         scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

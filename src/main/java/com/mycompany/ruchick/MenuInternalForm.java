@@ -224,6 +224,8 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         id.setEnabled(false);
         jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 70, 25));
 
+        nama.setEditable(false);
+        nama.setBackground(new java.awt.Color(255, 255, 255));
         nama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 namaActionPerformed(evt);
@@ -231,14 +233,18 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, 25));
 
+        harga.setBackground(new java.awt.Color(255, 255, 255));
         harga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hargaActionPerformed(evt);
             }
         });
         jPanel2.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 120, 25));
+
+        deskripsi.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(deskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 440, 25));
 
+        stok.setBackground(new java.awt.Color(255, 255, 255));
         stok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stokActionPerformed(evt);
@@ -246,6 +252,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 70, 25));
 
+        unit.setBackground(new java.awt.Color(255, 255, 255));
         unit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 unitActionPerformed(evt);
@@ -253,7 +260,13 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 70, 25));
 
-        kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "makanan", "minuman", "additional", "paket" }));
+        kategori.setBackground(new java.awt.Color(255, 255, 255));
+        kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman", "additional", "paket" }));
+        kategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kategoriActionPerformed(evt);
+            }
+        });
         jPanel2.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 140, -1));
 
         tambahButton.setBackground(new java.awt.Color(40, 40, 100));
@@ -329,11 +342,11 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,10 +354,10 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addGap(28, 28, 28)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -654,6 +667,10 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             Logger.getLogger(MenuInternalForm.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_fotoButtonActionPerformed
+
+    private void kategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategoriActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kategoriActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
