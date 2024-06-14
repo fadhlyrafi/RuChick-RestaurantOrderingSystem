@@ -180,7 +180,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         );
         jDesktopPanelLayout.setVerticalGroup(
             jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
 
         kategori.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -252,7 +252,6 @@ public class RuchickMenu extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Total harga:");
 
         PesanButton.setBackground(new java.awt.Color(40, 40, 100));
@@ -282,7 +281,6 @@ public class RuchickMenu extends javax.swing.JFrame {
         });
 
         totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        totalHarga.setForeground(new java.awt.Color(0, 0, 0));
         totalHarga.setText(" ");
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
@@ -295,11 +293,11 @@ public class RuchickMenu extends javax.swing.JFrame {
                     .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addComponent(kategori)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                         .addComponent(SearchItemField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(SearchItemButton)
-                        .addGap(89, 89, 89)))
+                        .addGap(46, 46, 46)))
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -324,11 +322,14 @@ public class RuchickMenu extends javax.swing.JFrame {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(kategori)
-                            .addComponent(SearchItemField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SearchItemButton))
-                        .addGap(33, 33, 33))
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(SearchItemField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(SearchItemButton))
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addComponent(kategori)
+                                .addGap(2, 2, 2)))
+                        .addGap(32, 32, 32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
@@ -336,7 +337,7 @@ public class RuchickMenu extends javax.swing.JFrame {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelLayout.createSequentialGroup()
                                 .addGap(5, 5, 5)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -572,7 +573,12 @@ public class RuchickMenu extends javax.swing.JFrame {
 
     private void SearchItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchItemButtonActionPerformed
         // TODO add your handling code here:
-        
+        // Ambil teks pencarian
+        String query = SearchItemField.getText();
+        // Buat instance MenuPelangganInternalForm dengan query pencarian
+        MenuPelangganInternalForm menuPanelSearch = new MenuPelangganInternalForm(query, id_order, this);
+        jDesktopPanel.removeAll();
+        jDesktopPanel.add(menuPanelSearch).setVisible(true);
         
     }//GEN-LAST:event_SearchItemButtonActionPerformed
 

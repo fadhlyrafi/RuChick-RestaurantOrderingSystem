@@ -350,17 +350,14 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableReports = new javax.swing.JTable();
-        toBarChart = new javax.swing.JButton();
         buttonToday = new javax.swing.JButton();
         buttonThisMonth = new javax.swing.JButton();
         buttonAllRecords = new javax.swing.JButton();
-        toLineChart = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         TopSales = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         panelForChart = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         Income = new javax.swing.JLabel();
@@ -374,6 +371,8 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         customerToday = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        toLineChart = new javax.swing.JButton();
+        toBarChart = new javax.swing.JButton();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -381,11 +380,10 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel2.setBackground(new java.awt.Color(229, 230, 236));
         jPanel2.setPreferredSize(new java.awt.Dimension(669, 475));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tableReports.setBackground(new java.awt.Color(204, 204, 204));
         tableReports.setForeground(new java.awt.Color(204, 204, 0));
         tableReports.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -408,36 +406,26 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableReports);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 460, 380));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 460, 350));
 
-        toBarChart.setBackground(new java.awt.Color(128, 165, 80));
-        toBarChart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        toBarChart.setForeground(new java.awt.Color(0, 0, 102));
-        toBarChart.setText("Bar Chart");
-        toBarChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        toBarChart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toBarChartActionPerformed(evt);
-            }
-        });
-        jPanel2.add(toBarChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 110, 40));
-
-        buttonToday.setBackground(new java.awt.Color(0, 102, 204));
+        buttonToday.setBackground(new java.awt.Color(40, 40, 100));
         buttonToday.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         buttonToday.setForeground(new java.awt.Color(255, 255, 255));
         buttonToday.setText("Data Hari Ini");
+        buttonToday.setBorderPainted(false);
         buttonToday.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonToday.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTodayActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 130, 40));
+        jPanel2.add(buttonToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 120, 40));
 
-        buttonThisMonth.setBackground(new java.awt.Color(0, 102, 204));
+        buttonThisMonth.setBackground(new java.awt.Color(40, 40, 100));
         buttonThisMonth.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         buttonThisMonth.setForeground(new java.awt.Color(255, 255, 255));
         buttonThisMonth.setText("Data Bulan Ini");
+        buttonThisMonth.setBorderPainted(false);
         buttonThisMonth.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonThisMonth.setPreferredSize(new java.awt.Dimension(67, 28));
         buttonThisMonth.addActionListener(new java.awt.event.ActionListener() {
@@ -445,12 +433,13 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
                 buttonThisMonthActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonThisMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 130, 40));
+        jPanel2.add(buttonThisMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 140, 40));
 
-        buttonAllRecords.setBackground(new java.awt.Color(0, 102, 204));
+        buttonAllRecords.setBackground(new java.awt.Color(40, 40, 100));
         buttonAllRecords.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         buttonAllRecords.setForeground(new java.awt.Color(255, 255, 255));
         buttonAllRecords.setText("Semua Data");
+        buttonAllRecords.setBorderPainted(false);
         buttonAllRecords.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonAllRecords.setPreferredSize(new java.awt.Dimension(67, 28));
         buttonAllRecords.addActionListener(new java.awt.event.ActionListener() {
@@ -458,33 +447,21 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
                 buttonAllRecordsActionPerformed(evt);
             }
         });
-        jPanel2.add(buttonAllRecords, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 130, 40));
+        jPanel2.add(buttonAllRecords, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, 130, 40));
 
-        toLineChart.setBackground(new java.awt.Color(128, 165, 80));
-        toLineChart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        toLineChart.setForeground(new java.awt.Color(0, 0, 102));
-        toLineChart.setText("Line Chart");
-        toLineChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        toLineChart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toLineChartActionPerformed(evt);
-            }
-        });
-        jPanel2.add(toLineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, 110, 40));
-
-        jPanel13.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel13.setBackground(new java.awt.Color(139, 146, 178));
         jPanel13.setPreferredSize(new java.awt.Dimension(225, 124));
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fast-food.png"))); // NOI18N
         jLabel14.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jPanel13.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 78, -1, -1));
+        jPanel13.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        TopSales.setBackground(new java.awt.Color(153, 153, 153));
-        TopSales.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        TopSales.setBackground(new java.awt.Color(139, 146, 178));
+        TopSales.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         TopSales.setForeground(new java.awt.Color(255, 255, 255));
         TopSales.setPreferredSize(new java.awt.Dimension(56, 39));
-        jPanel13.add(TopSales, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 78, 143, 64));
+        jPanel13.add(TopSales, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 160, 64));
 
         jLabel16.setBackground(new java.awt.Color(153, 153, 153));
         jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
@@ -493,70 +470,66 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         jLabel16.setMaximumSize(new java.awt.Dimension(181, 32));
         jLabel16.setMinimumSize(new java.awt.Dimension(181, 32));
         jLabel16.setPreferredSize(new java.awt.Dimension(56, 39));
-        jPanel13.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 18, 213, 48));
+        jPanel13.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 213, 48));
 
         panelForChart.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(40, 40, 100));
-        jLabel3.setText("Reports");
-
-        jPanel8.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel8.setBackground(new java.awt.Color(139, 146, 178));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money_1.png"))); // NOI18N
-        jPanel8.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 84, -1, -1));
+        jPanel8.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         Income.setBackground(new java.awt.Color(153, 153, 153));
-        Income.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        Income.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         Income.setForeground(new java.awt.Color(255, 255, 255));
         Income.setPreferredSize(new java.awt.Dimension(56, 39));
-        jPanel8.add(Income, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 84, 150, 60));
+        jPanel8.add(Income, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 160, 60));
 
         jLabel6.setBackground(new java.awt.Color(153, 153, 153));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 51));
         jLabel6.setText("Monthly Income");
         jLabel6.setPreferredSize(new java.awt.Dimension(56, 39));
-        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 18, 231, 48));
+        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 231, 48));
 
-        jPanel9.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel9.setBackground(new java.awt.Color(139, 146, 178));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/revenue_1.png"))); // NOI18N
-        jPanel9.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 78, -1, -1));
+        jPanel9.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         TotalIncome.setBackground(new java.awt.Color(153, 153, 153));
-        TotalIncome.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        TotalIncome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         TotalIncome.setForeground(new java.awt.Color(255, 255, 255));
         TotalIncome.setPreferredSize(new java.awt.Dimension(56, 39));
-        jPanel9.add(TotalIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 78, 150, 70));
+        jPanel9.add(TotalIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 160, 60));
 
         jLabel7.setBackground(new java.awt.Color(153, 153, 153));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 51));
         jLabel7.setText("Total Income");
         jLabel7.setPreferredSize(new java.awt.Dimension(56, 39));
-        jPanel9.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 18, 231, 48));
+        jPanel9.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 231, 48));
 
-        jPanel11.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel11.setBackground(new java.awt.Color(139, 146, 178));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rating.png"))); // NOI18N
-        jPanel11.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 78, -1, -1));
+        jPanel11.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         customerToday.setBackground(new java.awt.Color(153, 153, 153));
-        customerToday.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        customerToday.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         customerToday.setForeground(new java.awt.Color(255, 255, 255));
         customerToday.setPreferredSize(new java.awt.Dimension(56, 39));
-        jPanel11.add(customerToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 78, 130, 70));
+        jPanel11.add(customerToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 150, 60));
 
         jLabel11.setBackground(new java.awt.Color(153, 153, 153));
         jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 51));
         jLabel11.setText("Customers Today");
         jLabel11.setPreferredSize(new java.awt.Dimension(56, 39));
-        jPanel11.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 18, 231, 48));
+        jPanel11.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 231, 48));
 
         jLabel15.setBackground(new java.awt.Color(153, 153, 153));
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -566,6 +539,30 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
         jLabel15.setMinimumSize(new java.awt.Dimension(181, 32));
         jLabel15.setPreferredSize(new java.awt.Dimension(56, 39));
 
+        toLineChart.setBackground(new java.awt.Color(40, 40, 100));
+        toLineChart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        toLineChart.setForeground(new java.awt.Color(255, 255, 255));
+        toLineChart.setText("Line Chart");
+        toLineChart.setBorderPainted(false);
+        toLineChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        toLineChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toLineChartActionPerformed(evt);
+            }
+        });
+
+        toBarChart.setBackground(new java.awt.Color(40, 40, 100));
+        toBarChart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        toBarChart.setForeground(new java.awt.Color(255, 255, 255));
+        toBarChart.setText("Bar Chart");
+        toBarChart.setBorderPainted(false);
+        toBarChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        toBarChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toBarChartActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -573,45 +570,52 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelForChart, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(panelForChart, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(117, 117, 117)
+                                .addComponent(toLineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(toBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(66, 66, 66)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(586, 586, 586)
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(61, 61, 61)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-                    .addComponent(panelForChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(37, 37, 37))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(panelForChart, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(toBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(toLineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -695,7 +699,6 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

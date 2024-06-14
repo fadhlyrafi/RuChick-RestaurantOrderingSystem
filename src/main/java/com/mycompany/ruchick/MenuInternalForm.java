@@ -233,18 +233,14 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, 25));
 
-        harga.setBackground(new java.awt.Color(255, 255, 255));
         harga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hargaActionPerformed(evt);
             }
         });
         jPanel2.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 120, 25));
-
-        deskripsi.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(deskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 440, 25));
 
-        stok.setBackground(new java.awt.Color(255, 255, 255));
         stok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stokActionPerformed(evt);
@@ -252,7 +248,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 70, 25));
 
-        unit.setBackground(new java.awt.Color(255, 255, 255));
         unit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 unitActionPerformed(evt);
@@ -260,7 +255,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 70, 25));
 
-        kategori.setBackground(new java.awt.Color(255, 255, 255));
         kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman", "additional", "paket" }));
         kategori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +289,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
 
         fotoButton.setBackground(new java.awt.Color(139, 146, 178));
         fotoButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        fotoButton.setForeground(new java.awt.Color(255, 255, 255));
         fotoButton.setText("Tambah Gambar");
         fotoButton.setBorder(null);
         fotoButton.setBorderPainted(false);
