@@ -33,13 +33,13 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  *
  * @author Muhamad Fadhly
  */
-public class MenuInternalForm extends javax.swing.JInternalFrame {
+public class KaryawanInternalForm extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form MenuInternalForm
      */
     String path2 = null;
-    public MenuInternalForm() {
+    public KaryawanInternalForm() {
         initComponents();
         baca_data();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -50,12 +50,9 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
     public void bersih_layar(){
         id.setText("");
         nama.setText("");
-        harga.setText("");
-        deskripsi.setText("");
-        kategori.setSelectedIndex(0);
-        stok.setText("");
-        unit.setText("");
-        lbl_photo.setIcon(null);
+        gaji.setText("");
+        jenisKelamin.setSelectedIndex(0);
+        keterangan.setText("");
         tambahButton.setEnabled(true);
         editButton.setEnabled(false);
         hapusButton.setEnabled(false);
@@ -70,18 +67,15 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
               return false; // This causes all cells to be not editable
             }
         };
-        data_menu.addColumn("ID Menu");
+        data_menu.addColumn("ID Karyawan");
         data_menu.addColumn("Nama");
-        data_menu.addColumn("Harga");
-        data_menu.addColumn("Deskripsi");
-        data_menu.addColumn("Kategori");
-        data_menu.addColumn("Stok");
-        data_menu.addColumn("Unit");
-        data_menu.addColumn("ID Gambar");
+        data_menu.addColumn("Jenis Kelamin");
+        data_menu.addColumn("Gaji");
+        data_menu.addColumn("Keterangan");
         
         
         try {
-            String SQL_tampil_data = "SELECT * FROM menu_items";
+            String SQL_tampil_data = "SELECT * FROM employees";
             // Koneksi ke database
             Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
             // Statement Query
@@ -93,10 +87,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                     hasil_sql.getString(2),
                     hasil_sql.getString(3),
                     hasil_sql.getString(4),
-                    hasil_sql.getString(5),
-                    hasil_sql.getString(6),
-                    hasil_sql.getString(7),
-                    hasil_sql.getBlob(8)
+                    hasil_sql.getString(5)
                 });
                 tabel_menu.setModel(data_menu);
             }
@@ -124,43 +115,37 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         id = new javax.swing.JTextField();
         nama = new javax.swing.JTextField();
-        harga = new javax.swing.JTextField();
-        deskripsi = new javax.swing.JTextField();
-        stok = new javax.swing.JTextField();
-        unit = new javax.swing.JTextField();
-        kategori = new javax.swing.JComboBox<>();
+        gaji = new javax.swing.JTextField();
+        keterangan = new javax.swing.JTextField();
+        jenisKelamin = new javax.swing.JComboBox<>();
         tambahButton = new javax.swing.JButton();
         hapusButton = new javax.swing.JButton();
-        fotoButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
         bersihkanButton = new javax.swing.JButton();
-        lbl_photo = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(40, 40, 100));
-        jLabel2.setText("Manajemen Menu");
+        jLabel2.setText("Manajemen Karyawan");
 
         tabel_menu.setBackground(new java.awt.Color(229, 230, 236));
         tabel_menu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabel_menu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID Menu", "Nama", "Harga", "Deskripsi", "Kategori", "Stok", "Unit", "ID Gambar"
+                "ID Karyawan", "Nama", "Jenis Kelamin", "Gaji", "Keterangan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -185,9 +170,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             tabel_menu.getColumnModel().getColumn(3).setPreferredWidth(1000);
             tabel_menu.getColumnModel().getColumn(4).setResizable(false);
             tabel_menu.getColumnModel().getColumn(4).setPreferredWidth(160);
-            tabel_menu.getColumnModel().getColumn(5).setResizable(false);
-            tabel_menu.getColumnModel().getColumn(6).setResizable(false);
-            tabel_menu.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 236));
@@ -195,32 +177,24 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("ID Menu:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jLabel1.setText("ID Karyawan:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Nama:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Harga:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        jLabel4.setText("Jenis Kelamin:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Deskripsi:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+        jLabel5.setText("Gaji:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Kategori:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("Stok:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Unit:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+        jLabel6.setText("Keterangan:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         id.setEditable(false);
         id.setBackground(new java.awt.Color(255, 255, 255));
@@ -236,35 +210,25 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 240, 25));
 
-        harga.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hargaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 120, 25));
-        jPanel2.add(deskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 440, 25));
+        gaji.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(gaji, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 240, 25));
 
-        stok.addActionListener(new java.awt.event.ActionListener() {
+        keterangan.setBackground(new java.awt.Color(255, 255, 255));
+        keterangan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stokActionPerformed(evt);
+                keteranganActionPerformed(evt);
             }
         });
-        jPanel2.add(stok, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 70, 25));
+        jPanel2.add(keterangan, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 190, 25));
 
-        unit.addActionListener(new java.awt.event.ActionListener() {
+        jenisKelamin.setBackground(new java.awt.Color(255, 255, 255));
+        jenisKelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
+        jenisKelamin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unitActionPerformed(evt);
+                jenisKelaminActionPerformed(evt);
             }
         });
-        jPanel2.add(unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 70, 25));
-
-        kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman", "additional", "paket" }));
-        kategori.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kategoriActionPerformed(evt);
-            }
-        });
-        jPanel2.add(kategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 140, -1));
+        jPanel2.add(jenisKelamin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 140, -1));
 
         tambahButton.setBackground(new java.awt.Color(40, 40, 100));
         tambahButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -291,18 +255,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         });
         jPanel2.add(hapusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 300, 110, 30));
 
-        fotoButton.setBackground(new java.awt.Color(139, 146, 178));
-        fotoButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        fotoButton.setText("Tambah Gambar");
-        fotoButton.setBorder(null);
-        fotoButton.setBorderPainted(false);
-        fotoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fotoButtonActionPerformed(evt);
-            }
-        });
-        jPanel2.add(fotoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 150, 30));
-
         editButton.setBackground(new java.awt.Color(40, 40, 100));
         editButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         editButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -327,12 +279,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(bersihkanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 300, 100, 30));
-
-        lbl_photo.setBackground(new java.awt.Color(255, 255, 255));
-        lbl_photo.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_photo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-        lbl_photo.setPreferredSize(new java.awt.Dimension(150, 150));
-        jPanel2.add(lbl_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -372,23 +318,17 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void stokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stokActionPerformed
+    private void keteranganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keteranganActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_stokActionPerformed
-
-    private void unitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_unitActionPerformed
+    }//GEN-LAST:event_keteranganActionPerformed
 
     private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
         // TODO add your handling code here:
         String inputID = id.getText();
         String inputNama = nama.getText();
-        String inputHargaStr = harga.getText();
-        String inputStokStr = stok.getText();
-        String inputDeskripsi = deskripsi.getText();
-        String inputKategori = kategori.getSelectedItem().toString();
-        String inputUnit = unit.getText();
+        String inputKeterangan = keterangan.getText();
+        String inputGajiStr = gaji.getText();
+        String inputJenisKelamin = jenisKelamin.getSelectedItem().toString();
         // Cek apakah field ID kosong
         if (!inputID.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Data dengan ID tersebut sudah ada, bersihkan input terlebih dahulu!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
@@ -397,20 +337,16 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         }
 
         // Cek apakah semua field lainnya diisi
-        if (inputNama.isEmpty() || inputHargaStr.isEmpty() || inputDeskripsi.isEmpty() || 
-            inputKategori.isEmpty() || inputStokStr.isEmpty() || inputUnit.isEmpty()) {
-
+        if (inputNama.isEmpty() ||  inputGajiStr.isEmpty() || 
+            inputJenisKelamin.isEmpty() || inputNama.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Semua field harus diisi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return; // Hentikan proses jika ada field yang kosong
         }
-        int inputHarga = Integer.parseInt(inputHargaStr);
-        int inputStok = Integer.parseInt(inputStokStr);
+        int inputGaji = Integer.parseInt(inputGajiStr);
         try {
-            JOptionPane.showMessageDialog(null, path2);
-            InputStream is = new FileInputStream(new File(path2));
             // Query insert data
             // Query untuk menambahkan data ke menu_items menggunakan parameterized PreparedStatement
-            String sql_insert = "INSERT INTO menu_items (name, price, description, category, stock, units, image_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql_insert = "INSERT INTO employees (name, jenis_kelamin, gaji, keterangan) VALUES (?, ?, ?, ?)";
 
             // Koneksi mySQL
             Connection penghubungdatabase = (Connection) koneksi_database.konfigurasi_database();
@@ -420,27 +356,19 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
 
             // Mengatur nilai parameter
             query_insert.setString(1, inputNama);         // Mengatur parameter pertama (name)
-            query_insert.setInt(2, inputHarga);        // Mengatur parameter kedua (price)
-            query_insert.setString(3, inputDeskripsi);    // Mengatur parameter ketiga (description)
-            query_insert.setString(4, inputKategori);     // Mengatur parameter keempat (category)
-            query_insert.setInt(5, inputStok);            // Mengatur parameter kelima (stock)
-            query_insert.setString(6, inputUnit);         // Mengatur parameter keenam (units)
-            query_insert.setBlob(7, is);                   // Mengatur parameter ketujuh (image_id)
+            query_insert.setString(2, inputJenisKelamin);        // Mengatur parameter kedua (price)
+            query_insert.setInt(3, inputGaji);    // Mengatur parameter ketiga (description)
+            query_insert.setString(4, inputKeterangan);     // Mengatur parameter keempat (category)
     
             query_insert.executeUpdate();
             // Munculkan data yang sudah disimpan
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
             baca_data();
             bersih_layar();
-            path2 = null;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Kesalahan:" + e);
         }
     }//GEN-LAST:event_tambahButtonActionPerformed
-
-    private void hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hargaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hargaActionPerformed
 
     private void tabel_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_menuMouseClicked
         // TODO add your handling code here:
@@ -457,84 +385,26 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
 
         String tampil_id = tabel_menu.getValueAt(baris, 0).toString();
         id.setText(tampil_id);
-
-        String tampil_nama = tabel_menu.getValueAt(baris, 1).toString();
-        nama.setText(tampil_nama);
-
-        String tampil_harga = tabel_menu.getValueAt(baris, 2).toString();
-        harga.setText(tampil_harga);
-
-        String tampil_deskripsi = tabel_menu.getValueAt(baris, 3).toString();
-        deskripsi.setText(tampil_deskripsi);
-
-        String tampil_kategori = tabel_menu.getValueAt(baris, 4).toString();
-        kategori.setSelectedItem(tampil_kategori);
-
-        String tampil_stok = tabel_menu.getValueAt(baris, 5).toString();
-        stok.setText(tampil_stok);
-
-        String tampil_unit = tabel_menu.getValueAt(baris, 6).toString();
-        unit.setText(tampil_unit);
-
-        int id = Integer.parseInt(tampil_id);
-
-        String getImageSQL = "SELECT image_id FROM menu_items WHERE menu_item_id = ?";
-
-        try {
-            // Koneksi ke database
-            Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
-            // PreparedStatement Query
-            PreparedStatement preparedStatement = penghubung_database.prepareStatement(getImageSQL);
-            preparedStatement.setInt(1, id);
-
-            ResultSet gambarDipilih = preparedStatement.executeQuery();
-
-            if (gambarDipilih.next()) {
-                Blob imageBlob = gambarDipilih.getBlob("image_id");
-                if (imageBlob != null) {
-                    byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
-                    // Resize the image to 150x150
-                    ImageIcon originalIcon = new ImageIcon(imageBytes);
-                    Image originalImage = originalIcon.getImage();
-                    Image resizedImage = originalImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-                    ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-                    lbl_photo.setIcon(resizedIcon);
-
-                    // Save the resized image to a file (optional)
-                    String path = "C:\\Users\\ASUS\\OneDrive\\Documents\\GitHub\\ruchick\\src\\main\\resources\\images\\img.jpg";
-                    File outputFile = new File(path);
-                    BufferedImage bufferedImage = new BufferedImage(150, 150, BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g2d = bufferedImage.createGraphics();
-                    g2d.drawImage(resizedImage, 0, 0, null);
-                    g2d.dispose();
-                    ImageIO.write(bufferedImage, "jpg", outputFile);
-                } else {
-                    lbl_photo.setIcon(null);
-                    JOptionPane.showMessageDialog(null, "No image found for this item.");
-                }
-            } else {
-                lbl_photo.setIcon(null);
-                JOptionPane.showMessageDialog(null, "No item found with the given ID.");
-            }
-
-            gambarDipilih.close();
-            preparedStatement.close();
-            penghubung_database.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
         
+        String tampil_jk = tabel_menu.getValueAt(baris, 1).toString();
+        jenisKelamin.setSelectedItem(tampil_jk);
+
+        String tampil_nama = tabel_menu.getValueAt(baris, 2).toString();
+        nama.setText(tampil_nama);
+        
+        String tampil_deskripsi = tabel_menu.getValueAt(baris, 3).toString();
+        gaji.setText(tampil_deskripsi);
+
+        String keterangan_tampil = tabel_menu.getValueAt(baris, 4).toString();
+        keterangan.setText(keterangan_tampil);
     }//GEN-LAST:event_tabel_menuMouseClicked
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // Ambil data dari form
         String inputNama = nama.getText();
-        int inputHarga = Integer.parseInt(harga.getText());
-        String inputDeskripsi = deskripsi.getText();
-        String inputKategori = kategori.getSelectedItem().toString();
-        int inputStok = Integer.parseInt(stok.getText());
-        String inputUnit = unit.getText();
+        int inputGaji = Integer.parseInt(gaji.getText());
+        String inputJenisKelamin = jenisKelamin.getSelectedItem().toString();
+        String inputKeterangan = keterangan.getText();
         String inputId = id.getText();  // Assuming you have an id field named id_pk
 
         if (inputId.isEmpty()) {
@@ -546,7 +416,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 // Menyiapkan query update data
-                String sql_update = "UPDATE menu_items SET name = ?, price = ?, description = ?, category = ?, stock = ?, units = ?, image_id = ? WHERE menu_item_id = ?";
+                String sql_update = "UPDATE employees SET name = ?, jenis_kelamin = ?, gaji = ?, keterangan = ? WHERE employee_id = ?";
                 // Koneksi ke database
                 Connection penghubungdatabase = (Connection) koneksi_database.konfigurasi_database();
                 // Statement Query
@@ -554,35 +424,10 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
 
                 // Set parameter
                 query_update.setString(1, inputNama);
-                query_update.setInt(2, inputHarga);
-                query_update.setString(3, inputDeskripsi);
-                query_update.setString(4, inputKategori);
-                query_update.setInt(5, inputStok);
-                query_update.setString(6, inputUnit);
-
-                // Mengunggah gambar
-                if (path2 != null) {
-                    // Jika ada gambar baru yang dipilih
-                    InputStream is = new FileInputStream(new File(path2));
-                    query_update.setBlob(7, is);
-                } else {
-                    // Jika tidak ada gambar baru yang dipilih, gunakan gambar dari lbl_photo
-                    ImageIcon icon = (ImageIcon) lbl_photo.getIcon();
-                    BufferedImage bufferedImage = new BufferedImage(
-                            icon.getIconWidth(),
-                            icon.getIconHeight(),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics g = bufferedImage.createGraphics();
-                    icon.paintIcon(null, g, 0, 0);
-                    g.dispose();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    ImageIO.write(bufferedImage, "jpg", baos);
-                    InputStream is = new ByteArrayInputStream(baos.toByteArray());
-                    query_update.setBlob(7, is);
-                }
-
-                query_update.setString(8, inputId);
-
+                query_update.setString(2, inputNama);
+                query_update.setString(3, inputJenisKelamin);
+                query_update.setInt(4, inputGaji);
+                query_update.setString(5, inputKeterangan);
                 // Eksekusi query
                 query_update.executeUpdate();
 
@@ -590,7 +435,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Data berhasil diupdate");
                 baca_data();
                 bersih_layar();
-                path2 = null;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Kesalahan siuu: " + e);
             }
@@ -610,7 +454,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 // Query delete data
-                String sql_delete = "DELETE FROM menu_items WHERE menu_item_id = ?";
+                String sql_delete = "DELETE FROM employees WHERE employee_id = ?";
 
                 // Koneksi mySQL
                 Connection penghubungdatabase = (Connection)koneksi_database.konfigurasi_database();
@@ -628,11 +472,11 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
                 
                 // Atur ulang auto increment
-                String sql_reset_ai = "ALTER TABLE menu_items AUTO_INCREMENT = 1";
+                String sql_reset_ai = "ALTER TABLE employees AUTO_INCREMENT = 1";
                 PreparedStatement query_reset_ai = penghubungdatabase.prepareStatement(sql_reset_ai);
                 query_reset_ai.executeUpdate();
 
-                String sql_set_ai = "ALTER TABLE menu_items CHANGE menu_item_id menu_item_id INT(11) NOT NULL AUTO_INCREMENT;";
+                String sql_set_ai = "ALTER TABLE employees CHANGE employees employees INT(11) NOT NULL AUTO_INCREMENT;";
                 PreparedStatement query_set_ai = penghubungdatabase.prepareStatement(sql_set_ai);
                 query_set_ai.executeUpdate();
                 
@@ -653,36 +497,16 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_namaActionPerformed
 
-    private void fotoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fotoButtonActionPerformed
+    private void jenisKelaminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisKelaminActionPerformed
         // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        File f = chooser.getSelectedFile();
-        String path = f.getAbsolutePath();
-        path2 = path;
-        try {
-            BufferedImage bi = ImageIO.read(new File(path));
-            Image img = bi.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-            ImageIcon icon = new ImageIcon(img);
-            lbl_photo.setIcon(icon);
-            path2 = path;
-        } catch (Exception e) {
-            Logger.getLogger(MenuInternalForm.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }//GEN-LAST:event_fotoButtonActionPerformed
-
-    private void kategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategoriActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kategoriActionPerformed
+    }//GEN-LAST:event_jenisKelaminActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bersihkanButton;
-    private javax.swing.JTextField deskripsi;
     private javax.swing.JButton editButton;
-    private javax.swing.JButton fotoButton;
+    private javax.swing.JTextField gaji;
     private javax.swing.JButton hapusButton;
-    private javax.swing.JTextField harga;
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -690,17 +514,13 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> kategori;
-    private javax.swing.JLabel lbl_photo;
+    private javax.swing.JComboBox<String> jenisKelamin;
+    private javax.swing.JTextField keterangan;
     private javax.swing.JTextField nama;
-    private javax.swing.JTextField stok;
     private javax.swing.JTable tabel_menu;
     private javax.swing.JButton tambahButton;
-    private javax.swing.JTextField unit;
     // End of variables declaration//GEN-END:variables
 }
