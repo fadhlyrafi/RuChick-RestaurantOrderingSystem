@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -231,6 +232,11 @@ public class RuchickMenu extends javax.swing.JFrame {
         CartTable.setGridColor(new java.awt.Color(255, 255, 255));
         CartTable.setRowSelectionAllowed(false);
         CartTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        CartTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CartTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(CartTable);
         if (CartTable.getColumnModel().getColumnCount() > 0) {
             CartTable.getColumnModel().getColumn(0).setResizable(false);
@@ -559,6 +565,89 @@ public class RuchickMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menutup aplikasi?", "Konfirmasi Penutupan", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
+            Connection penghubungdatabase = null;
+            PreparedStatement query_check_order_details = null;
+            PreparedStatement query_delete_order_details = null;
+            PreparedStatement query_delete_orders = null;
+            ResultSet resultSet = null;
+
+            try {
+                // Koneksi ke database
+                penghubungdatabase = koneksi_database.konfigurasi_database();
+
+                // Query untuk mengecek apakah order_id ada di order_details
+                String sql_check_order_details = "SELECT COUNT(*) FROM order_details WHERE order_id = ?";
+                query_check_order_details = penghubungdatabase.prepareStatement(sql_check_order_details);
+                query_check_order_details.setInt(1, id_order);
+                resultSet = query_check_order_details.executeQuery();
+
+                boolean orderDetailsExist = false;
+                if (resultSet.next()) {
+                    orderDetailsExist = resultSet.getInt(1) > 0;
+                }
+
+                if (orderDetailsExist) {
+                    // Query untuk menghapus data dari order_details
+                    String sql_delete_order_details = "DELETE FROM order_details WHERE order_id = ?";
+                    query_delete_order_details = penghubungdatabase.prepareStatement(sql_delete_order_details);
+                    query_delete_order_details.setInt(1, id_order);
+                    query_delete_order_details.executeUpdate();
+                }
+
+                // Query untuk menghapus data dari orders
+                String sql_delete_orders = "DELETE FROM orders WHERE order_id = ?";
+                query_delete_orders = penghubungdatabase.prepareStatement(sql_delete_orders);
+                query_delete_orders.setInt(1, id_order);
+                query_delete_orders.executeUpdate();
+
+                // Menampilkan pesan sukses
+                JOptionPane.showMessageDialog(null, "Order successfully cancelled.");
+                this.setVisible(false);
+                CustomersInput customersInputPage = new CustomersInput();
+                customersInputPage.setVisible(true);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error cancelling order: " + e.getMessage());
+
+            } finally {
+                // Menutup ResultSet, Statement, dan Connection
+                if (resultSet != null) {
+                    try {
+                        resultSet.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_check_order_details != null) {
+                    try {
+                        query_check_order_details.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_delete_order_details != null) {
+                    try {
+                        query_delete_order_details.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_delete_orders != null) {
+                    try {
+                        query_delete_orders.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (penghubungdatabase != null) {
+                    try {
+                        penghubungdatabase.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -611,11 +700,103 @@ public class RuchickMenu extends javax.swing.JFrame {
 
     private void BatalPesanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatalPesanButtonActionPerformed
         // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this order?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            Connection penghubungdatabase = null;
+            PreparedStatement query_check_order_details = null;
+            PreparedStatement query_delete_order_details = null;
+            PreparedStatement query_delete_orders = null;
+            ResultSet resultSet = null;
+
+            try {
+                // Koneksi ke database
+                penghubungdatabase = koneksi_database.konfigurasi_database();
+
+                // Query untuk mengecek apakah order_id ada di order_details
+                String sql_check_order_details = "SELECT COUNT(*) FROM order_details WHERE order_id = ?";
+                query_check_order_details = penghubungdatabase.prepareStatement(sql_check_order_details);
+                query_check_order_details.setInt(1, id_order);
+                resultSet = query_check_order_details.executeQuery();
+
+                boolean orderDetailsExist = false;
+                if (resultSet.next()) {
+                    orderDetailsExist = resultSet.getInt(1) > 0;
+                }
+
+                if (orderDetailsExist) {
+                    // Query untuk menghapus data dari order_details
+                    String sql_delete_order_details = "DELETE FROM order_details WHERE order_id = ?";
+                    query_delete_order_details = penghubungdatabase.prepareStatement(sql_delete_order_details);
+                    query_delete_order_details.setInt(1, id_order);
+                    query_delete_order_details.executeUpdate();
+                }
+
+                // Query untuk menghapus data dari orders
+                String sql_delete_orders = "DELETE FROM orders WHERE order_id = ?";
+                query_delete_orders = penghubungdatabase.prepareStatement(sql_delete_orders);
+                query_delete_orders.setInt(1, id_order);
+                query_delete_orders.executeUpdate();
+
+                // Menampilkan pesan sukses
+                JOptionPane.showMessageDialog(null, "Order successfully cancelled.");
+                this.setVisible(false);
+                CustomersInput customersInputPage = new CustomersInput();
+                customersInputPage.setVisible(true);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error cancelling order: " + e.getMessage());
+
+            } finally {
+                // Menutup ResultSet, Statement, dan Connection
+                if (resultSet != null) {
+                    try {
+                        resultSet.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_check_order_details != null) {
+                    try {
+                        query_check_order_details.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_delete_order_details != null) {
+                    try {
+                        query_delete_order_details.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_delete_orders != null) {
+                    try {
+                        query_delete_orders.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (penghubungdatabase != null) {
+                    try {
+                        penghubungdatabase.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        
     }//GEN-LAST:event_BatalPesanButtonActionPerformed
 
     private void SearchItemFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchItemFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SearchItemFieldActionPerformed
+
+    private void CartTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CartTableMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_CartTableMouseClicked
 
     /**
      * @param args the command line arguments

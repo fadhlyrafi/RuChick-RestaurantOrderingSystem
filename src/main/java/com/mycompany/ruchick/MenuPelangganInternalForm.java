@@ -182,7 +182,6 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                                     insertStatement.setInt(2, order_id);
                                     insertStatement.setInt(3, quantity);
                                     insertStatement.setDouble(4, price);
-                                    JOptionPane.showMessageDialog(null, insertStatement);
                                     insertStatement.execute();
                                     JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
                                     parent.baca_data_order();

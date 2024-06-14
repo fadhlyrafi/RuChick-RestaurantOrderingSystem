@@ -323,6 +323,10 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         MenuButton.setForeground(Color.white);
         OrdersButton.setBackground(DefaultColor);
         OrdersButton.setForeground(Color.white);
+        KaryawanButton.setBackground(DefaultColor);
+        KaryawanButton.setForeground(Color.white);
+        AdminButton.setBackground(DefaultColor);
+        AdminButton.setForeground(Color.white);
         ReportsInternalForm reportsPanel = new ReportsInternalForm();
         jDesktopPanel.removeAll();
         jDesktopPanel.add(reportsPanel).setVisible(true);
@@ -335,19 +339,19 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
 
     private void KaryawanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KaryawanButtonActionPerformed
         // TODO add your handling code here:
-//        OrdersButton.setBackground(DefaultColor);
-//        OrdersButton.setForeground(Color.white);
-//        MenuButton.setBackground(DefaultColor);
-//        MenuButton.setForeground(Color.white);
-//        ReportsButton.setBackground(DefaultColor);
-//        ReportsButton.setForeground(Color.white);
-//        KaryawanButton.setBackground(ClickedColor);
-//        KaryawanButton.setForeground(Color.black);
-//        AdminButton.setBackground(DefaultColor);
-//        AdminButton.setForeground(Color.white);
-//        KaryawanInternalForm karyawanPanel = new KaryawanInternalForm();
-//        jDesktopPanel.removeAll();
-//        jDesktopPanel.add(karyawanPanel).setVisible(true);
+        OrdersButton.setBackground(DefaultColor);
+        OrdersButton.setForeground(Color.white);
+        MenuButton.setBackground(DefaultColor);
+        MenuButton.setForeground(Color.white);
+        ReportsButton.setBackground(DefaultColor);
+        ReportsButton.setForeground(Color.white);
+        KaryawanButton.setBackground(ClickedColor);
+        KaryawanButton.setForeground(Color.black);
+        AdminButton.setBackground(DefaultColor);
+        AdminButton.setForeground(Color.white);
+        KaryawanInternalForm karyawanPanel = new KaryawanInternalForm();
+        jDesktopPanel.removeAll();
+        jDesktopPanel.add(karyawanPanel).setVisible(true);
     }//GEN-LAST:event_KaryawanButtonActionPerformed
 
     private void AdminButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdminButtonMouseClicked
