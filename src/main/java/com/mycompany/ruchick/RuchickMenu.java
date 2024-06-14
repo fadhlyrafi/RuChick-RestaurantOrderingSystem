@@ -10,9 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -564,10 +567,34 @@ public class RuchickMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin memesan?", "Konfirmasi Pembelian", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "Terima kasih sudah memesan\nSilakan Tunggu Pesanan Anda Selesai!");
-            CustomersInput customersInputPage = new CustomersInput();
-            customersInputPage.setVisible(true);
-            this.setVisible(false);
+            // Menyembunyikan RuchickMenu
+            setVisible(false);
+
+            // Tampilkan halaman SelesaiPesanan
+            SelesaiPesanan selesaiPesananPage = new SelesaiPesanan();
+            selesaiPesananPage.setVisible(true);
+
+            // Timer untuk menunda 3 detik sebelum menutup halaman SelesaiPesanan
+            Timer timer = new Timer(3000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Menutup halaman SelesaiPesanan
+                    selesaiPesananPage.dispose();
+
+                    // Tampilkan halaman CustomersInput setelah 3 detik
+                    CustomersInput customersInputPage = new CustomersInput();
+                    customersInputPage.setVisible(true);
+
+                    // Menutup halaman saat ini (jika ini adalah JFrame)
+                    // Jika ini adalah JInternalFrame, gunakan setVisible(false) pada parentnya
+                    // Contoh untuk JFrame:
+                    // ((JFrame) getRootPane().getParent()).dispose();
+                    // Atau
+                    // getParent().setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Agar timer hanya berjalan sekali
+            timer.start();
         }
     }//GEN-LAST:event_PesanButtonActionPerformed
 

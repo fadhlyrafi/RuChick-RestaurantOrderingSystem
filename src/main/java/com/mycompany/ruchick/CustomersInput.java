@@ -21,6 +21,8 @@ public class CustomersInput extends javax.swing.JFrame {
      */
     public CustomersInput() {
         initComponents();
+//        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+
     }
 
     /**
