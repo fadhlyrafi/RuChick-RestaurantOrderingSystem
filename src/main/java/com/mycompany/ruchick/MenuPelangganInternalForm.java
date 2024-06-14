@@ -34,6 +34,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
     public static int order_id;
     public int rowCount = 1;
     public int colCount = 3;
+    private String searchQuery = "";
     private RuchickMenu parent;
     public MenuPelangganInternalForm(String kategori, int order_id, RuchickMenu parent) {
         try {
@@ -44,8 +45,13 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
             String sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items";
             if (!kategori.isEmpty()) {
                 sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items WHERE category = '" + kategori +"'";
+            } else if (!searchQuery.isEmpty()) {
+                sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items WHERE name LIKE ?";
             }
             PreparedStatement query_select = penghubungdatabase.prepareStatement(sql_select);
+            if (!searchQuery.isEmpty()) {
+                query_select.setString(1, "%" + searchQuery + "%");
+            }            
             ResultSet resultSet = query_select.executeQuery();
             while (resultSet.next()) {
                 rowCount++;
@@ -59,6 +65,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
         }
         this.kategori = kategori;
         this.order_id = order_id;
+        this.searchQuery = searchQuery;
         this.parent = parent;
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
@@ -76,10 +83,18 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
 
             // Query untuk mengambil data dari menu_items
             String sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items";
-            if (!kategori.isEmpty()) {
-                sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items WHERE category = '" + kategori + "'";
+            if (!searchQuery.isEmpty()) {
+                sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items WHERE name LIKE ?";
+            } else if (!kategori.isEmpty()) {
+                sql_select = "SELECT menu_item_id, name, image_id, price, description, category, stock, units FROM menu_items WHERE category = ?";
             }
             PreparedStatement query_select = penghubungdatabase.prepareStatement(sql_select);
+            if (!searchQuery.isEmpty()) {
+                query_select.setString(1, "%" + searchQuery + "%");
+            } else if (!kategori.isEmpty()) {
+                query_select.setString(1, kategori);
+            }
+            
             ResultSet resultSet = query_select.executeQuery();
 
             panelContainer.setLayout(new GridBagLayout()); // Menggunakan GridBagLayout untuk panelContainer
@@ -167,7 +182,6 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
                                     insertStatement.setInt(2, order_id);
                                     insertStatement.setInt(3, quantity);
                                     insertStatement.setDouble(4, price);
-                                    JOptionPane.showMessageDialog(null, insertStatement);
                                     insertStatement.execute();
                                     JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
                                     parent.baca_data_order();
@@ -296,6 +310,7 @@ public class MenuPelangganInternalForm extends javax.swing.JInternalFrame {
         panelContainer = new javax.swing.JPanel();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
+        setPreferredSize(new java.awt.Dimension(713, 618));
 
         scrollPane.setBackground(new java.awt.Color(255, 255, 255));
         scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

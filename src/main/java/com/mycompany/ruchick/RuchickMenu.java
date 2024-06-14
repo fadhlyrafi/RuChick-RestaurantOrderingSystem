@@ -10,9 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -110,6 +114,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(139, 146, 178));
 
@@ -169,7 +174,7 @@ public class RuchickMenu extends javax.swing.JFrame {
 
         jPanel.setBackground(new java.awt.Color(229, 230, 236));
 
-        jDesktopPanel.setBackground(new java.awt.Color(255, 255, 255));
+        jDesktopPanel.setBackground(new java.awt.Color(229, 230, 236));
 
         javax.swing.GroupLayout jDesktopPanelLayout = new javax.swing.GroupLayout(jDesktopPanel);
         jDesktopPanel.setLayout(jDesktopPanelLayout);
@@ -179,7 +184,7 @@ public class RuchickMenu extends javax.swing.JFrame {
         );
         jDesktopPanelLayout.setVerticalGroup(
             jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
 
         kategori.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -227,6 +232,11 @@ public class RuchickMenu extends javax.swing.JFrame {
         CartTable.setGridColor(new java.awt.Color(255, 255, 255));
         CartTable.setRowSelectionAllowed(false);
         CartTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        CartTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CartTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(CartTable);
         if (CartTable.getColumnModel().getColumnCount() > 0) {
             CartTable.getColumnModel().getColumn(0).setResizable(false);
@@ -251,7 +261,6 @@ public class RuchickMenu extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Total harga:");
 
         PesanButton.setBackground(new java.awt.Color(40, 40, 100));
@@ -281,7 +290,6 @@ public class RuchickMenu extends javax.swing.JFrame {
         });
 
         totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        totalHarga.setForeground(new java.awt.Color(0, 0, 0));
         totalHarga.setText(" ");
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
@@ -291,30 +299,30 @@ public class RuchickMenu extends javax.swing.JFrame {
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addComponent(kategori)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                         .addComponent(SearchItemField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(SearchItemButton))
-                    .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(SearchItemButton)
+                        .addGap(46, 46, 46)))
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGap(23, 23, 23)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalHarga)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(totalHarga))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addGap(0, 59, Short.MAX_VALUE)
+                        .addGap(21, 21, 21)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                                    .addComponent(BatalPesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BatalPesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(PesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(PesanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(34, 34, 34))
         );
         jPanelLayout.setVerticalGroup(
@@ -324,28 +332,35 @@ public class RuchickMenu extends javax.swing.JFrame {
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(kategori)
-                            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(SearchItemField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(SearchItemButton)))
-                        .addGap(35, 35, 35))
+                                .addComponent(SearchItemButton))
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addComponent(kategori)
+                                .addGap(2, 2, 2)))
+                        .addGap(32, 32, 32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
                         .addGap(26, 26, 26)))
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(totalHarga))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(totalHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(36, 36, 36)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PesanButton)
-                            .addComponent(BatalPesanButton)))
-                    .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(124, Short.MAX_VALUE))
+                            .addComponent(PesanButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BatalPesanButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(124, 124, 124))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(21, 21, 21))))
         );
 
         AdditionalButton.setBackground(new java.awt.Color(139, 146, 178));
@@ -389,10 +404,8 @@ public class RuchickMenu extends javax.swing.JFrame {
                 .addComponent(AdditionalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_paket, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(370, Short.MAX_VALUE))
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -423,21 +436,21 @@ public class RuchickMenu extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 998, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -449,8 +462,8 @@ public class RuchickMenu extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -552,6 +565,89 @@ public class RuchickMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menutup aplikasi?", "Konfirmasi Penutupan", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
+            Connection penghubungdatabase = null;
+            PreparedStatement query_check_order_details = null;
+            PreparedStatement query_delete_order_details = null;
+            PreparedStatement query_delete_orders = null;
+            ResultSet resultSet = null;
+
+            try {
+                // Koneksi ke database
+                penghubungdatabase = koneksi_database.konfigurasi_database();
+
+                // Query untuk mengecek apakah order_id ada di order_details
+                String sql_check_order_details = "SELECT COUNT(*) FROM order_details WHERE order_id = ?";
+                query_check_order_details = penghubungdatabase.prepareStatement(sql_check_order_details);
+                query_check_order_details.setInt(1, id_order);
+                resultSet = query_check_order_details.executeQuery();
+
+                boolean orderDetailsExist = false;
+                if (resultSet.next()) {
+                    orderDetailsExist = resultSet.getInt(1) > 0;
+                }
+
+                if (orderDetailsExist) {
+                    // Query untuk menghapus data dari order_details
+                    String sql_delete_order_details = "DELETE FROM order_details WHERE order_id = ?";
+                    query_delete_order_details = penghubungdatabase.prepareStatement(sql_delete_order_details);
+                    query_delete_order_details.setInt(1, id_order);
+                    query_delete_order_details.executeUpdate();
+                }
+
+                // Query untuk menghapus data dari orders
+                String sql_delete_orders = "DELETE FROM orders WHERE order_id = ?";
+                query_delete_orders = penghubungdatabase.prepareStatement(sql_delete_orders);
+                query_delete_orders.setInt(1, id_order);
+                query_delete_orders.executeUpdate();
+
+                // Menampilkan pesan sukses
+                JOptionPane.showMessageDialog(null, "Order successfully cancelled.");
+                this.setVisible(false);
+                CustomersInput customersInputPage = new CustomersInput();
+                customersInputPage.setVisible(true);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error cancelling order: " + e.getMessage());
+
+            } finally {
+                // Menutup ResultSet, Statement, dan Connection
+                if (resultSet != null) {
+                    try {
+                        resultSet.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_check_order_details != null) {
+                    try {
+                        query_check_order_details.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_delete_order_details != null) {
+                    try {
+                        query_delete_order_details.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_delete_orders != null) {
+                    try {
+                        query_delete_orders.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (penghubungdatabase != null) {
+                    try {
+                        penghubungdatabase.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -560,26 +656,147 @@ public class RuchickMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin memesan?", "Konfirmasi Pembelian", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "Terima kasih sudah memesan\nSilakan Tunggu Pesanan Anda Selesai!");
-            CustomersInput customersInputPage = new CustomersInput();
-            customersInputPage.setVisible(true);
-            this.setVisible(false);
+            // Menyembunyikan RuchickMenu
+            setVisible(false);
+
+            // Tampilkan halaman SelesaiPesanan
+            SelesaiPesanan selesaiPesananPage = new SelesaiPesanan();
+            selesaiPesananPage.setVisible(true);
+
+            // Timer untuk menunda 3 detik sebelum menutup halaman SelesaiPesanan
+            Timer timer = new Timer(3000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Menutup halaman SelesaiPesanan
+                    selesaiPesananPage.dispose();
+
+                    // Tampilkan halaman CustomersInput setelah 3 detik
+                    CustomersInput customersInputPage = new CustomersInput();
+                    customersInputPage.setVisible(true);
+
+                    // Menutup halaman saat ini (jika ini adalah JFrame)
+                    // Jika ini adalah JInternalFrame, gunakan setVisible(false) pada parentnya
+                    // Contoh untuk JFrame:
+                    // ((JFrame) getRootPane().getParent()).dispose();
+                    // Atau
+                    // getParent().setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Agar timer hanya berjalan sekali
+            timer.start();
         }
     }//GEN-LAST:event_PesanButtonActionPerformed
 
     private void SearchItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchItemButtonActionPerformed
         // TODO add your handling code here:
-        
+        // Ambil teks pencarian
+        String query = SearchItemField.getText();
+        // Buat instance MenuPelangganInternalForm dengan query pencarian
+        MenuPelangganInternalForm menuPanelSearch = new MenuPelangganInternalForm(query, id_order, this);
+        jDesktopPanel.removeAll();
+        jDesktopPanel.add(menuPanelSearch).setVisible(true);
         
     }//GEN-LAST:event_SearchItemButtonActionPerformed
 
     private void BatalPesanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatalPesanButtonActionPerformed
         // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this order?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            Connection penghubungdatabase = null;
+            PreparedStatement query_check_order_details = null;
+            PreparedStatement query_delete_order_details = null;
+            PreparedStatement query_delete_orders = null;
+            ResultSet resultSet = null;
+
+            try {
+                // Koneksi ke database
+                penghubungdatabase = koneksi_database.konfigurasi_database();
+
+                // Query untuk mengecek apakah order_id ada di order_details
+                String sql_check_order_details = "SELECT COUNT(*) FROM order_details WHERE order_id = ?";
+                query_check_order_details = penghubungdatabase.prepareStatement(sql_check_order_details);
+                query_check_order_details.setInt(1, id_order);
+                resultSet = query_check_order_details.executeQuery();
+
+                boolean orderDetailsExist = false;
+                if (resultSet.next()) {
+                    orderDetailsExist = resultSet.getInt(1) > 0;
+                }
+
+                if (orderDetailsExist) {
+                    // Query untuk menghapus data dari order_details
+                    String sql_delete_order_details = "DELETE FROM order_details WHERE order_id = ?";
+                    query_delete_order_details = penghubungdatabase.prepareStatement(sql_delete_order_details);
+                    query_delete_order_details.setInt(1, id_order);
+                    query_delete_order_details.executeUpdate();
+                }
+
+                // Query untuk menghapus data dari orders
+                String sql_delete_orders = "DELETE FROM orders WHERE order_id = ?";
+                query_delete_orders = penghubungdatabase.prepareStatement(sql_delete_orders);
+                query_delete_orders.setInt(1, id_order);
+                query_delete_orders.executeUpdate();
+
+                // Menampilkan pesan sukses
+                JOptionPane.showMessageDialog(null, "Order successfully cancelled.");
+                this.setVisible(false);
+                CustomersInput customersInputPage = new CustomersInput();
+                customersInputPage.setVisible(true);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error cancelling order: " + e.getMessage());
+
+            } finally {
+                // Menutup ResultSet, Statement, dan Connection
+                if (resultSet != null) {
+                    try {
+                        resultSet.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_check_order_details != null) {
+                    try {
+                        query_check_order_details.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_delete_order_details != null) {
+                    try {
+                        query_delete_order_details.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (query_delete_orders != null) {
+                    try {
+                        query_delete_orders.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (penghubungdatabase != null) {
+                    try {
+                        penghubungdatabase.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        
     }//GEN-LAST:event_BatalPesanButtonActionPerformed
 
     private void SearchItemFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchItemFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SearchItemFieldActionPerformed
+
+    private void CartTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CartTableMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_CartTableMouseClicked
 
     /**
      * @param args the command line arguments

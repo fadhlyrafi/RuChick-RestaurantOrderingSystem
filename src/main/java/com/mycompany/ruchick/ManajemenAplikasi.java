@@ -43,6 +43,8 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         MenuButton = new javax.swing.JButton();
         OrdersButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
+        KaryawanButton = new javax.swing.JButton();
+        AdminButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manajemen Aplikasi RuChick");
@@ -155,19 +157,56 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
             }
         });
 
+        KaryawanButton.setBackground(new java.awt.Color(139, 146, 178));
+        KaryawanButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        KaryawanButton.setForeground(new java.awt.Color(255, 255, 255));
+        KaryawanButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Employee.png"))); // NOI18N
+        KaryawanButton.setText("Karyawan");
+        KaryawanButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        KaryawanButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        KaryawanButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                KaryawanButtonMouseClicked(evt);
+            }
+        });
+        KaryawanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KaryawanButtonActionPerformed(evt);
+            }
+        });
+
+        AdminButton.setBackground(new java.awt.Color(139, 146, 178));
+        AdminButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        AdminButton.setForeground(new java.awt.Color(255, 255, 255));
+        AdminButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Key.png"))); // NOI18N
+        AdminButton.setText("Admin");
+        AdminButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        AdminButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        AdminButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AdminButtonMouseClicked(evt);
+            }
+        });
+        AdminButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(ReportsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                        .addComponent(OrdersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(MenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ReportsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(OrdersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(KaryawanButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jDesktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +218,11 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
                 .addComponent(OrdersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ReportsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(521, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(KaryawanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(389, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -198,8 +241,8 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,7 +253,7 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setBounds(0, 0, 1091, 803);
@@ -232,6 +275,10 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         OrdersButton.setForeground(Color.white);
         ReportsButton.setBackground(DefaultColor);
         ReportsButton.setForeground(Color.white);
+        KaryawanButton.setBackground(DefaultColor);
+        KaryawanButton.setForeground(Color.white);
+        AdminButton.setBackground(DefaultColor);
+        AdminButton.setForeground(Color.white);
         MenuInternalForm menuPanel = new MenuInternalForm();
         jDesktopPanel.removeAll();
         jDesktopPanel.add(menuPanel).setVisible(true);
@@ -245,6 +292,10 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         MenuButton.setForeground(Color.white);
         ReportsButton.setBackground(DefaultColor);
         ReportsButton.setForeground(Color.white);
+        KaryawanButton.setBackground(DefaultColor);
+        KaryawanButton.setForeground(Color.white);
+        AdminButton.setBackground(DefaultColor);
+        AdminButton.setForeground(Color.white);
         OrdersInternalForm ordersPanel = new OrdersInternalForm();
         jDesktopPanel.removeAll();
         jDesktopPanel.add(ordersPanel).setVisible(true);
@@ -272,11 +323,57 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
         MenuButton.setForeground(Color.white);
         OrdersButton.setBackground(DefaultColor);
         OrdersButton.setForeground(Color.white);
+        KaryawanButton.setBackground(DefaultColor);
+        KaryawanButton.setForeground(Color.white);
+        AdminButton.setBackground(DefaultColor);
+        AdminButton.setForeground(Color.white);
         ReportsInternalForm reportsPanel = new ReportsInternalForm();
         jDesktopPanel.removeAll();
         jDesktopPanel.add(reportsPanel).setVisible(true);
 
     }//GEN-LAST:event_ReportsButtonActionPerformed
+
+    private void KaryawanButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KaryawanButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_KaryawanButtonMouseClicked
+
+    private void KaryawanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KaryawanButtonActionPerformed
+        // TODO add your handling code here:
+        OrdersButton.setBackground(DefaultColor);
+        OrdersButton.setForeground(Color.white);
+        MenuButton.setBackground(DefaultColor);
+        MenuButton.setForeground(Color.white);
+        ReportsButton.setBackground(DefaultColor);
+        ReportsButton.setForeground(Color.white);
+        KaryawanButton.setBackground(ClickedColor);
+        KaryawanButton.setForeground(Color.black);
+        AdminButton.setBackground(DefaultColor);
+        AdminButton.setForeground(Color.white);
+        KaryawanInternalForm karyawanPanel = new KaryawanInternalForm();
+        jDesktopPanel.removeAll();
+        jDesktopPanel.add(karyawanPanel).setVisible(true);
+    }//GEN-LAST:event_KaryawanButtonActionPerformed
+
+    private void AdminButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdminButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AdminButtonMouseClicked
+
+    private void AdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminButtonActionPerformed
+        // TODO add your handling code here:
+        OrdersButton.setBackground(DefaultColor);
+        OrdersButton.setForeground(Color.white);
+        MenuButton.setBackground(DefaultColor);
+        MenuButton.setForeground(Color.white);
+        ReportsButton.setBackground(DefaultColor);
+        ReportsButton.setForeground(Color.white);
+        KaryawanButton.setBackground(DefaultColor);
+        KaryawanButton.setForeground(Color.white);
+        AdminButton.setBackground(ClickedColor);
+        AdminButton.setForeground(Color.black);
+        AdminInternalForm adminPanel = new AdminInternalForm();
+        jDesktopPanel.removeAll();
+        jDesktopPanel.add(adminPanel).setVisible(true);
+    }//GEN-LAST:event_AdminButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,6 +411,8 @@ public class ManajemenAplikasi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AdminButton;
+    private javax.swing.JButton KaryawanButton;
     private javax.swing.JButton MenuButton;
     private javax.swing.JButton OrdersButton;
     private javax.swing.JButton ReportsButton;

@@ -21,6 +21,8 @@ public class CustomersInput extends javax.swing.JFrame {
      */
     public CustomersInput() {
         initComponents();
+//        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+
     }
 
     /**
@@ -219,7 +221,6 @@ public class CustomersInput extends javax.swing.JFrame {
                     if (generatedKeysOrders.next()) {
                         id_order = generatedKeysOrders.getInt(1);
                     }
-                    JOptionPane.showMessageDialog(null, id_order);
                     RuchickMenu form_dashboard = new RuchickMenu(id_order);
                     form_dashboard.setVisible(true);
                     this.setVisible(false);
