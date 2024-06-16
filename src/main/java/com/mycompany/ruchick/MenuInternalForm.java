@@ -19,10 +19,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +41,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
     /**
      * Creates new form MenuInternalForm
      */
+    public String[] kategoriListDropdown;
     String path2 = null;
     public MenuInternalForm() {
         initComponents();
@@ -45,6 +49,10 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
+        JComboBox<String> comboBoxKategori = new JComboBox<>();
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(kategoriListDropdown); // Perbaikan nama variabel
+        comboBoxKategori.setModel(comboBoxModel); // Perbaikan nama variabel
+        kategori.setModel(comboBoxModel); // Perbaikan nama variabel
     }
     
     public void bersih_layar(){
@@ -79,7 +87,7 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         data_menu.addColumn("Unit");
         data_menu.addColumn("ID Gambar");
         
-        
+        ArrayList<String> kategoriListTemp = new ArrayList<>();
         try {
             String SQL_tampil_data = "SELECT * FROM menu_items";
             // Koneksi ke database
@@ -88,6 +96,9 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
             Statement statement_sql = penghubung_database.createStatement();
             ResultSet hasil_sql = statement_sql.executeQuery(SQL_tampil_data);
             while (hasil_sql.next()) {
+                if (!kategoriListTemp.contains(hasil_sql.getString(5))) {
+                    kategoriListTemp.add(hasil_sql.getString(5));
+                }
                 data_menu.addRow(new Object[]{
                     hasil_sql.getString(1),
                     hasil_sql.getString(2),
@@ -103,6 +114,13 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Terjadi kesalahan: " + e.getMessage());
         }
+        String[] kategoriList = new String[kategoriListTemp.size()];
+        kategoriList = kategoriListTemp.toArray(kategoriList);
+        kategoriListDropdown = kategoriList;
+        for (String kategori : kategoriListDropdown) {
+            System.out.println(kategori);
+        }
+
     }
 
     /**
@@ -227,7 +245,6 @@ public class MenuInternalForm extends javax.swing.JInternalFrame {
         id.setEnabled(false);
         jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 70, 25));
 
-        nama.setEditable(false);
         nama.setBackground(new java.awt.Color(255, 255, 255));
         nama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

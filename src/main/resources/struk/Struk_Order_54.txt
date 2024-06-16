@@ -1,0 +1,19 @@
+==============================
+         STRUK PEMBAYARAN         
+==============================
+Order ID       : 54
+Nama Customer  : rully
+Tanggal        : 2024-06-14 15:00:16
+==============================
+ID   Nama Menu      Qty    Harga      Total
+------------------------------
+65   Grilled Chicken 3     60000.00   180000.0  
+66   Coca Cola       1     10000.00   10000.0   
+==============================
+Total Harga         : 190000.00
+Total Bayar         : 200000
+Kembalian           : 10000.0
+==============================
+      Terima Kasih!      
+   Selamat Datang Kembali   
+==============================

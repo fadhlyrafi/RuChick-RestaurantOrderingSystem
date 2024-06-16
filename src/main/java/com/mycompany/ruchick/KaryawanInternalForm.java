@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -26,6 +27,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.text.NumberFormat;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -61,10 +63,10 @@ public class KaryawanInternalForm extends javax.swing.JInternalFrame {
     public void baca_data(){
         // Buat Object pada model
         // Buat Object pada model
-        DefaultTableModel data_menu = new DefaultTableModel(){
-            public boolean isCellEditable(int row, int column)
-            {
-              return false; // This causes all cells to be not editable
+        // Buat Object pada model
+        DefaultTableModel data_menu = new DefaultTableModel() {
+            public boolean isCellEditable(int row, int column) {
+                return false; // This causes all cells to be not editable
             }
         };
         data_menu.addColumn("ID Karyawan");
@@ -72,25 +74,39 @@ public class KaryawanInternalForm extends javax.swing.JInternalFrame {
         data_menu.addColumn("Jenis Kelamin");
         data_menu.addColumn("Gaji");
         data_menu.addColumn("Keterangan");
-        
-        
+
         try {
             String SQL_tampil_data = "SELECT * FROM employees";
             // Koneksi ke database
-            Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
+            Connection penghubung_database = (Connection) koneksi_database.konfigurasi_database();
             // Statement Query
             Statement statement_sql = penghubung_database.createStatement();
             ResultSet hasil_sql = statement_sql.executeQuery(SQL_tampil_data);
+
+            // Membuat NumberFormat untuk locale Indonesia
+            NumberFormat numberFormat = NumberFormat.getInstance(new Locale("id", "ID"));
+
             while (hasil_sql.next()) {
+                String id = hasil_sql.getString(1);
+                String nama = hasil_sql.getString(2);
+                String jenisKelamin = hasil_sql.getString(3);
+                double gaji = hasil_sql.getDouble(4); // Asumsi kolom ke-4 adalah kolom gaji
+                String keterangan = hasil_sql.getString(5);
+
+                // Format gaji dengan pembatas titik
+                String gajiFormatted = numberFormat.format(gaji);
+                String gajiRp = "Rp " + gajiFormatted;
+
                 data_menu.addRow(new Object[]{
-                    hasil_sql.getString(1),
-                    hasil_sql.getString(2),
-                    hasil_sql.getString(3),
-                    hasil_sql.getString(4),
-                    hasil_sql.getString(5)
+                    id,
+                    nama,
+                    jenisKelamin,
+                    gajiRp,
+                    keterangan
                 });
-                tabel_menu.setModel(data_menu);
             }
+
+            tabel_menu.setModel(data_menu);
         } catch (Exception e) {
             System.out.println("Terjadi kesalahan: " + e.getMessage());
         }
@@ -201,7 +217,6 @@ public class KaryawanInternalForm extends javax.swing.JInternalFrame {
         id.setEnabled(false);
         jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 70, 25));
 
-        nama.setEditable(false);
         nama.setBackground(new java.awt.Color(255, 255, 255));
         nama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,10 +401,10 @@ public class KaryawanInternalForm extends javax.swing.JInternalFrame {
         String tampil_id = tabel_menu.getValueAt(baris, 0).toString();
         id.setText(tampil_id);
         
-        String tampil_jk = tabel_menu.getValueAt(baris, 1).toString();
+        String tampil_jk = tabel_menu.getValueAt(baris, 2).toString();
         jenisKelamin.setSelectedItem(tampil_jk);
 
-        String tampil_nama = tabel_menu.getValueAt(baris, 2).toString();
+        String tampil_nama = tabel_menu.getValueAt(baris, 1).toString();
         nama.setText(tampil_nama);
         
         String tampil_deskripsi = tabel_menu.getValueAt(baris, 3).toString();
@@ -402,7 +417,8 @@ public class KaryawanInternalForm extends javax.swing.JInternalFrame {
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // Ambil data dari form
         String inputNama = nama.getText();
-        int inputGaji = Integer.parseInt(gaji.getText());
+        String gajiText = gaji.getText().replaceAll("Rp ", "").replaceAll("\\.", ""); // Menghilangkan "Rp" dan tanda titik dari input gaji
+        int inputGaji = Integer.parseInt(gajiText);
         String inputJenisKelamin = jenisKelamin.getSelectedItem().toString();
         String inputKeterangan = keterangan.getText();
         String inputId = id.getText();  // Assuming you have an id field named id_pk
@@ -424,10 +440,10 @@ public class KaryawanInternalForm extends javax.swing.JInternalFrame {
 
                 // Set parameter
                 query_update.setString(1, inputNama);
-                query_update.setString(2, inputNama);
-                query_update.setString(3, inputJenisKelamin);
-                query_update.setInt(4, inputGaji);
-                query_update.setString(5, inputKeterangan);
+                query_update.setString(2, inputJenisKelamin);
+                query_update.setInt(3, inputGaji);
+                query_update.setString(4, inputKeterangan);
+                query_update.setString(5, inputId);
                 // Eksekusi query
                 query_update.executeUpdate();
 

@@ -4,6 +4,7 @@
  */
 package com.mycompany.ruchick;
 
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ public class CustomersInput extends javax.swing.JFrame {
      */
     public CustomersInput() {
         initComponents();
+        setIcon();
 //        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 
     }
@@ -44,6 +46,7 @@ public class CustomersInput extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Selamat Datang RuChickers!");
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(40, 40, 100));
@@ -231,6 +234,10 @@ public class CustomersInput extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_lihatmenuActionPerformed
 
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/ruchickFavIcon.png")));
+    }
+    
     /**
      * @param args the command line arguments
      */
