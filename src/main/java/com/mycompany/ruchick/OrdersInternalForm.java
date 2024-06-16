@@ -4,6 +4,8 @@
  */
 package com.mycompany.ruchick;
 
+import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.geom.PageSize;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +15,21 @@ import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.border.SolidBorder;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.element.Image;
+
 import java.io.File;
 import java.nio.file.Paths;
 import java.io.FileInputStream;
@@ -175,6 +192,133 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
             } 
         } catch (java.io.IOException e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mencetak struk: " + e.getMessage());
+        } finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+                if (query_update_struk != null) {
+                    query_update_struk.close();
+                }
+                if (penghubungdatabase != null) {
+                    penghubungdatabase.close();
+                }
+            } catch (IOException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Kesalahan saat menutup sumber daya: " + ex.getMessage());
+            }
+        }
+    }
+    public void printStrukPDF(){
+        // Mendapatkan informasi pesanan dari text fields
+        String orderIdText = orderId.getText();
+        String namaCustomer = nama.getText();
+        String tanggalOrder = tanggal.getText();
+        String totalHargaText = totalHarga.getText();
+        String totalBayarText = totalBayar.getText();
+        String kembalianText = kembalian.getText();
+        int idOrder = Integer.parseInt(orderIdText);
+
+        // Mendapatkan detail order
+        String orderDetails = getOrderDetails(orderIdText);
+
+        // Menyimpan struk ke dalam file .pdf
+        FileInputStream fis = null;
+        Connection penghubungdatabase = null;
+        PreparedStatement query_update_struk = null;
+        try {
+            String filePath = "src/main/resources/struk/Struk_Order_" + orderIdText + ".pdf";
+            PdfWriter writer = new PdfWriter(filePath);
+            PdfDocument pdf = new PdfDocument(writer);
+            pdf.setDefaultPageSize(PageSize.A4);
+            Document document = new Document(pdf);
+            
+            float threecol=190f;
+            float twocol=285f;
+            float twocol150=twocol+150f;
+            float twocolumnwidth[]={twocol150, twocol};
+            float fullwidth[]={threecol*3};
+            
+            Table tableHeader=new Table(twocolumnwidth);
+            
+            String imagePath = "src/main/resources/images/ruchick.png";
+            ImageData imageData = ImageDataFactory.create(imagePath);
+            Image image = new Image(imageData);
+            tableHeader.addCell(new Cell().add(image).setBorder(Border.NO_BORDER));
+            
+            
+            Border gb = new SolidBorder(Color.GRAY, 1f/2f);
+            Table divider=new Table(fullwidth);
+            divider.setBorder(gb);
+            
+            document.add(tableHeader);
+            document.add(divider);
+
+            // Membuat header tabel
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph("Order ID       : " + orderIdText));
+            document.add(new Paragraph("Nama Customer  : " + namaCustomer));
+            document.add(new Paragraph("Tanggal        : " + tanggalOrder));
+
+            document.add(new Paragraph(" ")); // Menambahkan spasi kosong
+            document.add(divider);
+            
+            document.add(new Paragraph("ID   Nama Menu      Qty    Harga      Total"));
+            document.add(new Paragraph(orderDetails));  // Menambahkan detail order ke struk
+            document.add(divider);
+
+//            // Menambahkan detail order ke tabel
+//            float[] columnWidths = {1, 4, 1, 2, 2};
+//            Table table = new Table(UnitValue.createPercentArray(columnWidths)).useAllAvailableWidth();
+//            table.addHeaderCell("ID");
+//            table.addHeaderCell("Nama Menu");
+//            table.addHeaderCell("Qty");
+//            table.addHeaderCell("Harga");
+//            table.addHeaderCell("Total");
+//
+//            String[] lines = orderDetails.split("\n");
+//            for (String line : lines) {
+//                String[] details = line.trim().split("\\s+");
+//                for (String detail : details) {
+//                    table.addCell(new Cell().add(new Paragraph(detail)));
+//                }
+//            }
+//            document.add(table);
+            document.add(divider);
+
+            document.add(new Paragraph(" ")); // Menambahkan spasi kosong
+
+            // Membuat footer tabel
+            document.add(new Paragraph(String.format("%-20s: %s", "Total Harga", totalHargaText)));
+            document.add(new Paragraph(String.format("%-20s: %s", "Total Bayar", totalBayarText)));
+            document.add(new Paragraph(String.format("%-20s: %s", "Kembalian", kembalianText)));
+
+            document.add(new Paragraph(" ")); // Menambahkan spasi kosong
+            document.add(divider);
+
+            // Menambahkan catatan terima kasih
+            document.add(new Paragraph("Terima Kasih!").setTextAlignment(TextAlignment.CENTER));
+            document.add(new Paragraph("Selamat Datang Kembali").setTextAlignment(TextAlignment.CENTER));
+
+            document.close();
+            JOptionPane.showMessageDialog(null, "Struk berhasil dicetak ke dalam file Struk_Order_" + orderIdText + ".pdf");
+
+            try {
+                // Update the order status in the database
+                String sql_update_struk = "UPDATE orders SET struk = ? WHERE order_id = ?";
+                penghubungdatabase = koneksi_database.konfigurasi_database();
+                query_update_struk = penghubungdatabase.prepareStatement(sql_update_struk);
+
+                File file = new File(filePath);
+                fis = new FileInputStream(file);
+
+                query_update_struk.setBinaryStream(1, fis, (int) file.length());
+                query_update_struk.setInt(2, idOrder);
+                query_update_struk.executeUpdate();
+            } catch (SQLException | FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
+            }
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mencetak struk: " + e.getMessage());
         } finally {
             try {
@@ -652,7 +796,7 @@ public class OrdersInternalForm extends javax.swing.JInternalFrame {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (response == 0) {
                     // Tindakan untuk opsi "Print Struk & Selesai"
-                    printStruk();
+                    printStrukPDF();
                 }
                 // Merefresh Order dan Membersihkan Pembayaran
                 bacaOrders();

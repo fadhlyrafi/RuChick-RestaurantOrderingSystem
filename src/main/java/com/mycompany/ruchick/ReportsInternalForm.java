@@ -10,9 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.JFrame;
@@ -143,26 +145,26 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
     
     
         // Method untuk mengambil item_name paling populer
-    public String getTopSalesItem() {
-        String query = "SELECT item_name, COUNT(*) as count FROM report GROUP BY item_name ORDER BY count DESC LIMIT 1";
-        String topItem = "";
+public String getTopSalesItem() {
+    String query = "SELECT item_name FROM (SELECT item_name, RANK() OVER (ORDER BY COUNT(*) DESC) as rank FROM report GROUP BY item_name) ranked_items WHERE rank = 1";
+    String topItem = "";
 
-        try (
+    try (
         Connection penghubung_database = (Connection)koneksi_database.konfigurasi_database();
-
         Statement statementSQL = penghubung_database.createStatement();
         ResultSet rs = statementSQL.executeQuery(query)) {
 
-            if (rs.next()) {
-                topItem = rs.getString("item_name");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (rs.next()) {
+            topItem = rs.getString("item_name");
         }
 
-        return topItem;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+    return topItem;
+}
+
 
     // Method untuk menampilkan item_name paling populer di JLabel
     public void displayTopSales() {
@@ -203,10 +205,13 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
     }
 
     // Method untuk menampilkan total income bulan ini di JLabel
-    public void displayMonthlyIncome() {
-        double monthlyIncome = getMonthlyIncome();
-        Income.setText("Rp " + monthlyIncome + "");
-    }
+        public void displayMonthlyIncome() {
+            double monthlyIncome = getMonthlyIncome();
+            // Format the income value with thousand separators
+            NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("id", "ID"));
+            String formattedIncome = formatter.format(monthlyIncome);
+            Income.setText("Rp " + formattedIncome);
+        }
 
     
         public double getTotalIncome() {
@@ -230,10 +235,13 @@ public class ReportsInternalForm extends javax.swing.JInternalFrame {
     }
 
     // Method untuk menampilkan total income di JLabel
-    public void displayTotalIncome() {
-        double totalIncome = getTotalIncome();
-        TotalIncome.setText("Rp " + totalIncome + "");
-    }
+public void displayTotalIncome() {
+    double totalIncome = getTotalIncome();
+    // Format the total income value with thousand separators
+    NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("id", "ID"));
+    String formattedIncome = formatter.format(totalIncome);
+    TotalIncome.setText("Rp " + formattedIncome);
+}
 
     // Method untuk memanggil fungsi total_customer_today dan mendapatkan hasilnya
     public int getTotalCustomerToday() {
